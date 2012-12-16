@@ -110,7 +110,6 @@ TCLIBDIR =
            VARDIR = /var
         VARLIBDIR = $(VARDIR)/lib
   SYSTEMUSRLIBDIR = /usr/lib
-  SYSTEMUSRINCDIR = /usr/include
          SHLIBDIR = /usr/X11R6/lib
        LINTLIBDIR = $(USRLIBDIR)/lint
           MANPATH = /usr/X11R6/man
