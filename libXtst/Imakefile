@@ -1,0 +1,23 @@
+XCOMM $XFree86: xc/lib/Xtst/Imakefile,v 1.5 2005/10/14 15:16:00 tsi Exp $
+
+#define DoNormalLib NormalLibXtst
+#define DoSharedLib SharedLibXtst
+#define DoExtraLib ExtraLibXtst
+#define DoDebugLib DebugLibXtst
+#define DoProfileLib ProfileLibXtst
+#define LibName Xtst
+#define SoRev SOXTESTREV
+#define LibHeaders NO
+
+#include <Threads.tmpl>
+
+#ifdef SharedXtstReqs
+REQUIREDLIBS = SharedXtstReqs
+#endif
+
+SRCS = XTest.c XRecord.c
+OBJS = XTest.o XRecord.o
+
+#include <Library.tmpl>
+
+DependTarget()

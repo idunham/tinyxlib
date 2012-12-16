@@ -1,0 +1,4 @@
+20120719: Changed ICElib to include transport to make ROX-Filer compile.
+20120916: Added GetFPath.c to get Abiword 1.0.7 compile. Added X11/Xmu/Misc.h for XawM-1.5u.
+20121002: Added ListExt.c and QuBest.c to X11 for xdpyinfo
+20121011: Changed libXt source and include/X11/Intrinsic.h to test if Xaw can be compiled. Added GetDflt.c to tinyX11 and added -DXOS_USE_MTSAFE_PWDAPI to tinyXll make flags

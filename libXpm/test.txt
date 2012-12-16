@@ -1,0 +1,400 @@
+
+data.o:
+000003a0 t ParseComment
+         U _IO_getc
+         U _ctype
+         U free
+         U malloc
+         U memset
+         U realloc
+         U strncmp
+         U strncpy
+         U strrchr
+         U ungetc
+00000000 D xpmDataTypes
+00000000 T xpmGetCmt
+00000070 T xpmGetString
+00000580 T xpmNextString
+00000930 T xpmNextUI
+000002a0 T xpmNextWord
+000006f0 T xpmParseHeader
+         U xpmatoui
+
+create.o:
+000017f0 t AllocColor
+00001240 t CreateColors
+00001840 t CreateXImage
+00002b90 t FreeColors
+00001db0 t ParseAndPutPixels
+00000210 t PutImagePixels
+000006e0 t PutImagePixels1
+000005f0 t PutImagePixels16
+000004e0 t PutImagePixels32
+00000690 t PutImagePixels8
+00000a20 t PutPixel
+000008f0 t PutPixel1
+00000c50 t PutPixel16LSB
+00000c10 t PutPixel16MSB
+00000d30 t PutPixel1LSB
+00000cc0 t PutPixel1MSB
+00000b40 t PutPixel32
+00000bc0 t PutPixel32LSB
+00000b70 t PutPixel32MSB
+00000c90 t PutPixel8
+00000da0 t SetCloseColor
+00001110 t SetColor
+         U XAllocColor
+         U XCreateImage
+         U XDefaultColormap
+         U XDefaultDepth
+         U XDefaultScreen
+         U XDefaultVisual
+         U XFreeColors
+         U XGrabServer
+         U XParseColor
+         U XQueryColors
+         U XUngrabServer
+00001910 T XpmCreateImageFromXpmImage
+00002ba0 T XpmCreatePixmapFromXpmImage
+         U _IO_getc
+00000040 t _XReverse_Bytes
+0000000c r _himask
+00000000 r _lomask
+00000130 t _putbits
+00000018 r _reverse_byte
+         U abs
+00000000 d byteorderpixel
+         U calloc
+00000030 t closeness_cmp
+         U free
+         U malloc
+         U memset
+         U qsort
+         U strcasecmp
+         U strcmp
+         U xpmCreatePixmapFromImage
+         U xpmFreeColorTable
+         U xpmGetCmt
+         U xpmHashSlot
+         U xpmHashTableFree
+         U xpmHashTableInit
+         U xpmNextString
+         U xpmParseColors
+00002350 T xpmParseDataAndCreate
+         U xpmParseExtensions
+         U xpmParseHeader
+         U xpmParseValues
+00000000 t xpmVisualType
+00000060 T xpm_xynormalizeimagebits
+000000c0 T xpm_znormalizeimagebits
+
+misc.o:
+000000a0 T XpmFree
+00000050 T XpmGetErrorString
+00000090 T XpmLibraryVersion
+         U free
+00000000 T xpmatoui
+
+rgb.o:
+00000000 t __tolower
+         U _ctype
+         U fclose
+         U fgets
+         U fopen
+         U free
+         U malloc
+         U sscanf
+         U strlen
+00000060 T xpmFreeRgbNames
+00000020 T xpmGetRgbName
+00000090 T xpmReadRgbNames
+
+scan.o:
+00000970 t GetImagePixels
+00000040 t GetImagePixels1
+000006f0 t GetImagePixels16
+000007f0 t GetImagePixels32
+00000660 t GetImagePixels8
+00000210 t ScanOtherColors
+00000140 t ScanTransparentColor
+         U XDefaultColormap
+         U XDefaultScreen
+         U XQueryColors
+00000d10 T XpmCreateXpmImageFromImage
+00001020 T XpmCreateXpmImageFromPixmap
+00000000 d byteorderpixel
+         U calloc
+         U free
+00000000 r low_bits_table
+         U malloc
+00000084 r printable
+         U realloc
+         U sprintf
+00000000 t storeMaskPixel
+000005d0 t storePixel
+         U strdup
+         U xpmCreateImageFromPixmap
+         U xpmFreeColorTable
+         U xpmFreeRgbNames
+         U xpmGetRgbName
+         U xpmReadRgbNames
+         U xpm_xynormalizeimagebits
+         U xpm_znormalizeimagebits
+
+parse.o:
+00000000 t ParsePixels
+         U XpmFreeExtensions
+         U _IO_getc
+         U _ctype
+         U calloc
+         U free
+         U malloc
+         U memcpy
+         U memset
+         U realloc
+         U strcat
+         U strchr
+         U strcmp
+         U strlen
+         U strncmp
+         U strncpy
+00000000 D xpmColorKeys
+         U xpmFreeColorTable
+         U xpmGetCmt
+         U xpmGetString
+         U xpmHashIntern
+         U xpmHashSlot
+         U xpmHashTableFree
+         U xpmHashTableInit
+         U xpmNextString
+         U xpmNextUI
+         U xpmNextWord
+00000850 T xpmParseColors
+00001210 T xpmParseData
+000004f0 T xpmParseExtensions
+         U xpmParseHeader
+00000e40 T xpmParseValues
+         U xpmatoui
+
+hashtab.o:
+000000b0 t AtomMake
+00000140 t HashTableGrows
+         U free
+         U malloc
+         U strcmp
+000001e0 T xpmHashIntern
+000000d0 T xpmHashSlot
+00000000 T xpmHashTableFree
+00000050 T xpmHashTableInit
+
+WrFFrP.o:
+         U XpmWriteFileFromImage
+00000000 T XpmWriteFileFromPixmap
+         U xpmCreateImageFromPixmap
+
+RdFToP.o:
+         U XpmReadFileToImage
+00000000 T XpmReadFileToPixmap
+         U xpmCreatePixmapFromImage
+
+CrPFrDat.o:
+         U XpmCreateImageFromData
+00000000 T XpmCreatePixmapFromData
+         U xpmCreatePixmapFromImage
+
+CrDatFrP.o:
+         U XpmCreateDataFromImage
+00000000 T XpmCreateDataFromPixmap
+         U xpmCreateImageFromPixmap
+
+WrFFrI.o:
+00000000 t OpenWriteFile
+000000c0 t WriteColors
+00000040 t WriteExtensions
+00000130 t WritePixels
+         U XpmCreateXpmImageFromImage
+         U XpmFreeXpmImage
+00000560 T XpmWriteFileFromImage
+00000420 T XpmWriteFileFromXpmImage
+         U fclose
+         U fopen
+         U fprintf
+         U free
+         U malloc
+         U memset
+         U stdout
+         U strchr
+         U strncpy
+         U strrchr
+         U xpmColorKeys
+000003f0 t xpmDataClose
+         U xpmSetInfo
+00000290 t xpmWriteFile
+
+RdFToI.o:
+00000000 t OpenReadFile
+         U XpmFreeXpmImage
+         U XpmFreeXpmInfo
+000000f0 T XpmReadFileToImage
+00000080 T XpmReadFileToXpmImage
+         U fclose
+         U fopen
+         U stdin
+00000050 t xpmDataClose
+         U xpmInitAttributes
+         U xpmInitXpmImage
+         U xpmInitXpmInfo
+         U xpmParseData
+         U xpmParseDataAndCreate
+         U xpmSetAttributes
+         U xpmSetInfoMask
+
+CrIFrDat.o:
+00000000 t OpenArray
+000000a0 T XpmCreateImageFromData
+00000050 T XpmCreateXpmImageFromData
+         U XpmFreeXpmImage
+         U XpmFreeXpmInfo
+         U xpmInitAttributes
+         U xpmInitXpmImage
+         U xpmInitXpmInfo
+         U xpmParseData
+         U xpmParseDataAndCreate
+         U xpmSetAttributes
+         U xpmSetInfoMask
+
+CrDatFrI.o:
+00000000 t CountExtensions
+000002b0 t CreateColors
+00000190 t CreateExtensions
+000000a0 t CreatePixels
+00000720 T XpmCreateDataFromImage
+000003c0 T XpmCreateDataFromXpmImage
+         U XpmCreateXpmImageFromImage
+         U XpmFreeXpmImage
+         U calloc
+         U free
+         U malloc
+         U snprintf
+         U sprintf
+         U strcpy
+         U strlen
+         U strncpy
+         U xpmColorKeys
+         U xpmSetInfo
+
+CrIFrBuf.o:
+00000000 t OpenBuffer
+00000070 T XpmCreateImageFromBuffer
+00000020 T XpmCreateXpmImageFromBuffer
+         U XpmFreeXpmImage
+         U XpmFreeXpmInfo
+         U xpmInitAttributes
+         U xpmInitXpmImage
+         U xpmInitXpmInfo
+         U xpmParseData
+         U xpmParseDataAndCreate
+         U xpmSetAttributes
+         U xpmSetInfoMask
+
+CrPFrBuf.o:
+         U XpmCreateImageFromBuffer
+00000000 T XpmCreatePixmapFromBuffer
+         U xpmCreatePixmapFromImage
+
+CrBufFrI.o:
+00000000 t CommentsSize
+00000060 t ExtensionsSize
+000002c0 t WriteColors
+000000e0 t WriteExtensions
+000001a0 t WritePixels
+000008a0 T XpmCreateBufferFromImage
+00000450 T XpmCreateBufferFromXpmImage
+         U XpmCreateXpmImageFromImage
+         U XpmFreeXpmImage
+         U free
+         U malloc
+         U memset
+         U realloc
+         U snprintf
+         U sprintf
+         U strcpy
+         U strlen
+         U strncpy
+         U xpmColorKeys
+         U xpmSetInfo
+
+CrBufFrP.o:
+         U XpmCreateBufferFromImage
+00000000 T XpmCreateBufferFromPixmap
+         U xpmCreateImageFromPixmap
+
+RdFToDat.o:
+         U XpmCreateDataFromXpmImage
+         U XpmFreeXpmImage
+         U XpmFreeXpmInfo
+00000000 T XpmReadFileToData
+         U XpmReadFileToXpmImage
+
+WrFFrDat.o:
+         U XpmCreateXpmImageFromData
+         U XpmFreeXpmImage
+         U XpmFreeXpmInfo
+00000000 T XpmWriteFileFromData
+         U XpmWriteFileFromXpmImage
+
+Attrib.o:
+00000340 t CreateOldColorTable
+00000190 t FreeOldColorTable
+00000000 T XpmAttributesSize
+000001f0 T XpmFreeAttributes
+00000080 T XpmFreeExtensions
+         U free
+         U malloc
+00000130 T xpmFreeColorTable
+00000010 T xpmInitAttributes
+00000390 T xpmSetAttributes
+
+CrIFrP.o:
+         U XGetGeometry
+         U XGetImage
+00000000 T xpmCreateImageFromPixmap
+
+CrPFrI.o:
+         U XCreateGC
+         U XCreatePixmap
+         U XFreeGC
+         U XPutImage
+00000000 T xpmCreatePixmapFromImage
+
+Image.o:
+00000020 T XpmFreeXpmImage
+         U free
+         U xpmFreeColorTable
+00000000 T xpmInitXpmImage
+
+Info.o:
+         U XpmFreeExtensions
+000000c0 T XpmFreeXpmInfo
+         U free
+00000000 T xpmInitXpmInfo
+00000060 T xpmSetInfo
+00000030 T xpmSetInfoMask
+
+RdFToBuf.o:
+00000000 T XpmReadFileToBuffer
+         U close
+         U fclose
+         U fdopen
+         U fread
+         U free
+         U fstat
+         U malloc
+         U open
+
+WrFFrBuf.o:
+00000000 T XpmWriteFileFromBuffer
+         U fclose
+         U fopen
+         U fwrite
+         U strlen

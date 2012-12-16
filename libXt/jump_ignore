@@ -1,0 +1,10 @@
+# $XFree86: xc/lib/Xt/jump_ignore,v 3.9 2006/01/09 14:59:23 dawes Exp $
+# jump_ignore
+00000000 T __XtFreeArgList		libXt	Varargs
+00000000 T __XtClearAncestorCache	libXt	Keyboard
+00000000 T __XtSnprintf	libXt	snprintf
+00000000 T __XtVsnprintf	libXt	snprintf
+00000000 D __xp_hinter_proc     libXp          XpLocale
+00000000 D __xp_hinter_desc     libXp          XpLocale
+00000000 D __xp_hinter_init     libXp          XpLocale
+00000000 T __xpstrdup           libXp          XpNotifyPdm
