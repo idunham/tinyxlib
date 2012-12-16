@@ -179,8 +179,6 @@ TCLIBDIR =
              NEQN = neqn
               COL = col
          COLFLAGS = -b
-            MODCC = /usr/i386-linux-uclibc/bin/i386-uclibc-gcc -pipe -Os -mtune=i386 -static -Wall -s -D__i386__ -L/usr/i386-linux-uclibc/lib
-           MODCPP = /usr/i386-linux-uclibc/bin/i386-uclibc-cpp
         MODCFLAGS = $(CFLAGS)
             MODAS = /usr/i386-linux-uclibc/bin/i386-uclibc-as
        MODASFLAGS =
