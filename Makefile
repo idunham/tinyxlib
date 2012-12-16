@@ -1,54 +1,54 @@
 all:	clean
-	cd libXau; make; cd ..
-	cd libtinyX11; make; cd ..
-	cd libICE; make; cd ..
-	cd libSM; make; cd ..
-	cd libXmu; make; cd ..
-	cd libXt; make; cd ..
-	cd libXv; make; cd ..
-	cd libXext; make; cd ..
-	cd libXinerama; make; cd ..
-	cd libXrender; make; cd ..
-	cd libXpm; make; cd ..
-	cd libXtst; make; cd ..
-	cd libXfont; make; cd ..
-	cd libXdmcp; make; cd ..
-	cd libXi; make; cd ..
-	cd libXaw; make; cd ..
+	make -C libXau
+	make -C libtinyX11
+	make -C libICE
+	make -C libSM
+	make -C libXmu
+	make -C libXt
+	make -C libXv
+	make -C libXext
+	make -C libXinerama
+	make -C libXrender
+	make -C libXpm
+	make -C libXtst
+	make -C libXfont
+	make -C libXdmcp
+	make -C libXi
+	make -C libXaw
 clean:
-	cd libtinyX11; make clean; cd ..
-	cd libICE; make clean; cd ..
-	cd libSM; make clean; cd ..
-	cd libXmu; make clean; cd ..
-	cd libXt; make clean; cd ..
-	cd libXv; make clean; cd ..
-	cd libXext; make clean; cd ..
-	cd libXinerama; make clean; cd ..
-	cd libXau; make clean; cd ..
-	cd libXrender; make clean; cd ..
-	cd libXpm; make clean; cd ..
-	cd libXtst; make clean; cd ..
-	cd libXfont; make clean; cd ..
-	cd libXdmcp; make clean; cd ..
-	cd libXi; make clean; cd ..
-	cd libXaw; make clean; cd ..
+	make clean -C libtinyX11
+	make clean -C libICE
+	make clean -C libSM
+	make clean -C libXmu
+	make clean -C libXt
+	make clean -C libXv
+	make clean -C libXext
+	make clean -C libXinerama
+	make clean -C libXau
+	make clean -C libXrender
+	make clean -C libXpm
+	make clean -C libXtst
+	make clean -C libXfont
+	make clean -C libXdmcp
+	make clean -C libXi
+	make clean -C libXaw
 install:	all
-	cd libXau; make install; cd ..
-	cd libtinyX11; make install; cd ..
-	cd libICE; make install; cd ..
-	cd libSM; make install; cd ..
-	cd libXmu; make install; cd ..
-	cd libXt; make install; cd ..
-	cd libXv; make install; cd ..
-	cd libXext; make install; cd ..
-	cd libXinerama; make install; cd ..
-	cd libXrender; make install; cd ..
-	cd libXpm; make install; cd ..
-	cd libXtst; make install; cd ..
-	cd libXfont; make install; cd ..
-	cd libXdmcp; make install; cd ..
-	cd libXi; make install; cd ..
-	cd libXaw; make install; cd ..
+	make install -C libXau
+	make install -C libtinyX11
+	make install -C libICE
+	make install -C libSM
+	make install -C libXmu
+	make install -C libXt
+	make install -C libXv
+	make install -C libXext
+	make install -C libXinerama
+	make install -C libXrender
+	make install -C libXpm
+	make install -C libXtst
+	make install -C libXfont
+	make install -C libXdmcp
+	make install -C libXi
+	make install -C libXaw
 	cd include; make install; cd ..
 tarball:	clean
 	./make-tarball.sh
