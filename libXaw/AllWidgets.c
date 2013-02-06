@@ -25,7 +25,7 @@ in this Software without prior written authorization from The Open Group.
 */
 /* $XFree86: xc/lib/Xaw/AllWidgets.c,v 1.5 2006/01/09 14:59:00 dawes Exp $ */
 
-#include <X11/IntrinsicP.h>
+#include <X11/Xt/IntrinsicP.h>
 #include <X11/Xmu/WidgetNode.h>
 
 extern WidgetClass applicationShellWidgetClass;

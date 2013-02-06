@@ -57,15 +57,15 @@ in this Software without prior written authorization from The Open Group.
 #include <stdlib.h>
 #include <ctype.h>
 #include <errno.h>
-#include <X11/IntrinsicP.h>
-#include <X11/StringDefs.h>
+#include <X11/Xt/IntrinsicP.h>
+#include <X11/Xt/StringDefs.h>
 #include <X11/Xfuncs.h>
 #include <X11/Xos.h>
 #include <X11/Xmu/CharSet.h>
 #include <X11/Xmu/Misc.h>
-#include <X11/Xaw/XawInit.h>
-#include <X11/Xaw/MultiSrcP.h>
-#include <X11/Xaw/XawImP.h>
+#include "XawInit.h"
+#include "MultiSrcP.h"
+#include "XawImP.h"
 #include "XawI18n.h"
 #include "Private.h"
 

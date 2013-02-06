@@ -46,12 +46,12 @@ SOFTWARE.
 ******************************************************************/
 /* $XFree86: xc/lib/Xaw/Viewport.c,v 1.15 2006/03/16 21:51:18 dawes Exp $ */
 
-#include <X11/IntrinsicP.h>
-#include <X11/StringDefs.h>
+#include <X11/Xt/IntrinsicP.h>
+#include <X11/Xt/StringDefs.h>
 #include <X11/Xmu/Misc.h>
-#include <X11/Xaw/Scrollbar.h>
-#include <X11/Xaw/ViewportP.h>
-#include <X11/Xaw/XawInit.h>
+#include "Scrollbar.h"
+#include "ViewportP.h"
+#include "XawInit.h"
 #include "Private.h"
 
 /*

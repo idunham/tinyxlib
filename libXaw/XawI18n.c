@@ -52,8 +52,7 @@ in this Software without prior written authorization from The Open Group.
 
 */
 /* $XFree86: xc/lib/Xaw/XawI18n.c,v 1.9 2006/01/09 14:59:05 dawes Exp $ */
-
-#include <X11/IntrinsicP.h>
+#include <X11/Xt/IntrinsicP.h>
 #include "XawI18n.h"
 
 wchar_t

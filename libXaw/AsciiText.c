@@ -61,16 +61,16 @@ SOFTWARE.
  */
 
 #include <stdio.h>
-#include <X11/IntrinsicP.h>
-#include <X11/StringDefs.h>
-#include <X11/Xaw/AsciiTextP.h>
-#include <X11/Xaw/AsciiSrcP.h>
-#include <X11/Xaw/AsciiSink.h>
-#include <X11/Xaw/Cardinals.h>
-#include <X11/Xaw/MultiSinkP.h>
-#include <X11/Xaw/MultiSrc.h>
-#include <X11/Xaw/XawImP.h>
-#include <X11/Xaw/XawInit.h>
+#include <X11/Xt/IntrinsicP.h>
+#include <X11/Xt/StringDefs.h>
+#include "AsciiTextP.h"
+#include "AsciiSrcP.h"
+#include "AsciiSink.h"
+#include "Cardinals.h"
+#include "MultiSinkP.h"
+#include "MultiSrc.h"
+#include "XawImP.h"
+#include "XawInit.h"
 #include "Private.h"
 
 #define TAB_COUNT 32

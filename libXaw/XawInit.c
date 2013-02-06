@@ -33,9 +33,9 @@ in this Software without prior written authorization from The Open Group.
  */
 /* $XFree86: xc/lib/Xaw/XawInit.c,v 1.11 2006/01/09 14:59:05 dawes Exp $ */
 
-#include <X11/Intrinsic.h>
-#include <X11/Vendor.h>
-#include <X11/Xaw/XawInit.h>
+#include <X11/Xt/Intrinsic.h>
+#include <X11/Xt/Vendor.h>
+#include "XawInit.h"
 #include "Private.h"
 
 void

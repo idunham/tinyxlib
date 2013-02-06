@@ -39,11 +39,11 @@ in this Software without prior written authorization from The Open Group.
  */
 
 #include <stdio.h>
-#include <X11/IntrinsicP.h>
-#include <X11/StringDefs.h>
+#include <X11/Xt/IntrinsicP.h>
+#include <X11/Xt/StringDefs.h>
 #include <X11/Xmu/SysUtil.h>
-#include <X11/Xaw/MenuButtoP.h>
-#include <X11/Xaw/XawInit.h>
+#include "MenuButtoP.h"
+#include "XawInit.h"
 #include "Private.h"
 
 /*

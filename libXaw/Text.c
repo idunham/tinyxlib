@@ -75,8 +75,8 @@ SOFTWARE.
 /* $XFree86: xc/lib/Xaw/Text.c,v 3.55 2006/01/09 14:59:03 dawes Exp $ */
 
 #include <stdio.h>
-#include <X11/IntrinsicP.h>
-#include <X11/StringDefs.h>
+#include <X11/Xt/IntrinsicP.h>
+#include <X11/Xt/StringDefs.h>
 #include <X11/Shell.h>
 #include <X11/Xatom.h>
 #include <X11/Xfuncs.h>
@@ -84,14 +84,14 @@ SOFTWARE.
 #include <X11/Xmu/Misc.h>
 #include <X11/Xmu/SysUtil.h>
 #include <X11/Xmu/Xmu.h>
-#include <X11/Xaw/Cardinals.h>
-#include <X11/Xaw/MultiSinkP.h>
-#include <X11/Xaw/TextP.h>
-#include <X11/Xaw/TextSrcP.h>
-#include <X11/Xaw/TextSinkP.h>
-#include <X11/Xaw/Scrollbar.h>
-#include <X11/Xaw/XawImP.h>
-#include <X11/Xaw/XawInit.h>
+#include "Cardinals.h"
+#include "MultiSinkP.h"
+#include "TextP.h"
+#include "TextSrcP.h"
+#include "TextSinkP.h"
+#include "Scrollbar.h"
+#include "XawImP.h"
+#include "XawInit.h"
 #include "Private.h"
 #include "XawI18n.h"
 

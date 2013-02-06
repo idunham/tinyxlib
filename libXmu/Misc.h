@@ -1,5 +1,4 @@
-/* $Xorg: Misc.h,v 1.4 2001/02/09 02:03:53 xorgcvs Exp $ */
-
+/* $XFree86: xc/lib/Xmu/Misc.h,v 1.3 2006/01/09 14:59:16 dawes Exp $ */
 /*
 
 Copyright 1987, 1988, 1998  The Open Group

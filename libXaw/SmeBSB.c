@@ -35,15 +35,15 @@ in this Software without prior written authorization from The Open Group.
  */
 
 #include <stdio.h>
-#include <X11/IntrinsicP.h>
-#include <X11/StringDefs.h>
+#include <X11/Xt/IntrinsicP.h>
+#include <X11/Xt/StringDefs.h>
 #include <X11/Xos.h>
 #include <X11/Xmu/Drawing.h>
 #include <X11/Xmu/SysUtil.h>
-#include <X11/Xaw/Cardinals.h>
-#include <X11/Xaw/SimpleMenu.h>
-#include <X11/Xaw/SmeBSBP.h>
-#include <X11/Xaw/XawInit.h>
+#include "Cardinals.h"
+#include "SimpleMenu.h"
+#include "SmeBSBP.h"
+#include "XawInit.h"
 #include "Private.h"
 
 #define ONE_HUNDRED 100

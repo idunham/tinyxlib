@@ -33,14 +33,14 @@ in this Software without prior written authorization from The Open Group.
 
 #include <stdio.h>
 #include <ctype.h>
-#include <X11/IntrinsicP.h>
-#include <X11/StringDefs.h>
+#include <X11/Xt/IntrinsicP.h>
+#include <X11/Xt/StringDefs.h>
 #include <X11/Xfuncs.h>
 #include <X11/Xutil.h>
 #include <X11/Xmu/Atoms.h>
 #include <X11/Xmu/CharSet.h>
-#include <X11/Xaw/TextSrcP.h>
-#include <X11/Xaw/XawInit.h>
+#include "TextSrcP.h"
+#include "XawInit.h"
 #include "XawI18n.h"
 #include "Private.h"
 

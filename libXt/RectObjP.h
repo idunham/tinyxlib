@@ -49,8 +49,8 @@ SOFTWARE.
 #ifndef _Xt_RectObjP_h_
 #define _Xt_RectObjP_h_
 
-#include <X11/RectObj.h>
-#include <X11/ObjectP.h>
+#include "RectObj.h"
+#include "ObjectP.h"
 
 /**********************************************************
  * Rectangle Object Instance Data Structures

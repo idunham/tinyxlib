@@ -64,7 +64,7 @@ SOFTWARE.
 #ifndef  _XtVendorPrivate_h
 #define _XtVendorPrivate_h
 
-#include <X11/Vendor.h>
+#include "Vendor.h"
 
 /* New fields for the VendorShell widget class record */
 

@@ -71,13 +71,13 @@ SOFTWARE.
 
 ******************************************************************/
 
-#include <X11/IntrinsicP.h>
-#include <X11/StringDefs.h>
+#include <X11/Xt/IntrinsicP.h>
+#include <X11/Xt/StringDefs.h>
 #include <X11/Xatom.h>
-#include <X11/Xaw/XawInit.h>
-#include <X11/Xaw/MultiSinkP.h>
-#include <X11/Xaw/MultiSrcP.h>
-#include <X11/Xaw/TextP.h>
+#include "XawInit.h"
+#include "MultiSinkP.h"
+#include "MultiSrcP.h"
+#include "TextP.h"
 #include "XawI18n.h"
 #include <stdio.h>
 #include <ctype.h>

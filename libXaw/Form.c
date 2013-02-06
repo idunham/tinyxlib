@@ -47,12 +47,12 @@ SOFTWARE.
 
 ******************************************************************/
 
-#include <X11/IntrinsicP.h>
-#include <X11/StringDefs.h>
+#include <X11/Xt/IntrinsicP.h>
+#include <X11/Xt/StringDefs.h>
 #include <X11/Xmu/CharSet.h>
 #include <X11/Xmu/Converters.h>
-#include <X11/Xaw/FormP.h>
-#include <X11/Xaw/XawInit.h>
+#include "FormP.h"
+#include "XawInit.h"
 #include "Private.h"
 
 /*

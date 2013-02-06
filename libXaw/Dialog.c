@@ -46,16 +46,16 @@ SOFTWARE.
 ******************************************************************/
 /* $XFree86: xc/lib/Xaw/Dialog.c,v 1.9 2006/01/09 14:59:01 dawes Exp $ */
 
-#include <X11/IntrinsicP.h>
-#include <X11/StringDefs.h>
+#include <X11/Xt/IntrinsicP.h>
+#include <X11/Xt/StringDefs.h>
 #include <X11/Xos.h>
 #include <X11/Xmu/Misc.h>
-#include <X11/Xaw/AsciiText.h>
-#include <X11/Xaw/Cardinals.h>
-#include <X11/Xaw/Command.h>	
-#include <X11/Xaw/Label.h>
-#include <X11/Xaw/DialogP.h>
-#include <X11/Xaw/XawInit.h>
+#include "AsciiText.h"
+#include "Cardinals.h"
+#include "Command.h"	
+#include "Label.h"
+#include "DialogP.h"
+#include "XawInit.h"
 #include "Private.h"
 
 /*

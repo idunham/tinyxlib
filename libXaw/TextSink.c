@@ -39,11 +39,11 @@ in this Software without prior written authorization from The Open Group.
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include <X11/IntrinsicP.h>
-#include <X11/StringDefs.h>
-#include <X11/Xaw/TextP.h>
-#include <X11/Xaw/TextSinkP.h>
-#include <X11/Xaw/XawInit.h>
+#include <X11/Xt/IntrinsicP.h>
+#include <X11/Xt/StringDefs.h>
+#include "TextP.h"
+#include "TextSinkP.h"
+#include "XawInit.h"
 #include "Private.h"
 
 /*

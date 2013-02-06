@@ -49,7 +49,7 @@ SOFTWARE.
 #ifndef _XtintrinsicP_h
 #define _XtintrinsicP_h
 
-#include <X11/Intrinsic.h>
+#include "Intrinsic.h"
 
 /*
  * Field sizes and offsets of XrmResource must match those of XtResource.
@@ -194,11 +194,11 @@ typedef struct _XtTMRec {
     unsigned long   lastEventTime;
 } XtTMRec, *XtTM;
 
-#include <X11/CoreP.h>
-#include <X11/CompositeP.h>
-#include <X11/ConstrainP.h>
-#include <X11/ObjectP.h>
-#include <X11/RectObjP.h>
+#include "CoreP.h"
+#include "CompositeP.h"
+#include "ConstrainP.h"
+#include "ObjectP.h"
+#include "RectObjP.h"
 
 #define XtDisplay(widget)	DisplayOfScreen((widget)->core.screen)
 #define XtScreen(widget)	((widget)->core.screen)

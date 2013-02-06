@@ -49,13 +49,13 @@ SOFTWARE.
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <X11/IntrinsicP.h>
-#include <X11/StringDefs.h>
+#include <X11/Xt/IntrinsicP.h>
+#include <X11/Xt/StringDefs.h>
 #include <X11/Xatom.h>
-#include <X11/Xaw/XawInit.h>
-#include <X11/Xaw/AsciiSinkP.h>
-#include <X11/Xaw/AsciiSrcP.h>
-#include <X11/Xaw/TextP.h>
+#include "XawInit.h"
+#include "AsciiSinkP.h"
+#include "AsciiSrcP.h"
+#include "TextP.h"
 #include "Private.h"
 
 #ifdef GETLASTPOS

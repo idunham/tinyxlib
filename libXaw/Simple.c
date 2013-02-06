@@ -48,15 +48,15 @@ SOFTWARE.
 /* $XFree86: xc/lib/Xaw/Simple.c,v 1.21 2006/02/27 01:57:10 dawes Exp $ */
 
 #include <stdio.h>
-#include <X11/IntrinsicP.h>
-#include <X11/StringDefs.h>
+#include <X11/Xt/IntrinsicP.h>
+#include <X11/Xt/StringDefs.h>
 #include <X11/Xmu/Drawing.h>
 #include <X11/Xmu/SysUtil.h>
-#include <X11/Xaw/SimpleP.h>
-#include <X11/Xaw/XawInit.h>
+#include "SimpleP.h"
+#include "XawInit.h"
 #include "Private.h"
 #ifndef OLDXAW
-#include <X11/Xaw/Tip.h>
+#include "Tip.h"
 #endif
 
 /*
