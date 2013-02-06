@@ -48,11 +48,11 @@ in this Software without prior written authorization from The Open Group.
  */
 /* $XFree86: xc/lib/Xaw/Tree.c,v 1.16 2006/01/25 04:32:09 dawes Exp $ */
 
-#include <X11/IntrinsicP.h>
-#include <X11/StringDefs.h>
-#include <X11/Xaw/XawInit.h>
-#include <X11/Xaw/Cardinals.h>
-#include <X11/Xaw/TreeP.h>
+#include <X11/Xt/IntrinsicP.h>
+#include <X11/Xt/StringDefs.h>
+#include "XawInit.h"
+#include "Cardinals.h"
+#include "TreeP.h"
 #include "Private.h"
 
 #define IsHorizontal(tw) ((tw)->tree.gravity == WestGravity || \

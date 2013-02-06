@@ -29,11 +29,11 @@ in this Software without prior written authorization from The Open Group.
  */
 /* $XFree86: xc/lib/Xaw/Porthole.c,v 1.8 2006/01/09 14:59:02 dawes Exp $ */
 
-#include <X11/IntrinsicP.h>
-#include <X11/StringDefs.h>
+#include <X11/Xt/IntrinsicP.h>
+#include <X11/Xt/StringDefs.h>
 #include <X11/Xmu/Misc.h>
-#include <X11/Xaw/PortholeP.h>
-#include <X11/Xaw/XawInit.h>
+#include "PortholeP.h"
+#include "XawInit.h"
 #include "Private.h"
 
 /*

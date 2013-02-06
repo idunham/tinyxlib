@@ -8,11 +8,21 @@ CFLAGS= -I../include -I../include/X11 $(COMMONDEFS) $(DEFS)
 
 OBJS=$(wildcard *.c)
 
-libXinerama.a:	$(OBJS:.c=.o) 
+all:	$(OBJS:.c=.o) 
 	ar cr libXinerama.a $(OBJS:.c=.o) 
+	$(CC) $(LDFLAGS) -o libXinerama.so.1.0~ -shared -Wl,-soname,libXinerama.so.1 $(OBJS:.c=.o) 
+	mv -f libXinerama.so.1.0~ libXinerama.so.1.0
+	ln -s libXinerama.so.1.0 libXinerama.so.1
+	ln -s libXinerama.so.1.0 libXinerama.so
+	
 clean:
-	rm -f *.o *.a
-install:	libXinerama.a
-	cp -f libXinerama.a $(LIBDIR)
+	rm -f *.o *.a *.so*
+	
+install:
+	cp -af libXinerama.a $(LIBDIR)
+	cp -af libXinerama.so.1.0 $(LIBDIR)
+	cp -af libXinerama.so.1 $(LIBDIR)
+	cp -af libXinerama.so $(LIBDIR)
+	
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

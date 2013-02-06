@@ -56,10 +56,10 @@ SOFTWARE.
 /* Make sure all wm properties can make it out of the resource manager */
 
 #include <stdio.h>
-#include <X11/IntrinsicP.h>
-#include <X11/StringDefs.h>
-#include <X11/ShellP.h>
-#include <X11/VendorP.h>
+#include <X11/Xt/IntrinsicP.h>
+#include <X11/Xt/StringDefs.h>
+#include <X11/Xt/ShellP.h>
+#include <X11/Xt/VendorP.h>
 #include <X11/Xmu/Converters.h>
 #include <X11/Xmu/Atoms.h>
 #include <X11/Xmu/Editres.h>
@@ -67,8 +67,8 @@ SOFTWARE.
 
 /* The following two headers are for the input method. */
 
-#include <X11/Xaw/VendorEP.h>
-#include <X11/Xaw/XawImP.h>
+#include "VendorEP.h"
+#include "XawImP.h"
 
 /*
  * Class Methods

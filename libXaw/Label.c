@@ -48,13 +48,13 @@ SOFTWARE.
 
 #include <stdio.h>
 #include <ctype.h>
-#include <X11/IntrinsicP.h>
-#include <X11/StringDefs.h>
+#include <X11/Xt/IntrinsicP.h>
+#include <X11/Xt/StringDefs.h>
 #include <X11/Xos.h>
 #include <X11/Xmu/Converters.h>
 #include <X11/Xmu/Drawing.h>
-#include <X11/Xaw/LabelP.h>
-#include <X11/Xaw/XawInit.h>
+#include "LabelP.h"
+#include "XawInit.h"
 #include "Private.h"
 
 #define streq(a, b)		(strcmp((a), (b)) == 0)
@@ -420,9 +420,9 @@ SetTextWidthAndHeight(LabelWidget lw)
 	    lw->label.label_len = MULTI_LINE_LABEL;
 
 	    for (; nl != NULL; nl = XawCharIndex(lw, label, '\n')) {
-		/*if (XawEncoding(lw) == XtTextEncodingChar2b)
+		if (XawEncoding(lw) == XtTextEncodingChar2b)
 		    w = XTextWidth16(fs, (TXT16*)label, (int)(nl - label) / 2);
-		else*/
+		else
 		    w = XTextWidth(fs, label, (int)(nl - label));
 		width = XawMax(width, w);
 
@@ -433,21 +433,21 @@ SetTextWidthAndHeight(LabelWidget lw)
 	    }
 
 	    if (NOT_AT_EOL(XawEncoding(lw), label)) {
-		/*if (XawEncoding(lw) == XtTextEncodingChar2b)
+		if (XawEncoding(lw) == XtTextEncodingChar2b)
 		    w = XTextWidth16(fs, (TXT16*)label,
 				     XawStringLength(lw, label) / 2);
-		else*/
-				    w = XTextWidth(fs, label, XawStringLength(lw, label));
+		else
+		    w = XTextWidth(fs, label, XawStringLength(lw, label));
 		width = XawMax(width, w);
 	    }
 	}
 	else {
 	    lw->label.label_len = XawStringLength(lw, label);
 
-	   /* if (XawEncoding(lw) == XtTextEncodingChar2b)
+	    if (XawEncoding(lw) == XtTextEncodingChar2b)
 		width = XTextWidth16(fs, (TXT16*)label,
 				     (int)lw->label.label_len / 2);
-	    else*/
+	    else
 		width = XTextWidth(fs, label, (int)lw->label.label_len);
 	}
     }
@@ -622,7 +622,7 @@ XawLabelRedisplay(Widget gw, XEvent *event, Region region)
 		XmbDrawString(XtDisplay(w), XtWindow(w), w->label.fontset, gc,
 			      w->label.label_x, ksy, label, len);
 	}
-	/*else {
+	else {
 	    if (len == MULTI_LINE_LABEL) {
 		while ((nl = XawCharIndex(w, label, '\n')) != NULL) {
 		    XawDrawString(w, label, (nl - label));
@@ -637,7 +637,7 @@ XawLabelRedisplay(Widget gw, XEvent *event, Region region)
 
 	    if (len)
 		XawDrawString(w, label, len);
-	}*/
+	}
     }
     else if (w->label.label_len == 1)
 	XCopyPlane(XtDisplay(gw), w->label.pixmap, XtWindow(gw), gc,

@@ -2,3 +2,23 @@
 20120916: Added GetFPath.c to get Abiword 1.0.7 compile. Added X11/Xmu/Misc.h for XawM-1.5u.
 20121002: Added ListExt.c and QuBest.c to X11 for xdpyinfo
 20121011: Changed libXt source and include/X11/Intrinsic.h to test if Xaw can be compiled. Added GetDflt.c to tinyX11 and added -DXOS_USE_MTSAFE_PWDAPI to tinyXll make flags
+20121013: Changed all makefiles to create shared libs as well
+20121024: Added OCWrap.c and SetLocale.c to get musl/gtk/debug going (?) not quite...
+20121028: Added libXmuu to be able to compile xprop
+20121118: Added libXfixes to be able to comple xrdp
+20121123: Added ReconfWM.c to tinyX11 to be able to compile rdesktop 1.6.0
+20121126: Added libXss...
+20121201: Addec QuCurShp.c to libX11 to be able to compile tightvnc
+20121203: Added libXcursor to be able to compile xsetroot...small patch to avoid animated cursor.
+
+20121216: Removed "; cd .." from main makefile. In libXaw/OS.c changed <asm/page.h> to <limits.h> - all recommendations from ibidem thanks! New source for libXaw used including adds to /include/X11/Xt. Now Xload and xmessage builds with text in buttons.
+
+20121217: Reconstruct libXmmu to be mostly symlinks to libXmu as per cecommendation from ibidem. Eliminated a bunch of dubplicate files (mainly headers).
+
+20121218: libXext: removed ImUtil.h, removed - #include "ImUtil.h" - in Xshm.c., moved relevant headers from /include/X11/extensions to dir and symlinked to include dir.
+For libICI, libSM, libXaw, libXCursor, libXmu, libXrender, libXt, libXtrans, libXt and
+libXdmcp headers with lib and include symlink headers.
+
+Added /include/pkgconfig/*.pc files to include and made makefiles in induvidual libs create the pc-file.
+
+

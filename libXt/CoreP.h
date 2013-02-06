@@ -49,7 +49,7 @@ SOFTWARE.
 #ifndef XtCoreP_h
 #define XtCoreP_h
 
-#include <X11/Core.h>
+#include "Core.h"
 
 externalref int _XtInheritTranslations;
 

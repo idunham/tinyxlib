@@ -213,7 +213,7 @@ typedef  struct {
 	WMShellPart	wm;
 } WMShellRec, *WMShellWidget;
 
-#include <X11/VendorP.h>
+#include "VendorP.h"
 
 /***********************************************************************
  *

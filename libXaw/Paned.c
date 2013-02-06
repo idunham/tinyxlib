@@ -56,17 +56,17 @@ SOFTWARE.
  *          kit@expo.lcs.mit.edu
  */
 
-#include <X11/IntrinsicP.h>
+#include <X11/Xt/IntrinsicP.h>
 #include <X11/cursorfont.h>
-#include <X11/StringDefs.h>
+#include <X11/Xt/StringDefs.h>
 #include <X11/Xmu/CharSet.h>
 #include <X11/Xmu/Converters.h>
 #include <X11/Xmu/Misc.h>
 #include <X11/Xmu/SysUtil.h>
-#include <X11/Xaw/Grip.h>
-#include <X11/Xaw/PanedP.h>
-#include <X11/Xaw/XawImP.h> 
-#include <X11/Xaw/XawInit.h>
+#include "Grip.h"
+#include "PanedP.h"
+#include "XawImP.h"
+#include "XawInit.h"
 #include "Private.h"
 
 typedef enum {

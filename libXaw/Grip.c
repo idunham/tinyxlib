@@ -50,10 +50,10 @@ SOFTWARE.
  * Grip.c - Grip Widget (Used by Paned Widget)
  *
  */
-#include <X11/IntrinsicP.h>
-#include <X11/StringDefs.h>
-#include <X11/Xaw/GripP.h>
-#include <X11/Xaw/XawInit.h>
+#include <X11/Xt/IntrinsicP.h>
+#include <X11/Xt/StringDefs.h>
+#include "GripP.h"
+#include "XawInit.h"
 
 /*
  * Prototypes

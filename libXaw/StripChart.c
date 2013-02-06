@@ -47,11 +47,11 @@ SOFTWARE.
 /* $XFree86: xc/lib/Xaw/StripChart.c,v 1.9 2006/01/09 14:59:03 dawes Exp $ */
 
 #include <stdio.h>
-#include <X11/IntrinsicP.h>
-#include <X11/StringDefs.h>
+#include <X11/Xt/IntrinsicP.h>
+#include <X11/Xt/StringDefs.h>
 #include <X11/Xfuncs.h>
-#include <X11/Xaw/StripCharP.h>
-#include <X11/Xaw/XawInit.h>
+#include "StripCharP.h"
+#include "XawInit.h"
 #include "Private.h"
 
 #define MS_PER_SEC 1000

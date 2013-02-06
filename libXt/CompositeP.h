@@ -49,7 +49,7 @@ SOFTWARE.
 #ifndef _XtCompositeP_h
 #define _XtCompositeP_h
 
-#include <X11/Composite.h>
+#include "Composite.h"
 
 /************************************************************************
  *

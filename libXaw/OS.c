@@ -3,7 +3,7 @@
 /* Some OS-dependent utility code */
 
 #include <X11/Xosdefs.h>
-#include <X11/IntrinsicP.h>
+#include <X11/Xt/IntrinsicP.h>
 #include "Private.h"
 
 #ifndef X_NOT_POSIX
@@ -11,7 +11,8 @@
 #endif
 
 #if defined(linux)
-#include <asm/page.h>	/* for PAGE_SIZE */
+//#include <asm/page.h>	/* for PAGE_SIZE */
+#include <limits.h>
 #define HAS_GETPAGESIZE
 #define HAS_SC_PAGESIZE	/* _SC_PAGESIZE may be an enum for Linux */
 #endif

@@ -46,11 +46,11 @@ SOFTWARE.
 ******************************************************************/
 /* $XFree86: xc/lib/Xaw/Scrollbar.c,v 1.15 2006/01/12 00:58:01 dawes Exp $ */
 
-#include <X11/IntrinsicP.h>
-#include <X11/StringDefs.h>
+#include <X11/Xt/IntrinsicP.h>
+#include <X11/Xt/StringDefs.h>
 #include <X11/Xmu/Drawing.h>
-#include <X11/Xaw/ScrollbarP.h>
-#include <X11/Xaw/XawInit.h>
+#include "ScrollbarP.h"
+#include "XawInit.h"
 #include "Private.h"
 
 #define NoButton	-1

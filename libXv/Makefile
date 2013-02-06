@@ -8,11 +8,21 @@ CFLAGS= -I../include -I../include/X11 $(COMMONDEFS) $(DEFS)
 
 OBJS=$(wildcard *.c)
 
-libXv.a:	$(OBJS:.c=.o) 
+all:	$(OBJS:.c=.o) 
 	ar cr libXv.a $(OBJS:.c=.o) 
+	$(CC) $(LDFLAGS) -o libXv.so.1.0~ -shared -Wl,-soname,libXv.so.1 $(OBJS:.c=.o)
+	mv -f libXv.so.1.0~ libXv.so.1.0
+	ln -s libXv.so.1.0 libXv.so.1
+	ln -s libXv.so.1.0 libXv.so	
+	
 clean:
-	rm -f *.o *.a
-install:	libXv.a
-	cp -f libXv.a $(LIBDIR)
+	rm -f *.o *.a *.so*
+	
+install:
+	cp -af libXv.a $(LIBDIR)
+	cp -af libXv.so.1.0 $(LIBDIR)
+	cp -af libXv.so.1 $(LIBDIR)
+	cp -af libXv.so $(LIBDIR)
+	
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

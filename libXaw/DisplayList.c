@@ -33,9 +33,9 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <X11/IntrinsicP.h>
-#include <X11/StringDefs.h>
-#include <X11/CoreP.h>
+#include <X11/Xt/IntrinsicP.h>
+#include <X11/Xt/StringDefs.h>
+#include <X11/Xt/CoreP.h>
 #include <X11/Xfuncs.h>
 #include <X11/Xmu/CharSet.h>
 #include <X11/Xmu/SysUtil.h>

@@ -32,10 +32,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <X11/Xmd.h>
-#include <X11/IntrinsicP.h>
-#include <X11/StringDefs.h>
-#include <X11/CoreP.h>
-#include <X11/Constraint.h>
+#include <X11/Xt/IntrinsicP.h>
+#include "StringDefs.h"
+#include <X11/Xt/CoreP.h>
+#include <X11/Xt/Constraint.h>
 #include <X11/Xmu/CharSet.h>
 #include <X11/Xmu/SysUtil.h>
 #include <X11/Xfuncs.h>

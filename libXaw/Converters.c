@@ -28,12 +28,12 @@
 /* $XFree86: xc/lib/Xaw/Converters.c,v 3.15 2004/10/23 15:29:25 dawes Exp $ */
 
 #include <stdio.h>
-#include <X11/IntrinsicP.h>
-#include <X11/StringDefs.h>
+#include <X11/Xt/IntrinsicP.h>
+#include <X11/Xt/StringDefs.h>
 #include <X11/Xmu/CharSet.h>
 #include <X11/Xmu/SysUtil.h>
-#include <X11/Xaw/Simple.h>
-#include <X11/Xaw/XawInit.h>
+#include "Simple.h"
+#include "XawInit.h"
 #include "Private.h"
 
 #ifndef OLDXAW

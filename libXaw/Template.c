@@ -25,9 +25,9 @@ in this Software without prior written authorization from The Open Group.
 */
 /* $XFree86: xc/lib/Xaw/Template.c,v 1.10 2006/01/09 14:59:03 dawes Exp $ */
 
-#include <X11/IntrinsicP.h>
-#include <X11/StringDefs.h>
-#include <X11/Xaw/TemplateP.h>
+#include <X11/Xt/IntrinsicP.h>
+#include <X11/Xt/StringDefs.h>
+#include "TemplateP.h"
 
 /*
  * Class Methods

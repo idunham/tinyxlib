@@ -51,14 +51,14 @@ SOFTWARE.
  */
 
 #include <stdio.h>
-#include <X11/IntrinsicP.h>
-#include <X11/StringDefs.h>
+#include <X11/Xt/IntrinsicP.h>
+#include <X11/Xt/StringDefs.h>
 #include <X11/extensions/shape.h>
 #include <X11/Xmu/Converters.h>
 #include <X11/Xmu/Drawing.h>
 #include <X11/Xmu/Misc.h>
-#include <X11/Xaw/CommandP.h>
-#include <X11/Xaw/XawInit.h>
+#include "CommandP.h"
+#include "XawInit.h"
 #include "Private.h"
 
 #define DEFAULT_HIGHLIGHT_THICKNESS 2

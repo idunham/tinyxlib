@@ -49,7 +49,7 @@ SOFTWARE.
 #ifndef _XtConstraintP_h
 #define _XtConstraintP_h
 
-#include <X11/Constraint.h>
+#include "Constraint.h"
 
 typedef struct _ConstraintPart {
     XtPointer   mumble;		/* No new fields, keep C compiler happy */
