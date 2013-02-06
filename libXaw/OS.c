@@ -11,7 +11,7 @@
 #endif
 
 #if defined(linux)
-#include <asm/page.h>	/* for PAGE_SIZE */
+#include <limits.h>	/* for PAGE_SIZE */
 #define HAS_GETPAGESIZE
 #define HAS_SC_PAGESIZE	/* _SC_PAGESIZE may be an enum for Linux */
 #endif

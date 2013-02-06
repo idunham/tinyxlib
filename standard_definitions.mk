@@ -3,7 +3,7 @@
 CC=/usr/bin/gcc
 
 #compilerflags
-COMPFLAGS=-pipe -Os -mtune=i386 -Wall -D_BSD_SOURCE -D_GNU_SOURCE -fno-strength-reduce -nodefaultlibs -fno-strict-aliasing -I/usr/include -I.
+COMPFLAGS=-pipe -Os -mtune=i386 -Wall -D_BSD_SOURCE -D_GNU_SOURCE -fno-strength-reduce -nodefaultlibs -fno-strict-aliasing  -I.
 
 COMMONDEFS=$(COMPFLAGS) -D_BSD_SOURCE -D_GNU_SOURCE
 
@@ -13,6 +13,7 @@ LINKDIR=-L/usr/lib
 
 LIBDIR=/usr/lib
 
-INCDIR=/usr/include
+INCDIR=/opt/musl/include
+#/usr/include
 
 
