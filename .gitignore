@@ -5,3 +5,6 @@
 .*
 *.so*
 *.pc
+*.bak
+*.org
+*.diff
