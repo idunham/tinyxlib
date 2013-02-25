@@ -39,6 +39,12 @@ in this Software without prior written authorization from The Open Group.
 #define NeedVarargsPrototypes 1
 #endif /* NeedVarargsPrototypes */
 
+#if defined(__GNUC__) || defined(__PCC__)
+#define _X_NORETURN __attribute((noreturn))
+#else
+#define _X_NORETURN
+#endif
+
 #if NeedFunctionPrototypes
 
 #ifndef NeedNestedPrototypes
