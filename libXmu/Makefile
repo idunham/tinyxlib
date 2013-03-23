@@ -31,10 +31,10 @@ clean:
 	rm -f *.o *.a *.so* xmu.pc
 	
 install:
-	cp -af libXmu.a $(LIBDIR)
-	cp -af libXmu.so.6.2 $(LIBDIR)
-	cp -af libXmu.so.6 $(LIBDIR)
-	cp -af libXmu.so $(LIBDIR)
+	cp -af libXmu.a $(DESTDIR)$(LIBDIR)
+	cp -af libXmu.so.6.2 $(DESTDIR)$(LIBDIR)
+	cp -af libXmu.so.6 $(DESTDIR)$(LIBDIR)
+	cp -af libXmu.so $(DESTDIR)$(LIBDIR)
 	
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

@@ -31,10 +31,10 @@ clean:
 	rm -f *.o *.a *.so* xfixes.pc
 	
 install:
-	cp -af libXfixes.a $(LIBDIR)
-	cp -af libXfixes.so.3.0 $(LIBDIR)
-	cp -af libXfixes.so.3 $(LIBDIR)
-	cp -af libXfixes.so $(LIBDIR)
+	cp -af libXfixes.a $(DESTDIR)$(LIBDIR)
+	cp -af libXfixes.so.3.0 $(DESTDIR)$(LIBDIR)
+	cp -af libXfixes.so.3 $(DESTDIR)$(LIBDIR)
+	cp -af libXfixes.so $(DESTDIR)$(LIBDIR)
 	
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

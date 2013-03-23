@@ -31,10 +31,10 @@ clean:
 	rm -f *.o *.a *.so* xext.pc
 	
 install:
-	cp -af libXext.a $(LIBDIR)
-	cp -af libXext.so.6.5 $(LIBDIR)
-	cp -af libXext.so.6 $(LIBDIR)
-	cp -af libXext.so $(LIBDIR)
+	cp -af libXext.a $(DESTDIR)$(LIBDIR)
+	cp -af libXext.so.6.5 $(DESTDIR)$(LIBDIR)
+	cp -af libXext.so.6 $(DESTDIR)$(LIBDIR)
+	cp -af libXext.so $(DESTDIR)$(LIBDIR)
 	
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

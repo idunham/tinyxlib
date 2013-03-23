@@ -31,10 +31,10 @@ clean:
 	rm -f *.o *.a *.so* xtst.pc
 	
 install:
-	cp -af libXtst.a $(LIBDIR)
-	cp -af libXtst.so.6.1 $(LIBDIR)
-	cp -af libXtst.so.6 $(LIBDIR)
-	cp -af libXtst.so $(LIBDIR)
+	cp -af libXtst.a $(DESTDIR)$(LIBDIR)
+	cp -af libXtst.so.6.1 $(DESTDIR)$(LIBDIR)
+	cp -af libXtst.so.6 $(DESTDIR)$(LIBDIR)
+	cp -af libXtst.so $(DESTDIR)$(LIBDIR)
 	
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

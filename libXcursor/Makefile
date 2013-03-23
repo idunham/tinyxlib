@@ -31,10 +31,10 @@ clean:
 	rm -f *.o *.a *.so* xcursor.pc
 	
 install:	
-	cp -af libXcursor.a $(LIBDIR)
-	cp -af libXcursor.so.6.0 $(LIBDIR)
-	cp -af libXcursor.so.6 $(LIBDIR)
-	cp -af libXcursor.so $(LIBDIR)
+	cp -af libXcursor.a $(DESTDIR)$(LIBDIR)
+	cp -af libXcursor.so.6.0 $(DESTDIR)$(LIBDIR)
+	cp -af libXcursor.so.6 $(DESTDIR)$(LIBDIR)
+	cp -af libXcursor.so $(DESTDIR)$(LIBDIR)
 	
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

@@ -19,10 +19,10 @@ clean:
 	rm -f *.o *.a *.so*
 	
 install:
-	cp -af libXss.a $(LIBDIR)
-	cp -af libXss.so.1.0 $(LIBDIR)
-	cp -af libXss.so.1 $(LIBDIR)
-	cp -af libXss.so $(LIBDIR)
+	cp -af libXss.a $(DESTDIR)$(LIBDIR)
+	cp -af libXss.so.1.0 $(DESTDIR)$(LIBDIR)
+	cp -af libXss.so.1 $(DESTDIR)$(LIBDIR)
+	cp -af libXss.so $(DESTDIR)$(LIBDIR)
 	
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

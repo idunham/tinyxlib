@@ -33,10 +33,10 @@ clean:
 	rm -f *.o *.a *.so* xt.pc
 	
 install:
-	cp -af libXt.a $(LIBDIR)
-	cp -af libXt.so.6.1 $(LIBDIR)
-	cp -af libXt.so.6 $(LIBDIR)
-	cp -af libXt.so $(LIBDIR)
+	cp -af libXt.a $(DESTDIR)$(LIBDIR)
+	cp -af libXt.so.6.1 $(DESTDIR)$(LIBDIR)
+	cp -af libXt.so.6 $(DESTDIR)$(LIBDIR)
+	cp -af libXt.so $(DESTDIR)$(LIBDIR)
 	
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

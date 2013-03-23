@@ -31,10 +31,10 @@ clean:
 	rm -f *.o *.a *.so* sm.pc
 	
 install:
-	cp -af libSM.a $(LIBDIR)
-	cp -af libSM.so.6.0 $(LIBDIR)
-	cp -af libSM.so.6 $(LIBDIR)
-	cp -af libSM.so $(LIBDIR)
+	cp -af libSM.a $(DESTDIR)$(LIBDIR)
+	cp -af libSM.so.6.0 $(DESTDIR)$(LIBDIR)
+	cp -af libSM.so.6 $(DESTDIR)$(LIBDIR)
+	cp -af libSM.so $(DESTDIR)$(LIBDIR)
 	
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

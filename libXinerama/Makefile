@@ -19,10 +19,10 @@ clean:
 	rm -f *.o *.a *.so*
 	
 install:
-	cp -af libXinerama.a $(LIBDIR)
-	cp -af libXinerama.so.1.0 $(LIBDIR)
-	cp -af libXinerama.so.1 $(LIBDIR)
-	cp -af libXinerama.so $(LIBDIR)
+	cp -af libXinerama.a $(DESTDIR)$(LIBDIR)
+	cp -af libXinerama.so.1.0 $(DESTDIR)$(LIBDIR)
+	cp -af libXinerama.so.1 $(DESTDIR)$(LIBDIR)
+	cp -af libXinerama.so $(DESTDIR)$(LIBDIR)
 	
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

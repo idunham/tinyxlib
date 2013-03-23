@@ -31,10 +31,10 @@ clean:
 	rm -f *.o *.a *.so* xaw7.pc
 	
 install:
-	cp -af libXaw.a $(LIBDIR)
-	cp -af libXaw.so.7.1 $(LIBDIR)
-	cp -af libXaw.so.7 $(LIBDIR)
-	cp -af libXaw.so $(LIBDIR)
+	cp -af libXaw.a $(DESTDIR)$(LIBDIR)
+	cp -af libXaw.so.7.1 $(DESTDIR)$(LIBDIR)
+	cp -af libXaw.so.7 $(DESTDIR)$(LIBDIR)
+	cp -af libXaw.so $(DESTDIR)$(LIBDIR)
 	
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

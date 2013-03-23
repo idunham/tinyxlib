@@ -31,10 +31,10 @@ clean:
 	rm -f *.o *.a *.so* xau.pc
 	
 install:	
-	cp -af libXau.a $(LIBDIR)
-	cp -af libXau.so.6.0 $(LIBDIR)
-	cp -af libXau.so.6 $(LIBDIR)
-	cp -af libXau.so $(LIBDIR)
+	cp -af libXau.a $(DESTDIR)$(LIBDIR)
+	cp -af libXau.so.6.0 $(DESTDIR)$(LIBDIR)
+	cp -af libXau.so.6 $(DESTDIR)$(LIBDIR)
+	cp -af libXau.so $(DESTDIR)$(LIBDIR)
 	
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

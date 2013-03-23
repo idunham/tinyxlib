@@ -19,10 +19,10 @@ clean:
 	rm -f *.o *.a *.so*
 	
 install:
-	cp -af libXv.a $(LIBDIR)
-	cp -af libXv.so.1.0 $(LIBDIR)
-	cp -af libXv.so.1 $(LIBDIR)
-	cp -af libXv.so $(LIBDIR)
+	cp -af libXv.a $(DESTDIR)$(LIBDIR)
+	cp -af libXv.so.1.0 $(DESTDIR)$(LIBDIR)
+	cp -af libXv.so.1 $(DESTDIR)$(LIBDIR)
+	cp -af libXv.so $(DESTDIR)$(LIBDIR)
 	
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

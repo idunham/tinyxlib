@@ -17,10 +17,10 @@ clean:
 	rm -f bitmap/*.o fontfile/*.o fontcache/*.o fc/*.o  util/*.o stubs/*.o *.a *.so*
 	
 install:
-	cp -af libXfont.a $(LIBDIR)
-	cp -af libXfont.so.6.0 $(LIBDIR)
-	cp -af libXfont.so.6 $(LIBDIR)
-	cp -af libXfont.so $(LIBDIR)
+	cp -af libXfont.a $(DESTDIR)$(LIBDIR)
+	cp -af libXfont.so.6.0 $(DESTDIR)$(LIBDIR)
+	cp -af libXfont.so.6 $(DESTDIR)$(LIBDIR)
+	cp -af libXfont.so $(DESTDIR)$(LIBDIR)
 	
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

@@ -33,10 +33,10 @@ clean:
 	rm -f *.o *.a *.so* ice.pc
 	
 install:
-	cp -af libICE.a $(LIBDIR)
-	cp -af libICE.so.6.3 $(LIBDIR)
-	cp -af libICE.so.6 $(LIBDIR)
-	cp -af libICE.so $(LIBDIR)
+	cp -af libICE.a $(DESTDIR)$(LIBDIR)
+	cp -af libICE.so.6.3 $(DESTDIR)$(LIBDIR)
+	cp -af libICE.so.6 $(DESTDIR)$(LIBDIR)
+	cp -af libICE.so $(DESTDIR)$(LIBDIR)
 	
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

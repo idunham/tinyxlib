@@ -31,10 +31,10 @@ clean:
 	rm -f *.o *.a *.so* xdmcp.pc
 	
 install:	libXdmcp.a libXdmcp.so.6.0 libXdmcp.so.6 libXdmcp.so
-	cp -af libXdmcp.a $(LIBDIR)
-	cp -af libXdmcp.so.6.0 $(LIBDIR)
-	cp -af libXdmcp.so.6 $(LIBDIR)
-	cp -af libXdmcp.so $(LIBDIR)
+	cp -af libXdmcp.a $(DESTDIR)$(LIBDIR)
+	cp -af libXdmcp.so.6.0 $(DESTDIR)$(LIBDIR)
+	cp -af libXdmcp.so.6 $(DESTDIR)$(LIBDIR)
+	cp -af libXdmcp.so $(DESTDIR)$(LIBDIR)
 	
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

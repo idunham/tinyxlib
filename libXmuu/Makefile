@@ -31,10 +31,10 @@ clean:
 	rm -f *.o *.a *.so* xmuu.pc
 	
 install:
-	cp -af libXmuu.a $(LIBDIR)
-	cp -af libXmuu.so.1.0 $(LIBDIR)
-	cp -af libXmuu.so.1 $(LIBDIR)
-	cp -af libXmuu.so $(LIBDIR)
+	cp -af libXmuu.a $(DESTDIR)$(LIBDIR)
+	cp -af libXmuu.so.1.0 $(DESTDIR)$(LIBDIR)
+	cp -af libXmuu.so.1 $(DESTDIR)$(LIBDIR)
+	cp -af libXmuu.so $(DESTDIR)$(LIBDIR)
 	
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

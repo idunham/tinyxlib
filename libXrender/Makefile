@@ -32,10 +32,10 @@ clean:
 	rm -f *.o *.a *.so* xrender.pc
 	
 install:
-	cp -af libXrender.a $(LIBDIR)
-	cp -af libXrender.so.1.1 $(LIBDIR)
-	cp -af libXrender.so.1 $(LIBDIR)
-	cp -af libXrender.so $(LIBDIR)
+	cp -af libXrender.a $(DESTDIR)$(LIBDIR)
+	cp -af libXrender.so.1.1 $(DESTDIR)$(LIBDIR)
+	cp -af libXrender.so.1 $(DESTDIR)$(LIBDIR)
+	cp -af libXrender.so $(DESTDIR)$(LIBDIR)
 	
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

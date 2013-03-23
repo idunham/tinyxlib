@@ -17,10 +17,10 @@ clean:
 	rm -f *.o *.a *.so*
 	
 install:
-	cp -af libXi.a $(LIBDIR)
-	cp -af libXi.so.6.0 $(LIBDIR)
-	cp -af libXi.so.6 $(LIBDIR)
-	cp -af libXi.so $(LIBDIR)
+	cp -af libXi.a $(DESTDIR)$(LIBDIR)
+	cp -af libXi.so.6.0 $(DESTDIR)$(LIBDIR)
+	cp -af libXi.so.6 $(DESTDIR)$(LIBDIR)
+	cp -af libXi.so $(DESTDIR)$(LIBDIR)
 	
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c
