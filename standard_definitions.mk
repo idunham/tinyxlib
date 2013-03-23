@@ -13,12 +13,12 @@ LDFLAGS=-static -Wl,--gc-sections,--sort-common,-s
 #LINKDIR=-L/opt/musl/lib
 LINKDIR=-L/usr/lib
 
-PREDIR=/opt/musl
+#PREDIR=/opt/musl
+PREDIR=/usr
 
 LIBDIR=${PREDIR}/lib
 
 INCDIR=${PREDIR}/include
 
-
-
-
+#KEYSYMDB=/usr/X11R7/lib/X11/XKeysymDB
+KEYSYMDB=${PREDIR}/share/X11/XKeysymDB

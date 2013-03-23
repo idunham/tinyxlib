@@ -4,7 +4,7 @@ include	../standard_definitions.mk
 
 DEFS=-Dlinux -DXTHREADS -D__i386__ -D_POSIX_SOURCE -D_POSIX_C_SOURCE=2 -D_BSD_SOURCE -D_SVID_SOURCE -D_GNU_SOURCE \
  -DX_LOCALE -DFUNCPROTO=15 -DNARROWPROTO -DMALLOC_0_RETURNS_NULL -DHAS_SNPRINTF -DLIBX11 -DUNIXCONN -DTCPCONN -DX11_t -DTRANS_CLIENT  \
- -DKEYSYMDB=\"/usr/X11R7/lib/X11/XKeysymDB\" \
+ -DKEYSYMDB=\"${KEYSYMDB}\" \
  -DXLOCALEDIR=\"/usr/share/locale\" -DX_LOCALE -DTINY -DXOS_USE_MTSAFE_PWDAPI
 
 CFLAGS= -I../include -I../include/X11 -I../libxtrans $(COMMONDEFS) $(DEFS)
@@ -51,10 +51,11 @@ clean:
 #rm -f makekeys 
 	
 install:
-	cp -af libX11.a $(LIBDIR)
-	cp -af libX11.so.6.2 $(LIBDIR)
-	cp -af libX11.so.6 $(LIBDIR)
-	cp -af libX11.so $(LIBDIR)	
+	cp -af libX11.a $(DESTDIR)$(LIBDIR)
+	cp -af libX11.so.6.2 $(DESTDIR)$(LIBDIR)
+	cp -af libX11.so.6 $(DESTDIR)$(LIBDIR)
+	cp -af libX11.so $(DESTDIR)$(LIBDIR)
+	cp -a XKeysymDB $(DESTDIR)$(KEYSYMDB)
 	
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c
