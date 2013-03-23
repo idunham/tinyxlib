@@ -574,6 +574,10 @@ pcfReadFont(FontPtr pFont, FontFilePtr file,
     pFont->info.lastRow = pcfGetINT16(file, format);
     pFont->info.defaultCh = pcfGetINT16(file, format);
     if (IS_EOF(file)) goto Bail;
+    /* CVE fix: */
+    if (pFont->info.firstCol > pFont->info.lastCol ||
+        pFont->info.firstRow > pFont->info.lastRow ||
+        pFont->info.lastCol-pFont->info.firstCol > 255) goto Bail;
 
     nencoding = (pFont->info.lastCol - pFont->info.firstCol + 1) *
 	(pFont->info.lastRow - pFont->info.firstRow + 1);
