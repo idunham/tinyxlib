@@ -10,7 +10,7 @@ all:	$(OBJS:.c=.o)
 	ar cr libXi.a $(OBJS:.c=.o)
 
 clean:
-	rm -f *.o *.a *.so*
+	rm -f *.o *.a
 
 install:
 	cp -af libXi.a $(LIBDIR)
