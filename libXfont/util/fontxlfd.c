@@ -194,6 +194,7 @@ xlfd_round_double(double x)
       a binary machine?  */
 
 #if defined(i386) || defined(__i386__) || \
+    defined(__amd64__) || defined(__x86_64__) || \
     defined(ia64) || defined(__ia64__) || \
     defined(__alpha__) || defined(__alpha) || \
     defined(__hppa__)

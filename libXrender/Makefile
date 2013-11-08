@@ -1,19 +1,15 @@
 include	../standard_definitions.mk
 
-DEFS=-Dlinux -D__i386__ -D_POSIX_SOURCE -D_POSIX_C_SOURCE=2 -D_BSD_SOURCE -D_SVID_SOURCE -D_GNU_SOURCE -DX_LOCALE -DFUNCPROTO=15 -DNARROWPROTO   -DMALLOC_0_RETURNS_NULL
+DEFS=-Dlinux -D_POSIX_SOURCE -D_POSIX_C_SOURCE=2 -D_BSD_SOURCE -D_SVID_SOURCE -D_GNU_SOURCE -DX_LOCALE -DFUNCPROTO=15 -DNARROWPROTO   -DMALLOC_0_RETURNS_NULL
 
 CFLAGS= -I../include -I../include/X11 $(COMMONDEFS) $(DEFS)
 
 #OBJS=$(wildcard *.c)
 OBJS=Xrender.c Composite.c Glyph.c Picture.c FillRect.c FillRects.c
 
-all:	$(OBJS:.c=.o) 
-	ar cr libXrender.a $(OBJS:.c=.o) 
-	$(CC) $(LDFLAGS) -o libXrender.so.1.1~ -shared -Wl,-soname,libXrender.so.1 $(OBJS:.c=.o) 
-	mv -f libXrender.so.1.1~ libXrender.so.1.1
-	ln -s libXrender.so.1.1 libXrender.so.1
-	ln -s libXrender.so.1.1 libXrender.so	
-	
+all:	$(OBJS:.c=.o)
+	ar cr libXrender.a $(OBJS:.c=.o)
+
 	@echo "prefix=$(PREDIR)" > xrender.pc
 	@echo "exec_prefix=$(PREDIR)/bin" >> xrender.pc
 	@echo "libdir=$(PREDIR)/lib" >> xrender.pc
@@ -27,15 +23,12 @@ all:	$(OBJS:.c=.o)
 	@echo "Cflags: -I$(PREDIR)/include" >> xrender.pc
 	@echo "Libs: -L$(PREDIR)/lib -lXrender" >> xrender.pc
 	@echo "Libs.private: -L$(PREDIR)/lib -lXrender" >> xrender.pc
-	
+
 clean:
-	rm -f *.o *.a *.so* xrender.pc
-	
+	rm -f *.o *.a xrender.pc
+
 install:
 	cp -af libXrender.a $(LIBDIR)
-	cp -af libXrender.so.1.1 $(LIBDIR)
-	cp -af libXrender.so.1 $(LIBDIR)
-	cp -af libXrender.so $(LIBDIR)
-	
+
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

@@ -1,18 +1,14 @@
 include	../standard_definitions.mk
 
-DEFS=-Dlinux -D__i386__ -D_POSIX_SOURCE -D_POSIX_C_SOURCE=2 -D_BSD_SOURCE -D_SVID_SOURCE -D_GNU_SOURCE -DX_LOCALE -DFUNCPROTO=15 -DNARROWPROTO
+DEFS=-Dlinux -D_POSIX_SOURCE -D_POSIX_C_SOURCE=2 -D_BSD_SOURCE -D_SVID_SOURCE -D_GNU_SOURCE -DX_LOCALE -DFUNCPROTO=15 -DNARROWPROTO
 
 CFLAGS= -I../include -I../include/X11 $(COMMONDEFS) $(DEFS)
 
 OBJS=$(wildcard *.c)
 
-all:	$(OBJS:.c=.o) 
-	ar cr libXau.a $(OBJS:.c=.o) 
-	$(CC) $(LDFLAGS) -o libXau.so.6.0~ -shared -Wl,-soname,libXau.so.6 $(OBJS:.c=.o)
-	mv -f libXau.so.6.0~ libXau.so.6.0
-	ln -s libXau.so.6.0 libXau.so.6
-	ln -s libXau.so.6.0 libXau.so
-	
+all:	$(OBJS:.c=.o)
+	ar cr libXau.a $(OBJS:.c=.o)
+
 	@echo "prefix=$(PREDIR)" > xau.pc
 	@echo "exec_prefix=$(PREDIR)/bin" >> xau.pc
 	@echo "libdir=$(PREDIR)/lib" >> xau.pc
@@ -26,15 +22,12 @@ all:	$(OBJS:.c=.o)
 	@echo "Cflags: -I$(PREDIR)/include" >> xau.pc
 	@echo "Libs: -L$(PREDIR)/lib -lXau" >> xau.pc
 	@echo "Libs.private: -L$(PREDIR)/lib -lXau " >> xau.pc
-	
+
 clean:
-	rm -f *.o *.a *.so* xau.pc
-	
-install:	
+	rm -f *.o *.a xau.pc
+
+install:
 	cp -af libXau.a $(LIBDIR)
-	cp -af libXau.so.6.0 $(LIBDIR)
-	cp -af libXau.so.6 $(LIBDIR)
-	cp -af libXau.so $(LIBDIR)
-	
+
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

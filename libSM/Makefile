@@ -1,18 +1,14 @@
 include	../standard_definitions.mk
 
-DEFS=-Dlinux -D__i386__ -D_POSIX_C_SOURCE=199309L -D_POSIX_SOURCE -D_XOPEN_SOURCE	-D_BSD_SOURCE -D_SVID_SOURCE -D_GNU_SOURCE -DFUNCPROTO=15 -DNARROWPROTO -DXTHREADS -D_REENTRANT -DXUSE_MTSAFE_API -DUNIXCONN -DTCPCONN -DHAS_STICKY_DIR_BIT -DHAS_FCHOWN -DIPv6 -DICE_t
+DEFS=-Dlinux -D_POSIX_C_SOURCE=199309L -D_POSIX_SOURCE -D_XOPEN_SOURCE	-D_BSD_SOURCE -D_SVID_SOURCE -D_GNU_SOURCE -DFUNCPROTO=15 -DNARROWPROTO -DXTHREADS -D_REENTRANT -DXUSE_MTSAFE_API -DUNIXCONN -DTCPCONN -DHAS_STICKY_DIR_BIT -DHAS_FCHOWN -DIPv6 -DICE_t
 
 CFLAGS= -I../include -I../include/X11 $(COMMONDEFS) $(DEFS)
 
 OBJS=$(wildcard *.c)
 
-all:	$(OBJS:.c=.o) 
-	ar cr libSM.a $(OBJS:.c=.o) 
-	$(CC) $(LDFLAGS) -o libSM.so.6.0~ -shared -Wl,-soname,libSM.so.6 $(OBJS:.c=.o) 
-	mv -f libSM.so.6.0~ libSM.so.6.0
-	ln -s libSM.so.6.0 libSM.so.6
-	ln -s libSM.so.6.0 libSM.so	
-	
+all:	$(OBJS:.c=.o)
+	ar cr libSM.a $(OBJS:.c=.o)
+
 	@echo "prefix=$(PREDIR)" > sm.pc
 	@echo "exec_prefix=$(PREDIR)/bin" >> sm.pc
 	@echo "libdir=$(PREDIR)/lib" >> sm.pc
@@ -26,15 +22,12 @@ all:	$(OBJS:.c=.o)
 	@echo "Cflags: -I$(PREDIR)/include" >> sm.pc
 	@echo "Libs: -L$(PREDIR)/lib -lSM" >> sm.pc
 	@echo "Libs.private: -L$(PREDIR)/lib -lSM" >> sm.pc
-	
+
 clean:
-	rm -f *.o *.a *.so* sm.pc
-	
+	rm -f *.o *.a sm.pc
+
 install:
 	cp -af libSM.a $(LIBDIR)
-	cp -af libSM.so.6.0 $(LIBDIR)
-	cp -af libSM.so.6 $(LIBDIR)
-	cp -af libSM.so $(LIBDIR)
-	
+
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c
