@@ -166,6 +166,17 @@ XRenderFindFormat (Display			*dpy,
 		   unsigned long		mask,
 		   _Xconst XRenderPictFormat	*templ,
 		   int				count);
+
+#define PictStandardARGB32  0
+#define PictStandardRGB24   1
+#define PictStandardA8	    2
+#define PictStandardA4	    3
+#define PictStandardA1	    4
+#define PictStandardNUM	    5
+
+XRenderPictFormat *
+XRenderFindStandardFormat (Display		*dpy,
+			   int			format);
     
 Picture
 XRenderCreatePicture (Display				*dpy,
