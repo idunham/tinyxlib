@@ -7,8 +7,6 @@ CFLAGS= -I../include -I../include/X11 $(COMMONDEFS) $(DEFS)
 OBJS=$(wildcard *.c)
 
 all:	$(OBJS:.c=.o)
-	ar cr libXext.a $(OBJS:.c=.o)
-
 	@echo "prefix=$(PREDIR)" > xext.pc
 	@echo "exec_prefix=$(PREDIR)/bin" >> xext.pc
 	@echo "libdir=$(PREDIR)/lib" >> xext.pc
@@ -24,10 +22,10 @@ all:	$(OBJS:.c=.o)
 	@echo "Libs.private: -L$(PREDIR)/lib -lXext" >> xext.pc
 
 clean:
-	rm -f *.o *.a xext.pc
+	rm -f *.o xext.pc
 
 install:
-	cp -af libXext.a $(LIBDIR)
+	ln -s libX11.a $(LIBDIR)/libXext.a
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

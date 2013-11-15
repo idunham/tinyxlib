@@ -6,8 +6,6 @@ CFLAGS= -I../include -I../ $(COMMONDEFS) $(DEFS)
 OBJS=$(wildcard *.c)
 
 all:	$(OBJS:.c=.o)
-	ar cr libXpm.a $(OBJS:.c=.o)
-
 	@echo "prefix=$(PREDIR)" > xpm.pc
 	@echo "exec_prefix=$(PREDIR)/bin" >> xpm.pc
 	@echo "libdir=$(PREDIR)/lib" >> xpm.pc
@@ -23,10 +21,10 @@ all:	$(OBJS:.c=.o)
 	@echo "Libs.private: -L$(PREDIR)/lib -lXpm" >> xpm.pc
 
 clean:
-	rm -f *.o *.a xpm.pc
+	rm -f *.o xpm.pc
 
 install:
-	cp -af libXpm.a $(LIBDIR)
+	ln -s libX11.a $(LIBDIR)/libXpm.a
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

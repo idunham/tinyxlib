@@ -8,8 +8,6 @@ CFLAGS= -I../include -I../include/X11 $(COMMONDEFS) $(DEFS)
 OBJS=Xrender.c Composite.c Glyph.c Picture.c FillRect.c FillRects.c
 
 all:	$(OBJS:.c=.o)
-	ar cr libXrender.a $(OBJS:.c=.o)
-
 	@echo "prefix=$(PREDIR)" > xrender.pc
 	@echo "exec_prefix=$(PREDIR)/bin" >> xrender.pc
 	@echo "libdir=$(PREDIR)/lib" >> xrender.pc
@@ -25,10 +23,10 @@ all:	$(OBJS:.c=.o)
 	@echo "Libs.private: -L$(PREDIR)/lib -lXrender" >> xrender.pc
 
 clean:
-	rm -f *.o *.a xrender.pc
+	rm -f *.o xrender.pc
 
 install:
-	cp -af libXrender.a $(LIBDIR)
+	ln -s libX11.a $(LIBDIR)/libXrender.a
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

@@ -1,5 +1,7 @@
+include	./standard_definitions.mk
+
 all:
-	make clean
+	rm -f libX11.a
 	cd libXau; make
 	cd libtinyX11; make
 	cd libICE; make
@@ -20,6 +22,7 @@ all:
 	cd libXss; make
 	cd libXfixes; make
 	cd libXcursor; make
+	ar cr libX11.a `find -name '*.o'`
 clean:
 	cd libtinyX11; make clean
 	cd libICE; make clean
@@ -41,7 +44,8 @@ clean:
 	cd libXss; make clean
 	cd libXfixes; make clean
 	cd libXcursor; make clean
-install:
+install: libX11.a
+	install -D -m 644 libX11.a $(LIBDIR)/libX11.a
 	cd libXau; make install
 	cd libtinyX11; make install
 	cd libICE; make install
@@ -63,6 +67,3 @@ install:
 	cd libXfixes; make install
 	cd libXcursor; make install
 	cd include; make install
-tarball:	clean
-	./make-tarball.sh
-

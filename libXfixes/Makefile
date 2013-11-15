@@ -7,8 +7,6 @@ CFLAGS= -I../include -I../include/X11 $(COMMONDEFS) $(DEFS)
 OBJS=$(wildcard *.c)
 
 all:	$(OBJS:.c=.o)
-	ar cr libXfixes.a $(OBJS:.c=.o)
-
 	@echo "prefix=$(PREDIR)" > xfixes.pc
 	@echo "exec_prefix=$(PREDIR)/bin" >> xfixes.pc
 	@echo "libdir=$(PREDIR)/lib" >> xfixes.pc
@@ -24,10 +22,10 @@ all:	$(OBJS:.c=.o)
 	@echo "Libs.private: -L$(PREDIR)/lib -lXfixes" >> xfixes.pc
 
 clean:
-	rm -f *.o *.a xfixes.pc
+	rm -f *.o xfixes.pc
 
 install:
-	cp -af libXfixes.a $(LIBDIR)
+	ln -s libX11.a $(LIBDIR)/libXfixes.a
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

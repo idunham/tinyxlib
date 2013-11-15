@@ -9,13 +9,12 @@ CFLAGS= -I../include -I../include/X11 $(COMMONDEFS) $(DEFS)
 OBJS=$(wildcard *.c)
 
 all:	$(OBJS:.c=.o)
-	ar cr libXss.a $(OBJS:.c=.o)
 
 clean:
-	rm -f *.o *.a
+	rm -f *.o
 
 install:
-	cp -af libXss.a $(LIBDIR)
+	ln -s libX11.a $(LIBDIR)/libXss.a
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

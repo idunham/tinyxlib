@@ -7,8 +7,6 @@ CFLAGS= -I../include -I../include/X11 $(COMMONDEFS) $(DEFS)
 OBJS=$(wildcard *.c)
 
 all:	$(OBJS:.c=.o)
-	ar cr libXcursor.a $(OBJS:.c=.o)
-
 	@echo "prefix=$(PREDIR)" > xcursor.pc
 	@echo "exec_prefix=$(PREDIR)/bin" >> xcursor.pc
 	@echo "libdir=$(PREDIR)/lib" >> xcursor.pc
@@ -24,10 +22,10 @@ all:	$(OBJS:.c=.o)
 	@echo "Libs.private: -L$(PREDIR)/lib -lXcursor" >> xcursor.pc
 
 clean:
-	rm -f *.o *.a xcursor.pc
+	rm -f *.o xcursor.pc
 
 install:
-	cp -af libXcursor.a $(LIBDIR)
+	ln -s libX11.a $(LIBDIR)/libXcursor.a
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

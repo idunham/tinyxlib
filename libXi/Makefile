@@ -7,13 +7,12 @@ CFLAGS= -I../include -I../include/X11 -I../libxtrans $(COMMONDEFS) $(DEFS)
 OBJS=$(wildcard *.c)
 
 all:	$(OBJS:.c=.o)
-	ar cr libXi.a $(OBJS:.c=.o)
 
 clean:
-	rm -f *.o *.a
+	rm -f *.o
 
 install:
-	cp -af libXi.a $(LIBDIR)
+	ln -s libX11.a $(LIBDIR)/libXi.a
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

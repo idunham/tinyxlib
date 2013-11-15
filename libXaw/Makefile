@@ -7,8 +7,6 @@ CFLAGS= -I../include -I../include/X11 $(COMMONDEFS) $(DEFS)
 OBJS=$(wildcard *.c)
 
 all:	$(OBJS:.c=.o)
-	ar cr libXaw.a $(OBJS:.c=.o)
-
 	@echo "prefix=$(PREDIR)" > xaw7.pc
 	@echo "exec_prefix=$(PREDIR)/bin" >> xaw7.pc
 	@echo "libdir=$(PREDIR)/lib" >> xaw7.pc
@@ -24,10 +22,10 @@ all:	$(OBJS:.c=.o)
 	@echo "Libs.private: -L$(PREDIR)/lib -lXaw" >> xaw7.pc
 
 clean:
-	rm -f *.o *.a xaw7.pc
+	rm -f *.o xaw7.pc
 
 install:
-	cp -af libXaw.a $(LIBDIR)
+	ln -s libX11.a $(LIBDIR)/libXaw.a
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

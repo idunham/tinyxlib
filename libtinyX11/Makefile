@@ -12,8 +12,6 @@ OBJS=$(wildcard *.c)
 XAUOBJS=../libXau/AuDispose.c ../libXau/AuFileName.c ../libXau/AuGetBest.c ../libXau/AuRead.c
 
 all:	$(OBJS:.c=.o)
-	ar cr libX11.a $(OBJS:.c=.o) $(XAUOBJS:.c=.o)
-
 	@echo "prefix=$(PREDIR)" > x11.pc
 	@echo "exec_prefix=$(PREDIR)/bin" >> x11.pc
 	@echo "libdir=$(PREDIR)/lib" >> x11.pc
@@ -40,11 +38,10 @@ transport.o:	transport.c xtrans/Xtranssock.c
 	$(CC) -c $(CFLAGS) transport.c
 
 clean:
-	rm -f *.o *.a x11.pc
+	rm -f *.o x11.pc
 #rm -f makekeys
 
 install:
-	cp -af libX11.a $(LIBDIR)
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

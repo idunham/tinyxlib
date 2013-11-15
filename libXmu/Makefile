@@ -7,8 +7,6 @@ CFLAGS= -I../include -I../include/X11 $(COMMONDEFS) $(DEFS)
 OBJS=$(wildcard *.c)
 
 all:	$(OBJS:.c=.o)
-	ar cr libXmu.a $(OBJS:.c=.o)
-
 	@echo "prefix=$(PREDIR)" > xmu.pc
 	@echo "exec_prefix=$(PREDIR)/bin" >> xmu.pc
 	@echo "libdir=$(PREDIR)/lib" >> xmu.pc
@@ -24,10 +22,10 @@ all:	$(OBJS:.c=.o)
 	@echo "Libs.private: -L$(PREDIR)/lib -lXmu" >> xmu.pc
 
 clean:
-	rm -f *.o *.a xmu.pc
+	rm -f *.o xmu.pc
 
 install:
-	cp -af libXmu.a $(LIBDIR)
+	ln -s libX11.a $(LIBDIR)/libXmu.a
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

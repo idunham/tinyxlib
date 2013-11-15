@@ -9,8 +9,6 @@ CFLAGS= -I../include -I../include/X11 $(COMMONDEFS) $(DEFS)
 OBJS=$(wildcard *.c)
 
 all:	$(OBJS:.c=.o)
-	ar cr libXt.a $(OBJS:.c=.o)
-
 	@echo "prefix=$(PREDIR)" > xt.pc
 	@echo "exec_prefix=$(PREDIR)/bin" >> xt.pc
 	@echo "libdir=$(PREDIR)/lib" >> xt.pc
@@ -26,10 +24,10 @@ all:	$(OBJS:.c=.o)
 	@echo "Libs.private: -L$(PREDIR)/lib -lXt" >> xt.pc
 
 clean:
-	rm -f *.o *.a xt.pc
+	rm -f *.o xt.pc
 
 install:
-	cp -af libXt.a $(LIBDIR)
+	ln -s libX11.a $(LIBDIR)/libXt.a
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

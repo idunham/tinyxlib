@@ -7,13 +7,12 @@ CFLAGS= -I../include -I./include -I../include/X11 -I../libxtrans $(COMMONDEFS) $
 OBJS=$(wildcard bitmap/*.c fontfile/*.c fontcache/*.c fc/*.c  util/*.c stubs/*.c)
 
 all:	$(OBJS:.c=.o)
-	ar cr libXfont.a $(OBJS:.c=.o)
 
 clean:
-	rm -f bitmap/*.o fontfile/*.o fontcache/*.o fc/*.o  util/*.o stubs/*.o *.a
+	rm -f bitmap/*.o fontfile/*.o fontcache/*.o fc/*.o  util/*.o stubs/*.o
 
 install:
-	cp -af libXfont.a $(LIBDIR)
+	ln -s libX11.a $(LIBDIR)/libXfont.a
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

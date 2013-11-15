@@ -9,13 +9,12 @@ CFLAGS= -I../include -I../include/X11 $(COMMONDEFS) $(DEFS)
 OBJS=$(wildcard *.c)
 
 all:	$(OBJS:.c=.o)
-	ar cr libXv.a $(OBJS:.c=.o)
 
 clean:
-	rm -f *.o *.a
+	rm -f *.o
 
 install:
-	cp -af libXv.a $(LIBDIR)
+	ln -s libX11.a $(LIBDIR)/libXv.a
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

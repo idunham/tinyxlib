@@ -7,8 +7,6 @@ CFLAGS= -I../include -I../include/X11 $(COMMONDEFS) $(DEFS)
 OBJS=$(wildcard *.c)
 
 all:	$(OBJS:.c=.o)
-	ar cr libXdmcp.a $(OBJS:.c=.o)
-
 	@echo "prefix=$(PREDIR)" > xdmcp.pc
 	@echo "exec_prefix=$(PREDIR)/bin" >> xdmcp.pc
 	@echo "libdir=$(PREDIR)/lib" >> xdmcp.pc
@@ -24,10 +22,10 @@ all:	$(OBJS:.c=.o)
 	@echo "Libs.private: -L$(PREDIR)/lib -lXdmcp" >> xdmcp.pc
 
 clean:
-	rm -f *.o *.a xdmcp.pc
+	rm -f *.o xdmcp.pc
 
-install:	libXdmcp.a
-	cp -af libXdmcp.a $(LIBDIR)
+install:
+	ln -s libX11.a $(LIBDIR)/libXdmcp.a
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

@@ -9,8 +9,6 @@ CFLAGS= -I../include -I../include/X11 -I../libxtrans $(COMMONDEFS) $(DEFS)
 OBJS=$(wildcard *.c)
 
 all:	$(OBJS:.c=.o)
-	ar cr libICE.a $(OBJS:.c=.o)
-
 	@echo "prefix=$(PREDIR)" > ice.pc
 	@echo "exec_prefix=$(PREDIR)/bin" >> ice.pc
 	@echo "libdir=$(PREDIR)/lib" >> ice.pc
@@ -26,10 +24,10 @@ all:	$(OBJS:.c=.o)
 	@echo "Libs.private: -L$(PREDIR)/lib -lICE" >> ice.pc
 
 clean:
-	rm -f *.o *.a ice.pc
+	rm -f *.o ice.pc
 
 install:
-	cp -af libICE.a $(LIBDIR)
+	ln -s libX11.a $(LIBDIR)/libICE.a
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

@@ -7,8 +7,6 @@ CFLAGS= -I../include -I../include/X11 $(COMMONDEFS) $(DEFS)
 OBJS=$(wildcard *.c)
 
 all:	$(OBJS:.c=.o)
-	ar cr libSM.a $(OBJS:.c=.o)
-
 	@echo "prefix=$(PREDIR)" > sm.pc
 	@echo "exec_prefix=$(PREDIR)/bin" >> sm.pc
 	@echo "libdir=$(PREDIR)/lib" >> sm.pc
@@ -24,10 +22,10 @@ all:	$(OBJS:.c=.o)
 	@echo "Libs.private: -L$(PREDIR)/lib -lSM" >> sm.pc
 
 clean:
-	rm -f *.o *.a sm.pc
+	rm -f *.o sm.pc
 
 install:
-	cp -af libSM.a $(LIBDIR)
+	ln -s libX11.a $(LIBDIR)/libSM.a
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c
