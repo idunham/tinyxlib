@@ -19,25 +19,25 @@ clean:
 
 install:
 ifeq ($(STATIC),0)
-	cp -af libXcursor.so.6.0 $(LIBDIR)
-	cp -af libXcursor.so.6 $(LIBDIR)
-	cp -af libXcursor.so $(LIBDIR)
+	cp -af libXcursor.so.6.0 $(DESTDIR)/$(LIBDIR)
+	cp -af libXcursor.so.6 $(DESTDIR)/$(LIBDIR)
+	cp -af libXcursor.so $(DESTDIR)/$(LIBDIR)
 else
-	ln -s libX11.a $(LIBDIR)/libXcursor.a
+	ln -s libX11.a $(DESTDIR)/$(LIBDIR)/libXcursor.a
 endif
-	@echo "prefix=$(PREDIR)" > $(LIBDIR)/pkgconfig/xcursor.pc
-	@echo "exec_prefix=$(PREDIR)/bin" >> $(LIBDIR)/pkgconfig/xcursor.pc
-	@echo "libdir=$(PREDIR)/lib" >> $(LIBDIR)/pkgconfig/xcursor.pc
-	@echo "includedir=$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/xcursor.pc
-	@echo "" >> $(LIBDIR)/pkgconfig/xcursor.pc
-	@echo "Name: Xcursor" >> $(LIBDIR)/pkgconfig/xcursor.pc
-	@echo "Description: X Cursor library" >> $(LIBDIR)/pkgconfig/xcursor.pc
-	@echo "Version: .0" >> $(LIBDIR)/pkgconfig/xcursor.pc
-	@echo "Requires:" >> $(LIBDIR)/pkgconfig/xcursor.pc
-	@echo "Requires.private:" >> $(LIBDIR)/pkgconfig/xcursor.pc
-	@echo "Cflags: -I$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/xcursor.pc
-	@echo "Libs: -L$(PREDIR)/lib -lXcursor" >> $(LIBDIR)/pkgconfig/xcursor.pc
-	@echo "Libs.private: -L$(PREDIR)/lib -lXcursor" >> $(LIBDIR)/pkgconfig/xcursor.pc
+	@echo "prefix=$(PREFIX)" > $(DESTDIR)/$(LIBDIR)/pkgconfig/xcursor.pc
+	@echo "exec_prefix=$(BINDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xcursor.pc
+	@echo "libdir=$(LIBDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xcursor.pc
+	@echo "includedir=$(INCDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xcursor.pc
+	@echo "" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xcursor.pc
+	@echo "Name: Xcursor" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xcursor.pc
+	@echo "Description: X Cursor library" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xcursor.pc
+	@echo "Version: .0" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xcursor.pc
+	@echo "Requires:" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xcursor.pc
+	@echo "Requires.private:" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xcursor.pc
+	@echo "Cflags: -I$(INCDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xcursor.pc
+	@echo "Libs: -L$(LIBDIR) -lXcursor" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xcursor.pc
+	@echo "Libs.private: -L$(LIBDIR) -lXcursor" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xcursor.pc
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

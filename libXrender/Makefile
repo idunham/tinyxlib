@@ -20,25 +20,25 @@ clean:
 
 install:
 ifeq ($(STATIC),0)
-	cp -af libXrender.so.1.1 $(LIBDIR)
-	cp -af libXrender.so.1 $(LIBDIR)
-	cp -af libXrender.so $(LIBDIR)
+	cp -af libXrender.so.1.1 $(DESTDIR)/$(LIBDIR)
+	cp -af libXrender.so.1 $(DESTDIR)/$(LIBDIR)
+	cp -af libXrender.so $(DESTDIR)/$(LIBDIR)
 else
-	ln -s libX11.a $(LIBDIR)/libXrender.a
+	ln -s libX11.a $(DESTDIR)/$(LIBDIR)/libXrender.a
 endif
-	@echo "prefix=$(PREDIR)" > $(LIBDIR)/pkgconfig/xrender.pc
-	@echo "exec_prefix=$(PREDIR)/bin" >> $(LIBDIR)/pkgconfig/xrender.pc
-	@echo "libdir=$(PREDIR)/lib" >> $(LIBDIR)/pkgconfig/xrender.pc
-	@echo "includedir=$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/xrender.pc
-	@echo "" >> $(LIBDIR)/pkgconfig/xrender.pc
-	@echo "Name: Xrender" >> $(LIBDIR)/pkgconfig/xrender.pc
-	@echo "Description: X Render Library" >> $(LIBDIR)/pkgconfig/xrender.pc
-	@echo "Version: 1.0.3" >> $(LIBDIR)/pkgconfig/xrender.pc
-	@echo "Requires: x11 xau xdmcp" >> $(LIBDIR)/pkgconfig/xrender.pc
-	@echo "Requires.private: x11 xau xdmcp" >> $(LIBDIR)/pkgconfig/xrender.pc
-	@echo "Cflags: -I$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/xrender.pc
-	@echo "Libs: -L$(PREDIR)/lib -lXrender" >> $(LIBDIR)/pkgconfig/xrender.pc
-	@echo "Libs.private: -L$(PREDIR)/lib -lXrender" >> $(LIBDIR)/pkgconfig/xrender.pc
+	@echo "prefix=$(PREFIX)" > $(DESTDIR)/$(LIBDIR)/pkgconfig/xrender.pc
+	@echo "exec_prefix=$(BINDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xrender.pc
+	@echo "libdir=$(LIBDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xrender.pc
+	@echo "includedir=$(INCDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xrender.pc
+	@echo "" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xrender.pc
+	@echo "Name: Xrender" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xrender.pc
+	@echo "Description: X Render Library" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xrender.pc
+	@echo "Version: 1.0.3" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xrender.pc
+	@echo "Requires: x11 xau xdmcp" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xrender.pc
+	@echo "Requires.private: x11 xau xdmcp" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xrender.pc
+	@echo "Cflags: -I$(INCDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xrender.pc
+	@echo "Libs: -L$(LIBDIR) -lXrender" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xrender.pc
+	@echo "Libs.private: -L$(LIBDIR) -lXrender" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xrender.pc
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

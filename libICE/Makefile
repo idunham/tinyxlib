@@ -21,25 +21,25 @@ clean:
 
 install:
 ifeq ($(STATIC),0)
-	cp -af libICE.so.6.3 $(LIBDIR)
-	cp -af libICE.so.6 $(LIBDIR)
-	cp -af libICE.so $(LIBDIR)
+	cp -af libICE.so.6.3 $(DESTDIR)/$(LIBDIR)
+	cp -af libICE.so.6 $(DESTDIR)/$(LIBDIR)
+	cp -af libICE.so $(DESTDIR)/$(LIBDIR)
 else
-	ln -s libX11.a $(LIBDIR)/libICE.a
+	ln -s libX11.a $(DESTDIR)/$(LIBDIR)/libICE.a
 endif
-	@echo "prefix=$(PREDIR)" > $(LIBDIR)/pkgconfig/ice.pc
-	@echo "exec_prefix=$(PREDIR)/bin" >> $(LIBDIR)/pkgconfig/ice.pc
-	@echo "libdir=$(PREDIR)/lib" >> $(LIBDIR)/pkgconfig/ice.pc
-	@echo "includedir=$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/ice.pc
-	@echo "" >> $(LIBDIR)/pkgconfig/ice.pc
-	@echo "Name: ICE" >> $(LIBDIR)/pkgconfig/ice.pc
-	@echo "Description: X Inter Client Exchange Library" >> $(LIBDIR)/pkgconfig/ice.pc
-	@echo "Version: 1.0.4" >> $(LIBDIR)/pkgconfig/ice.pc
-	@echo "Requires: x11" >> $(LIBDIR)/pkgconfig/ice.pc
-	@echo "Requires.private: x11" >> $(LIBDIR)/pkgconfig/ice.pc
-	@echo "Cflags: -I$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/ice.pc
-	@echo "Libs: -L$(PREDIR)/lib -lICE" >> $(LIBDIR)/pkgconfig/ice.pc
-	@echo "Libs.private: -L$(PREDIR)/lib -lICE" >> $(LIBDIR)/pkgconfig/ice.pc
+	@echo "prefix=$(PREFIX)" > $(DESTDIR)/$(LIBDIR)/pkgconfig/ice.pc
+	@echo "exec_prefix=$(BINDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/ice.pc
+	@echo "libdir=$(LIBDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/ice.pc
+	@echo "includedir=$(INCDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/ice.pc
+	@echo "" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/ice.pc
+	@echo "Name: ICE" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/ice.pc
+	@echo "Description: X Inter Client Exchange Library" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/ice.pc
+	@echo "Version: 1.0.4" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/ice.pc
+	@echo "Requires: x11" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/ice.pc
+	@echo "Requires.private: x11" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/ice.pc
+	@echo "Cflags: -I$(INCDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/ice.pc
+	@echo "Libs: -L$(LIBDIR) -lICE" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/ice.pc
+	@echo "Libs.private: -L$(LIBDIR) -lICE" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/ice.pc
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

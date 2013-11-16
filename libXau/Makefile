@@ -19,25 +19,25 @@ clean:
 
 install:
 ifeq ($(STATIC),0)
-	cp -af libXau.so.6.0 $(LIBDIR)
-	cp -af libXau.so.6 $(LIBDIR)
-	cp -af libXau.so $(LIBDIR)
+	cp -af libXau.so.6.0 $(DESTDIR)/$(LIBDIR)
+	cp -af libXau.so.6 $(DESTDIR)/$(LIBDIR)
+	cp -af libXau.so $(DESTDIR)/$(LIBDIR)
 else
-	ln -s libX11.a $(LIBDIR)/libXau.a
+	ln -s libX11.a $(DESTDIR)/$(LIBDIR)/libXau.a
 endif
-	@echo "prefix=$(PREDIR)" > $(LIBDIR)/pkgconfig/xau.pc
-	@echo "exec_prefix=$(PREDIR)/bin" >> $(LIBDIR)/pkgconfig/xau.pc
-	@echo "libdir=$(PREDIR)/lib" >> $(LIBDIR)/pkgconfig/xau.pc
-	@echo "includedir=$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/xau.pc
-	@echo "" >> $(LIBDIR)/pkgconfig/xau.pc
-	@echo "Name: Xau" >> $(LIBDIR)/pkgconfig/xau.pc
-	@echo "Description: X authorization file management libary" >> $(LIBDIR)/pkgconfig/xau.pc
-	@echo "Version: 1.0.3" >> $(LIBDIR)/pkgconfig/xau.pc
-	@echo "Requires:" >> $(LIBDIR)/pkgconfig/xau.pc
-	@echo "Requires.private:" >> $(LIBDIR)/pkgconfig/xau.pc
-	@echo "Cflags: -I$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/xau.pc
-	@echo "Libs: -L$(PREDIR)/lib -lXau" >> $(LIBDIR)/pkgconfig/xau.pc
-	@echo "Libs.private: -L$(PREDIR)/lib -lXau " >> $(LIBDIR)/pkgconfig/xau.pc
+	@echo "prefix=$(PREFIX)" > $(DESTDIR)/$(LIBDIR)/pkgconfig/xau.pc
+	@echo "exec_prefix=$(BINDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xau.pc
+	@echo "libdir=$(LIBDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xau.pc
+	@echo "includedir=$(INCDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xau.pc
+	@echo "" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xau.pc
+	@echo "Name: Xau" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xau.pc
+	@echo "Description: X authorization file management libary" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xau.pc
+	@echo "Version: 1.0.3" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xau.pc
+	@echo "Requires:" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xau.pc
+	@echo "Requires.private:" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xau.pc
+	@echo "Cflags: -I$(INCDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xau.pc
+	@echo "Libs: -L$(LIBDIR) -lXau" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xau.pc
+	@echo "Libs.private: -L$(LIBDIR) -lXau " >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xau.pc
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

@@ -19,25 +19,25 @@ clean:
 
 install:
 ifeq ($(STATIC),0)
-	cp -af libXtst.so.6.1 $(LIBDIR)
-	cp -af libXtst.so.6 $(LIBDIR)
-	cp -af libXtst.so $(LIBDIR)
+	cp -af libXtst.so.6.1 $(DESTDIR)/$(LIBDIR)
+	cp -af libXtst.so.6 $(DESTDIR)/$(LIBDIR)
+	cp -af libXtst.so $(DESTDIR)/$(LIBDIR)
 else
-	ln -s libX11.a $(LIBDIR)/libXtst.a
+	ln -s libX11.a $(DESTDIR)/$(LIBDIR)/libXtst.a
 endif
-	@echo "prefix=$(PREDIR)" > $(LIBDIR)/pkgconfig/xtst.pc
-	@echo "exec_prefix=$(PREDIR)/bin" >> $(LIBDIR)/pkgconfig/xtst.pc
-	@echo "libdir=$(PREDIR)/lib" >> $(LIBDIR)/pkgconfig/xtst.pc
-	@echo "includedir=$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/xtst.pc
-	@echo "" >> $(LIBDIR)/pkgconfig/xtst.pc
-	@echo "Name: Xtst" >> $(LIBDIR)/pkgconfig/xtst.pc
-	@echo "Description: The Xtst Library" >> $(LIBDIR)/pkgconfig/xtst.pc
-	@echo "Version: 1.0.3" >> $(LIBDIR)/pkgconfig/xtst.pc
-	@echo "Requires: xx11 xext" >> $(LIBDIR)/pkgconfig/xtst.pc
-	@echo "Requires.private: x11 xext" >> $(LIBDIR)/pkgconfig/xtst.pc
-	@echo "Cflags: -I$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/xtst.pc
-	@echo "Libs: -L$(PREDIR)/lib -lXtst" >> $(LIBDIR)/pkgconfig/xtst.pc
-	@echo "Libs.private: -L$(PREDIR)/lib -lXtst" >> $(LIBDIR)/pkgconfig/xtst.pc
+	@echo "prefix=$(PREFIX)" > $(DESTDIR)/$(LIBDIR)/pkgconfig/xtst.pc
+	@echo "exec_prefix=$(BINDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xtst.pc
+	@echo "libdir=$(LIBDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xtst.pc
+	@echo "includedir=$(INCDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xtst.pc
+	@echo "" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xtst.pc
+	@echo "Name: Xtst" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xtst.pc
+	@echo "Description: The Xtst Library" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xtst.pc
+	@echo "Version: 1.0.3" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xtst.pc
+	@echo "Requires: xx11 xext" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xtst.pc
+	@echo "Requires.private: x11 xext" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xtst.pc
+	@echo "Cflags: -I$(INCDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xtst.pc
+	@echo "Libs: -L$(LIBDIR) -lXtst" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xtst.pc
+	@echo "Libs.private: -L$(LIBDIR) -lXtst" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xtst.pc
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

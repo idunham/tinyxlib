@@ -6,10 +6,14 @@ COMMONDEFS = $(COMPFLAGS) -D_BSD_SOURCE -D_GNU_SOURCE
 
 LDFLAGS ?= -s
 
-LIBDIR ?= /usr/lib
-
-INCDIR ?= /usr/include
+DESTDIR ?=
 
 PREDIR ?= /usr
+
+BINDIR ?= $(PREDIR)/bin
+
+LIBDIR ?= $(PREDIR)/lib
+
+INCDIR ?= $(PREDIR)/include
 
 STATIC ?= 0

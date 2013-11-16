@@ -19,11 +19,11 @@ clean:
 
 install:
 ifeq ($(STATIC),0)
-	cp -af libXi.so.6.0 $(LIBDIR)
-	cp -af libXi.so.6 $(LIBDIR)
-	cp -af libXi.so $(LIBDIR)
+	cp -af libXi.so.6.0 $(DESTDIR)/$(LIBDIR)
+	cp -af libXi.so.6 $(DESTDIR)/$(LIBDIR)
+	cp -af libXi.so $(DESTDIR)/$(LIBDIR)
 else
-	ln -s libX11.a $(LIBDIR)/libXi.a
+	ln -s libX11.a $(DESTDIR)/$(LIBDIR)/libXi.a
 endif
 
 depend:

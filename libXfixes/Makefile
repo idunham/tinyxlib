@@ -19,25 +19,25 @@ clean:
 
 install:
 ifeq ($(STATIC),0)
-	cp -af libXfixes.so.3.0 $(LIBDIR)
-	cp -af libXfixes.so.3 $(LIBDIR)
-	cp -af libXfixes.so $(LIBDIR)
+	cp -af libXfixes.so.3.0 $(DESTDIR)/$(LIBDIR)
+	cp -af libXfixes.so.3 $(DESTDIR)/$(LIBDIR)
+	cp -af libXfixes.so $(DESTDIR)/$(LIBDIR)
 else
-	ln -s libX11.a $(LIBDIR)/libXfixes.a
+	ln -s libX11.a $(DESTDIR)/$(LIBDIR)/libXfixes.a
 endif
-	@echo "prefix=$(PREDIR)" > $(LIBDIR)/pkgconfig/xfixes.pc
-	@echo "exec_prefix=$(PREDIR)/bin" >> $(LIBDIR)/pkgconfig/xfixes.pc
-	@echo "libdir=$(PREDIR)/lib" >> $(LIBDIR)/pkgconfig/xfixes.pc
-	@echo "includedir=$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/xfixes.pc
-	@echo "" >> $(LIBDIR)/pkgconfig/xfixes.pc
-	@echo "Name: Xfixes" >> $(LIBDIR)/pkgconfig/xfixes.pc
-	@echo "Description: X Fixes  Library" >> $(LIBDIR)/pkgconfig/xfixes.pc
-	@echo "Version: 4.0.3" >> $(LIBDIR)/pkgconfig/xfixes.pc
-	@echo "Requires: x11" >> $(LIBDIR)/pkgconfig/xfixes.pc
-	@echo "Requires.private: x11" >> $(LIBDIR)/pkgconfig/xfixes.pc
-	@echo "Cflags: -I$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/xfixes.pc
-	@echo "Libs: -L$(PREDIR)/lib -lXfixes" >> $(LIBDIR)/pkgconfig/xfixes.pc
-	@echo "Libs.private: -L$(PREDIR)/lib -lXfixes" >> $(LIBDIR)/pkgconfig/xfixes.pc
+	@echo "prefix=$(PREFIX)" > $(DESTDIR)/$(LIBDIR)/pkgconfig/xfixes.pc
+	@echo "exec_prefix=$(BINDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xfixes.pc
+	@echo "libdir=$(LIBDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xfixes.pc
+	@echo "includedir=$(INCDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xfixes.pc
+	@echo "" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xfixes.pc
+	@echo "Name: Xfixes" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xfixes.pc
+	@echo "Description: X Fixes  Library" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xfixes.pc
+	@echo "Version: 4.0.3" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xfixes.pc
+	@echo "Requires: x11" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xfixes.pc
+	@echo "Requires.private: x11" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xfixes.pc
+	@echo "Cflags: -I$(INCDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xfixes.pc
+	@echo "Libs: -L$(LIBDIR) -lXfixes" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xfixes.pc
+	@echo "Libs.private: -L$(LIBDIR) -lXfixes" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xfixes.pc
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

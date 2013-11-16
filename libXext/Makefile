@@ -19,25 +19,25 @@ clean:
 
 install:
 ifeq ($(STATIC),0)
-	cp -af libXext.so.6.5 $(LIBDIR)
-	cp -af libXext.so.6 $(LIBDIR)
-	cp -af libXext.so $(LIBDIR)
+	cp -af libXext.so.6.5 $(DESTDIR)/$(LIBDIR)
+	cp -af libXext.so.6 $(DESTDIR)/$(LIBDIR)
+	cp -af libXext.so $(DESTDIR)/$(LIBDIR)
 else
-	ln -s libX11.a $(LIBDIR)/libXext.a
+	ln -s libX11.a $(DESTDIR)/$(LIBDIR)/libXext.a
 endif
-	@echo "prefix=$(PREDIR)" > $(LIBDIR)/pkgconfig/xext.pc
-	@echo "exec_prefix=$(PREDIR)/bin" >> $(LIBDIR)/pkgconfig/xext.pc
-	@echo "libdir=$(PREDIR)/lib" >> $(LIBDIR)/pkgconfig/xext.pc
-	@echo "includedir=$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/xext.pc
-	@echo "" >> $(LIBDIR)/pkgconfig/xext.pc
-	@echo "Name: Xext" >> $(LIBDIR)/pkgconfig/xext.pc
-	@echo "Description: Misc X Extension Library" >> $(LIBDIR)/pkgconfig/xext.pc
-	@echo "Version: 1.0.3" >> $(LIBDIR)/pkgconfig/xext.pc
-	@echo "Requires: x11 xau xdmcp" >> $(LIBDIR)/pkgconfig/xext.pc
-	@echo "Requires.private: x11 xau xdmcp" >> $(LIBDIR)/pkgconfig/xext.pc
-	@echo "Cflags: -I$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/xext.pc
-	@echo "Libs: -L$(PREDIR)/lib -lXext" >> $(LIBDIR)/pkgconfig/xext.pc
-	@echo "Libs.private: -L$(PREDIR)/lib -lXext" >> $(LIBDIR)/pkgconfig/xext.pc
+	@echo "prefix=$(PREFIX)" > $(DESTDIR)/$(LIBDIR)/pkgconfig/xext.pc
+	@echo "exec_prefix=$(BINDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xext.pc
+	@echo "libdir=$(LIBDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xext.pc
+	@echo "includedir=$(INCDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xext.pc
+	@echo "" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xext.pc
+	@echo "Name: Xext" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xext.pc
+	@echo "Description: Misc X Extension Library" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xext.pc
+	@echo "Version: 1.0.3" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xext.pc
+	@echo "Requires: x11 xau xdmcp" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xext.pc
+	@echo "Requires.private: x11 xau xdmcp" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xext.pc
+	@echo "Cflags: -I$(INCDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xext.pc
+	@echo "Libs: -L$(LIBDIR) -lXext" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xext.pc
+	@echo "Libs.private: -L$(LIBDIR) -lXext" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xext.pc
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

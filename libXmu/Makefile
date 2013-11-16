@@ -19,25 +19,25 @@ clean:
 
 install:
 ifeq ($(STATIC),0)
-	cp -af libXmu.so.6.2 $(LIBDIR)
-	cp -af libXmu.so.6 $(LIBDIR)
-	cp -af libXmu.so $(LIBDIR)
+	cp -af libXmu.so.6.2 $(DESTDIR)/$(LIBDIR)
+	cp -af libXmu.so.6 $(DESTDIR)/$(LIBDIR)
+	cp -af libXmu.so $(DESTDIR)/$(LIBDIR)
 else
-	ln -s libX11.a $(LIBDIR)/libXmu.a
+	ln -s libX11.a $(DESTDIR)/$(LIBDIR)/libXmu.a
 endif
-	@echo "prefix=$(PREDIR)" > $(LIBDIR)/pkgconfig/xmu.pc
-	@echo "exec_prefix=$(PREDIR)/bin" >> $(LIBDIR)/pkgconfig/xmu.pc
-	@echo "libdir=$(PREDIR)/lib" >> $(LIBDIR)/pkgconfig/xmu.pc
-	@echo "includedir=$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/xmu.pc
-	@echo "" >> $(LIBDIR)/pkgconfig/xmu.pc
-	@echo "Name: Xmu" >> $(LIBDIR)/pkgconfig/xmu.pc
-	@echo "Description: Xmu Library" >> $(LIBDIR)/pkgconfig/xmu.pc
-	@echo "Version: 1.0.3" >> $(LIBDIR)/pkgconfig/xmu.pc
-	@echo "Requires: xt sm ice xext x11 xau xdmcp" >> $(LIBDIR)/pkgconfig/xmu.pc
-	@echo "Requires.private: xt sm ice xext x11 xau xdmcp" >> $(LIBDIR)/pkgconfig/xmu.pc
-	@echo "Cflags: -I$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/xmu.pc
-	@echo "Libs: -L$(PREDIR)/lib -lXmu" >> $(LIBDIR)/pkgconfig/xmu.pc
-	@echo "Libs.private: -L$(PREDIR)/lib -lXmu" >> $(LIBDIR)/pkgconfig/xmu.pc
+	@echo "prefix=$(PREFIX)" > $(DESTDIR)/$(LIBDIR)/pkgconfig/xmu.pc
+	@echo "exec_prefix=$(BINDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xmu.pc
+	@echo "libdir=$(LIBDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xmu.pc
+	@echo "includedir=$(INCDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xmu.pc
+	@echo "" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xmu.pc
+	@echo "Name: Xmu" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xmu.pc
+	@echo "Description: Xmu Library" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xmu.pc
+	@echo "Version: 1.0.3" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xmu.pc
+	@echo "Requires: xt sm ice xext x11 xau xdmcp" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xmu.pc
+	@echo "Requires.private: xt sm ice xext x11 xau xdmcp" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xmu.pc
+	@echo "Cflags: -I$(INCDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xmu.pc
+	@echo "Libs: -L$(LIBDIR) -lXmu" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xmu.pc
+	@echo "Libs.private: -L$(LIBDIR) -lXmu" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xmu.pc
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

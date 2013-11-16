@@ -19,25 +19,25 @@ clean:
 
 install:
 ifeq ($(STATIC),0)
-	cp -af libXaw.so.7.1 $(LIBDIR)
-	cp -af libXaw.so.7 $(LIBDIR)
-	cp -af libXaw.so $(LIBDIR)
+	cp -af libXaw.so.7.1 $(DESTDIR)/$(LIBDIR)
+	cp -af libXaw.so.7 $(DESTDIR)/$(LIBDIR)
+	cp -af libXaw.so $(DESTDIR)/$(LIBDIR)
 else
-	ln -s libX11.a $(LIBDIR)/libXaw.a
+	ln -s libX11.a $(DESTDIR)/$(LIBDIR)/libXaw.a
 endif
-	@echo "prefix=$(PREDIR)" > $(LIBDIR)/pkgconfig/xaw7.pc
-	@echo "exec_prefix=$(PREDIR)/bin" >> $(LIBDIR)/pkgconfig/xaw7.pc
-	@echo "libdir=$(PREDIR)/lib" >> $(LIBDIR)/pkgconfig/xaw7.pc
-	@echo "includedir=$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/xaw7.pc
-	@echo "" >> $(LIBDIR)/pkgconfig/xaw7.pc
-	@echo "Name: Xaw" >> $(LIBDIR)/pkgconfig/xaw7.pc
-	@echo "Description: X Athena Widgets Library, version 7" >> $(LIBDIR)/pkgconfig/xaw7.pc
-	@echo "Version: 1.0.4" >> $(LIBDIR)/pkgconfig/xaw7.pc
-	@echo "Requires: xpm xproto xt xmu" >> $(LIBDIR)/pkgconfig/xaw7.pc
-	@echo "Requires.private: xpm xt xmu xext x11" >> $(LIBDIR)/pkgconfig/xaw7.pc
-	@echo "Cflags: -I$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/xaw7.pc
-	@echo "Libs: -L$(PREDIR)/lib -lXaw" >> $(LIBDIR)/pkgconfig/xaw7.pc
-	@echo "Libs.private: -L$(PREDIR)/lib -lXaw" >> $(LIBDIR)/pkgconfig/xaw7.pc
+	@echo "prefix=$(PREFIX)" > $(DESTDIR)/$(LIBDIR)/pkgconfig/xaw7.pc
+	@echo "exec_prefix=$(BINDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xaw7.pc
+	@echo "libdir=$(LIBDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xaw7.pc
+	@echo "includedir=$(INCDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xaw7.pc
+	@echo "" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xaw7.pc
+	@echo "Name: Xaw" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xaw7.pc
+	@echo "Description: X Athena Widgets Library, version 7" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xaw7.pc
+	@echo "Version: 1.0.4" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xaw7.pc
+	@echo "Requires: xpm xproto xt xmu" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xaw7.pc
+	@echo "Requires.private: xpm xt xmu xext x11" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xaw7.pc
+	@echo "Cflags: -I$(INCDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xaw7.pc
+	@echo "Libs: -L$(LIBDIR) -lXaw" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xaw7.pc
+	@echo "Libs.private: -L$(LIBDIR) -lXaw" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xaw7.pc
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

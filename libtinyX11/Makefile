@@ -34,25 +34,25 @@ clean:
 
 install:
 ifeq ($(STATIC),0)
-	cp -af libX11.so.6.2 $(LIBDIR)
-	cp -af libX11.so.6 $(LIBDIR)
-	cp -af libX11.so $(LIBDIR)
+	cp -af libX11.so.6.2 $(DESTDIR)/$(LIBDIR)
+	cp -af libX11.so.6 $(DESTDIR)/$(LIBDIR)
+	cp -af libX11.so $(DESTDIR)/$(LIBDIR)
 endif
-	@echo "prefix=$(PREDIR)" > $(LIBDIR)/pkgconfig/x11.pc
-	@echo "exec_prefix=$(PREDIR)/bin" >> $(LIBDIR)/pkgconfig/x11.pc
-	@echo "libdir=$(PREDIR)/lib" >> $(LIBDIR)/pkgconfig/x11.pc
-	@echo "includedir=$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/x11.pc
-	@echo "" >> $(LIBDIR)/pkgconfig/x11.pc
-	@echo "xthreadlib=-lpthread" >> $(LIBDIR)/pkgconfig/x11.pc
-	@echo "" >> $(LIBDIR)/pkgconfig/x11.pc
-	@echo "Name: X11" >> $(LIBDIR)/pkgconfig/x11.pc
-	@echo "Description: X Library" >> $(LIBDIR)/pkgconfig/x11.pc
-	@echo "Version: 1.1.3" >> $(LIBDIR)/pkgconfig/x11.pc
-	@echo "Requires: xau xdmcp " >> $(LIBDIR)/pkgconfig/x11.pc
-	@echo "Requires.private: xau xdmcp " >> $(LIBDIR)/pkgconfig/x11.pc
-	@echo "Cflags: -I$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/x11.pc
-	@echo "Libs: -L$(PREDIR)/lib -lX11" >> $(LIBDIR)/pkgconfig/x11.pc
-	@echo "Libs.private: -L$(PREDIR)/lib -lX11 -lpthread" >> $(LIBDIR)/pkgconfig/x11.pc
+	@echo "prefix=$(PREFIX)" > $(DESTDIR)/$(LIBDIR)/pkgconfig/x11.pc
+	@echo "exec_prefix=$(BINDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/x11.pc
+	@echo "libdir=$(LIBDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/x11.pc
+	@echo "includedir=$(INCDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/x11.pc
+	@echo "" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/x11.pc
+	@echo "xthreadlib=-lpthread" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/x11.pc
+	@echo "" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/x11.pc
+	@echo "Name: X11" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/x11.pc
+	@echo "Description: X Library" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/x11.pc
+	@echo "Version: 1.1.3" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/x11.pc
+	@echo "Requires: xau xdmcp " >> $(DESTDIR)/$(LIBDIR)/pkgconfig/x11.pc
+	@echo "Requires.private: xau xdmcp " >> $(DESTDIR)/$(LIBDIR)/pkgconfig/x11.pc
+	@echo "Cflags: -I$(INCDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/x11.pc
+	@echo "Libs: -L$(LIBDIR) -lX11" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/x11.pc
+	@echo "Libs.private: -L$(LIBDIR) -lX11 -lpthread" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/x11.pc
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

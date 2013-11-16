@@ -21,11 +21,11 @@ clean:
 
 install:
 ifeq ($(STATIC),0)
-	cp -af libXinerama.so.1.0 $(LIBDIR)
-	cp -af libXinerama.so.1 $(LIBDIR)
-	cp -af libXinerama.so $(LIBDIR)
+	cp -af libXinerama.so.1.0 $(DESTDIR)/$(LIBDIR)
+	cp -af libXinerama.so.1 $(DESTDIR)/$(LIBDIR)
+	cp -af libXinerama.so $(DESTDIR)/$(LIBDIR)
 else
-	ln -s libX11.a $(LIBDIR)/libXinerama.a
+	ln -s libX11.a $(DESTDIR)/$(LIBDIR)/libXinerama.a
 endif
 
 depend:

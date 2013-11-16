@@ -19,25 +19,25 @@ clean:
 
 install:
 ifeq ($(STATIC),0)
-	cp -af libXmuu.so.1.0 $(LIBDIR)
-	cp -af libXmuu.so.1 $(LIBDIR)
-	cp -af libXmuu.so $(LIBDIR)
+	cp -af libXmuu.so.1.0 $(DESTDIR)/$(LIBDIR)
+	cp -af libXmuu.so.1 $(DESTDIR)/$(LIBDIR)
+	cp -af libXmuu.so $(DESTDIR)/$(LIBDIR)
 else
-	ln -s libX11.a $(LIBDIR)/libXmuu.a
+	ln -s libX11.a $(DESTDIR)/$(LIBDIR)/libXmuu.a
 endif
-	@echo "prefix=$(PREDIR)" > $(LIBDIR)/pkgconfig/xmuu.pc
-	@echo "exec_prefix=$(PREDIR)/bin" >> $(LIBDIR)/pkgconfig/xmuu.pc
-	@echo "libdir=$(PREDIR)/lib" >> $(LIBDIR)/pkgconfig/xmuu.pc
-	@echo "includedir=$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/xmuu.pc
-	@echo "" >> $(LIBDIR)/pkgconfig/xmuu.pc
-	@echo "Name: Xmuu" >> $(LIBDIR)/pkgconfig/xmuu.pc
-	@echo "Description: Mini Xmu Library" >> $(LIBDIR)/pkgconfig/xmuu.pc
-	@echo "Version: 1.0.3" >> $(LIBDIR)/pkgconfig/xmuu.pc
-	@echo "Requires: x11 xau xdmcp" >> $(LIBDIR)/pkgconfig/xmuu.pc
-	@echo "Requires.private: x11 xau xdmcp" >> $(LIBDIR)/pkgconfig/xmuu.pc
-	@echo "Cflags: -I$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/xmuu.pc
-	@echo "Libs: -L$(PREDIR)/lib -lXmuu" >> $(LIBDIR)/pkgconfig/xmuu.pc
-	@echo "Libs.private: -L$(PREDIR)/lib -lXmuu" >> $(LIBDIR)/pkgconfig/xmuu.pc
+	@echo "prefix=$(PREFIX)" > $(DESTDIR)/$(LIBDIR)/pkgconfig/xmuu.pc
+	@echo "exec_prefix=$(BINDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xmuu.pc
+	@echo "libdir=$(LIBDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xmuu.pc
+	@echo "includedir=$(INCDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xmuu.pc
+	@echo "" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xmuu.pc
+	@echo "Name: Xmuu" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xmuu.pc
+	@echo "Description: Mini Xmu Library" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xmuu.pc
+	@echo "Version: 1.0.3" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xmuu.pc
+	@echo "Requires: x11 xau xdmcp" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xmuu.pc
+	@echo "Requires.private: x11 xau xdmcp" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xmuu.pc
+	@echo "Cflags: -I$(INCDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xmuu.pc
+	@echo "Libs: -L$(LIBDIR) -lXmuu" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xmuu.pc
+	@echo "Libs.private: -L$(LIBDIR) -lXmuu" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xmuu.pc
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

@@ -21,11 +21,11 @@ clean:
 
 install:
 ifeq ($(STATIC),0)
-	cp -af libXss.so.1.0 $(LIBDIR)
-	cp -af libXss.so.1 $(LIBDIR)
-	cp -af libXss.so $(LIBDIR)
+	cp -af libXss.so.1.0 $(DESTDIR)/$(LIBDIR)
+	cp -af libXss.so.1 $(DESTDIR)/$(LIBDIR)
+	cp -af libXss.so $(DESTDIR)/$(LIBDIR)
 else
-	ln -s libX11.a $(LIBDIR)/libXss.a
+	ln -s libX11.a $(DESTDIR)/$(LIBDIR)/libXss.a
 endif
 
 depend:

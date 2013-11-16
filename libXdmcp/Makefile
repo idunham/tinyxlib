@@ -19,25 +19,25 @@ clean:
 
 install:
 ifeq ($(STATIC),0)
-	cp -af libXdmcp.so.6.0 $(LIBDIR)
-	cp -af libXdmcp.so.6 $(LIBDIR)
-	cp -af libXdmcp.so $(LIBDIR)
+	cp -af libXdmcp.so.6.0 $(DESTDIR)/$(LIBDIR)
+	cp -af libXdmcp.so.6 $(DESTDIR)/$(LIBDIR)
+	cp -af libXdmcp.so $(DESTDIR)/$(LIBDIR)
 else
-	ln -s libX11.a $(LIBDIR)/libXdmcp.a
+	ln -s libX11.a $(DESTDIR)/$(LIBDIR)/libXdmcp.a
 endif
-	@echo "prefix=$(PREDIR)" > $(LIBDIR)/pkgconfig/xdmcp.pc
-	@echo "exec_prefix=$(PREDIR)/bin" >> $(LIBDIR)/pkgconfig/xdmcp.pc
-	@echo "libdir=$(PREDIR)/lib" >> $(LIBDIR)/pkgconfig/xdmcp.pc
-	@echo "includedir=$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/xdmcp.pc
-	@echo "" >> $(LIBDIR)/pkgconfig/xdmcp.pc
-	@echo "Name: Xdmcp" >> $(LIBDIR)/pkgconfig/xdmcp.pc
-	@echo "Description: X Display Manager Control Protocol library" >> $(LIBDIR)/pkgconfig/xdmcp.pc
-	@echo "Version: 1.0.2" >> $(LIBDIR)/pkgconfig/xdmcp.pc
-	@echo "Requires:" >> $(LIBDIR)/pkgconfig/xdmcp.pc
-	@echo "Requires.private: " >> $(LIBDIR)/pkgconfig/xdmcp.pc
-	@echo "Cflags: -I$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/xdmcp.pc
-	@echo "Libs: -L$(PREDIR)/lib -lXdmcp" >> $(LIBDIR)/pkgconfig/xdmcp.pc
-	@echo "Libs.private: -L$(PREDIR)/lib -lXdmcp" >> $(LIBDIR)/pkgconfig/xdmcp.pc
+	@echo "prefix=$(PREFIX)" > $(DESTDIR)/$(LIBDIR)/pkgconfig/xdmcp.pc
+	@echo "exec_prefix=$(BINDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xdmcp.pc
+	@echo "libdir=$(LIBDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xdmcp.pc
+	@echo "includedir=$(INCDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xdmcp.pc
+	@echo "" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xdmcp.pc
+	@echo "Name: Xdmcp" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xdmcp.pc
+	@echo "Description: X Display Manager Control Protocol library" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xdmcp.pc
+	@echo "Version: 1.0.2" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xdmcp.pc
+	@echo "Requires:" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xdmcp.pc
+	@echo "Requires.private: " >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xdmcp.pc
+	@echo "Cflags: -I$(INCDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xdmcp.pc
+	@echo "Libs: -L$(LIBDIR) -lXdmcp" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xdmcp.pc
+	@echo "Libs.private: -L$(LIBDIR) -lXdmcp" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/xdmcp.pc
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

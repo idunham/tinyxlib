@@ -19,25 +19,25 @@ clean:
 
 install:
 ifeq ($(STATIC),0)
-	cp -af libSM.so.6.0 $(LIBDIR)
-	cp -af libSM.so.6 $(LIBDIR)
-	cp -af libSM.so $(LIBDIR)
+	cp -af libSM.so.6.0 $(DESTDIR)/$(LIBDIR)
+	cp -af libSM.so.6 $(DESTDIR)/$(LIBDIR)
+	cp -af libSM.so $(DESTDIR)/$(LIBDIR)
 else
-	ln -s libX11.a $(LIBDIR)/libSM.a
+	ln -s libX11.a $(DESTDIR)/$(LIBDIR)/libSM.a
 endif
-	@echo "prefix=$(PREDIR)" > $(LIBDIR)/pkgconfig/sm.pc
-	@echo "exec_prefix=$(PREDIR)/bin" >> $(LIBDIR)/pkgconfig/sm.pc
-	@echo "libdir=$(PREDIR)/lib" >> $(LIBDIR)/pkgconfig/sm.pc
-	@echo "includedir=$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/sm.pc
-	@echo "" >> $(LIBDIR)/pkgconfig/sm.pc
-	@echo "Name: SM" >> $(LIBDIR)/pkgconfig/sm.pc
-	@echo "Description: X Session Management Library" >> $(LIBDIR)/pkgconfig/sm.pc
-	@echo "Version: 1.0.3" >> $(LIBDIR)/pkgconfig/sm.pc
-	@echo "Requires: ice" >> $(LIBDIR)/pkgconfig/sm.pc
-	@echo "Requires.private: ice" >> $(LIBDIR)/pkgconfig/sm.pc
-	@echo "Cflags: -I$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/sm.pc
-	@echo "Libs: -L$(PREDIR)/lib -lSM" >> $(LIBDIR)/pkgconfig/sm.pc
-	@echo "Libs.private: -L$(PREDIR)/lib -lSM" >> $(LIBDIR)/pkgconfig/sm.pc
+	@echo "prefix=$(PREFIX)" > $(DESTDIR)/$(LIBDIR)/pkgconfig/sm.pc
+	@echo "exec_prefix=$(BINDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/sm.pc
+	@echo "libdir=$(LIBDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/sm.pc
+	@echo "includedir=$(INCDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/sm.pc
+	@echo "" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/sm.pc
+	@echo "Name: SM" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/sm.pc
+	@echo "Description: X Session Management Library" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/sm.pc
+	@echo "Version: 1.0.3" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/sm.pc
+	@echo "Requires: ice" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/sm.pc
+	@echo "Requires.private: ice" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/sm.pc
+	@echo "Cflags: -I$(INCDIR)" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/sm.pc
+	@echo "Libs: -L$(LIBDIR) -lSM" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/sm.pc
+	@echo "Libs.private: -L$(LIBDIR) -lSM" >> $(DESTDIR)/$(LIBDIR)/pkgconfig/sm.pc
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

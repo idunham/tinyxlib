@@ -19,11 +19,11 @@ clean:
 
 install:
 ifeq ($(STATIC),0)
-	cp -af libXfont.so.6.0 $(LIBDIR)
-	cp -af libXfont.so.6 $(LIBDIR)
-	cp -af libXfont.so $(LIBDIR)
+	cp -af libXfont.so.6.0 $(DESTDIR)/$(LIBDIR)
+	cp -af libXfont.so.6 $(DESTDIR)/$(LIBDIR)
+	cp -af libXfont.so $(DESTDIR)/$(LIBDIR)
 else
-	ln -s libX11.a $(LIBDIR)/libXfont.a
+	ln -s libX11.a $(DESTDIR)/$(LIBDIR)/libXfont.a
 endif
 
 depend:

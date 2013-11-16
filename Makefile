@@ -47,10 +47,10 @@ clean:
 	cd libXfixes; make clean
 	cd libXcursor; make clean
 install:
+	mkdir -p $(DESTDIR)/$(LIBDIR)/pkgconfig $(DESTDIR)/$(INCDIR)
 ifeq ($(STATIC),1)
-	install -D -m 644 libX11.a $(LIBDIR)/libX11.a
+	install -m 644 libX11.a $(DESTDIR)/$(LIBDIR)/libX11.a
 endif
-	mkdir -p $(LIBDIR)/pkgconfig $(INCDIR)
 	cd libXau; make install
 	cd libtinyX11; make install
 	cd libICE; make install
