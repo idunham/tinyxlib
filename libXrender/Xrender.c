@@ -325,3 +325,155 @@ XRenderFindFormat (Display		*dpy,
     return 0;
 }
 
+XRenderPictFormat *
+XRenderFindStandardFormat (Display  *dpy,
+			   int	    format)
+{
+    static struct {
+	XRenderPictFormat   templ;
+	unsigned long	    mask;
+    } standardFormats[PictStandardNUM] = {
+	/* PictStandardARGB32 */
+	{
+	    {
+		0,			    /* id */
+		PictTypeDirect,		    /* type */
+		32,			    /* depth */
+		{			    /* direct */
+		    16,			    /* direct.red */
+		    0xff,		    /* direct.redMask */
+		    8,			    /* direct.green */
+		    0xff,		    /* direct.greenMask */
+		    0,			    /* direct.blue */
+		    0xff,		    /* direct.blueMask */
+		    24,			    /* direct.alpha */
+		    0xff,		    /* direct.alphaMask */
+		},
+		0,			    /* colormap */
+	    },
+	    PictFormatType |
+	    PictFormatDepth |
+	    PictFormatRed |
+	    PictFormatRedMask |
+	    PictFormatGreen |
+	    PictFormatGreenMask |
+	    PictFormatBlue |
+	    PictFormatBlueMask |
+	    PictFormatAlpha |
+	    PictFormatAlphaMask,
+	},
+	/* PictStandardRGB24 */
+	{
+	    {
+		0,			    /* id */
+		PictTypeDirect,		    /* type */
+		24,			    /* depth */
+		{			    /* direct */
+		    16,			    /* direct.red */
+		    0xff,		    /* direct.redMask */
+		    8,			    /* direct.green */
+		    0xff,		    /* direct.greenMask */
+		    0,			    /* direct.blue */
+		    0xff,		    /* direct.blueMask */
+		    0,			    /* direct.alpha */
+		    0x00,		    /* direct.alphaMask */
+		},
+		0,			    /* colormap */
+	    },
+	    PictFormatType |
+	    PictFormatDepth |
+	    PictFormatRed |
+	    PictFormatRedMask |
+	    PictFormatGreen |
+	    PictFormatGreenMask |
+	    PictFormatBlue |
+	    PictFormatBlueMask |
+	    PictFormatAlphaMask,
+	},
+	/* PictStandardA8 */
+	{
+	    {
+		0,			    /* id */
+		PictTypeDirect,		    /* type */
+		8,			    /* depth */
+		{			    /* direct */
+		    0,			    /* direct.red */
+		    0x00,		    /* direct.redMask */
+		    0,			    /* direct.green */
+		    0x00,		    /* direct.greenMask */
+		    0,			    /* direct.blue */
+		    0x00,		    /* direct.blueMask */
+		    0,			    /* direct.alpha */
+		    0xff,		    /* direct.alphaMask */
+		},
+		0,			    /* colormap */
+	    },
+	    PictFormatType |
+	    PictFormatDepth |
+	    PictFormatRedMask |
+	    PictFormatGreenMask |
+	    PictFormatBlueMask |
+	    PictFormatAlpha |
+	    PictFormatAlphaMask,
+	},
+	/* PictStandardA4 */
+	{
+	    {
+		0,			    /* id */
+		PictTypeDirect,		    /* type */
+		4,			    /* depth */
+		{			    /* direct */
+		    0,			    /* direct.red */
+		    0x00,		    /* direct.redMask */
+		    0,			    /* direct.green */
+		    0x00,		    /* direct.greenMask */
+		    0,			    /* direct.blue */
+		    0x00,		    /* direct.blueMask */
+		    0,			    /* direct.alpha */
+		    0x0f,		    /* direct.alphaMask */
+		},
+		0,			    /* colormap */
+	    },
+	    PictFormatType |
+	    PictFormatDepth |
+	    PictFormatRedMask |
+	    PictFormatGreenMask |
+	    PictFormatBlueMask |
+	    PictFormatAlpha |
+	    PictFormatAlphaMask,
+	},
+	/* PictStandardA1 */
+	{
+	    {
+		0,			    /* id */
+		PictTypeDirect,		    /* type */
+		1,			    /* depth */
+		{			    /* direct */
+		    0,			    /* direct.red */
+		    0x00,		    /* direct.redMask */
+		    0,			    /* direct.green */
+		    0x00,		    /* direct.greenMask */
+		    0,			    /* direct.blue */
+		    0x00,		    /* direct.blueMask */
+		    0,			    /* direct.alpha */
+		    0x01,		    /* direct.alphaMask */
+		},
+		0,			    /* colormap */
+	    },
+	    PictFormatType |
+	    PictFormatDepth |
+	    PictFormatRedMask |
+	    PictFormatGreenMask |
+	    PictFormatBlueMask |
+	    PictFormatAlpha |
+	    PictFormatAlphaMask,
+	},
+    };
+
+    if (0 <= format && format < PictStandardNUM)
+	return XRenderFindFormat (dpy,
+				  standardFormats[format].mask,
+				  &standardFormats[format].templ,
+				  0);
+    return NULL;
+}
