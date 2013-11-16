@@ -7,25 +7,37 @@ CFLAGS= -I../include -I../include/X11 $(COMMONDEFS) $(DEFS)
 OBJS=$(wildcard *.c)
 
 all:	$(OBJS:.c=.o)
-	@echo "prefix=$(PREDIR)" > xmuu.pc
-	@echo "exec_prefix=$(PREDIR)/bin" >> xmuu.pc
-	@echo "libdir=$(PREDIR)/lib" >> xmuu.pc
-	@echo "includedir=$(PREDIR)/include" >> xmuu.pc
-	@echo "" >> xmuu.pc
-	@echo "Name: Xmuu" >> xmuu.pc
-	@echo "Description: Mini Xmu Library" >> xmuu.pc
-	@echo "Version: 1.0.3" >> xmuu.pc
-	@echo "Requires: x11 xau xdmcp" >> xmuu.pc
-	@echo "Requires.private: x11 xau xdmcp" >> xmuu.pc
-	@echo "Cflags: -I$(PREDIR)/include" >> xmuu.pc
-	@echo "Libs: -L$(PREDIR)/lib -lXmuu" >> xmuu.pc
-	@echo "Libs.private: -L$(PREDIR)/lib -lXmuu" >> xmuu.pc
+ifeq ($(STATIC),0)
+	$(CC) $(LDFLAGS) -o libXmuu.so.1.0~ -shared -Wl,-soname,libXmuu.so.1 $(OBJS:.c=.o)
+	mv -f libXmuu.so.1.0~ libXmuu.so.1.0
+	ln -s libXmuu.so.1.0 libXmuu.so.1
+	ln -s libXmuu.so.1.0 libXmuu.so
+endif
 
 clean:
-	rm -f *.o xmuu.pc
+	rm -f *.o *.so*
 
 install:
+ifeq ($(STATIC),0)
+	cp -af libXmuu.so.1.0 $(LIBDIR)
+	cp -af libXmuu.so.1 $(LIBDIR)
+	cp -af libXmuu.so $(LIBDIR)
+else
 	ln -s libX11.a $(LIBDIR)/libXmuu.a
+endif
+	@echo "prefix=$(PREDIR)" > $(LIBDIR)/pkgconfig/xmuu.pc
+	@echo "exec_prefix=$(PREDIR)/bin" >> $(LIBDIR)/pkgconfig/xmuu.pc
+	@echo "libdir=$(PREDIR)/lib" >> $(LIBDIR)/pkgconfig/xmuu.pc
+	@echo "includedir=$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/xmuu.pc
+	@echo "" >> $(LIBDIR)/pkgconfig/xmuu.pc
+	@echo "Name: Xmuu" >> $(LIBDIR)/pkgconfig/xmuu.pc
+	@echo "Description: Mini Xmu Library" >> $(LIBDIR)/pkgconfig/xmuu.pc
+	@echo "Version: 1.0.3" >> $(LIBDIR)/pkgconfig/xmuu.pc
+	@echo "Requires: x11 xau xdmcp" >> $(LIBDIR)/pkgconfig/xmuu.pc
+	@echo "Requires.private: x11 xau xdmcp" >> $(LIBDIR)/pkgconfig/xmuu.pc
+	@echo "Cflags: -I$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/xmuu.pc
+	@echo "Libs: -L$(PREDIR)/lib -lXmuu" >> $(LIBDIR)/pkgconfig/xmuu.pc
+	@echo "Libs.private: -L$(PREDIR)/lib -lXmuu" >> $(LIBDIR)/pkgconfig/xmuu.pc
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

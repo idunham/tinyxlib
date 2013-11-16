@@ -9,25 +9,37 @@ CFLAGS= -I../include -I../include/X11 $(COMMONDEFS) $(DEFS)
 OBJS=$(wildcard *.c)
 
 all:	$(OBJS:.c=.o)
-	@echo "prefix=$(PREDIR)" > xt.pc
-	@echo "exec_prefix=$(PREDIR)/bin" >> xt.pc
-	@echo "libdir=$(PREDIR)/lib" >> xt.pc
-	@echo "includedir=$(PREDIR)/include" >> xt.pc
-	@echo "" >> xt.pc
-	@echo "Name: Xt" >> xt.pc
-	@echo "Description: X Toolkit Library" >> xt.pc
-	@echo "Version: 1.0.5" >> xt.pc
-	@echo "Requires: sm ice x11 xau xdmcp" >> xt.pc
-	@echo "Requires.private: sm ice x11 xau xdmcp" >> xt.pc
-	@echo "Cflags: -I$(PREDIR)/include" >> xt.pc
-	@echo "Libs: -L$(PREDIR)/lib -lXt" >> xt.pc
-	@echo "Libs.private: -L$(PREDIR)/lib -lXt" >> xt.pc
+ifeq ($(STATIC),0)
+	$(CC) $(LDFLAGS) -o libXt.so.6.1~ -shared -Wl,-soname,libXt.so.6 $(OBJS:.c=.o)
+	mv -f libXt.so.6.1~ libXt.so.6.1
+	ln -s libXt.so.6.1 libXt.so.6
+	ln -s libXt.so.6.1 libXt.so
+endif
 
 clean:
-	rm -f *.o xt.pc
+	rm -f *.o *.so*
 
 install:
+ifeq ($(STATIC),0)
+	cp -af libXt.so.6.1 $(LIBDIR)
+	cp -af libXt.so.6 $(LIBDIR)
+	cp -af libXt.so $(LIBDIR)
+else
 	ln -s libX11.a $(LIBDIR)/libXt.a
+endif
+	@echo "prefix=$(PREDIR)" > $(LIBDIR)/pkgconfig/xt.pc
+	@echo "exec_prefix=$(PREDIR)/bin" >> $(LIBDIR)/pkgconfig/xt.pc
+	@echo "libdir=$(PREDIR)/lib" >> $(LIBDIR)/pkgconfig/xt.pc
+	@echo "includedir=$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/xt.pc
+	@echo "" >> $(LIBDIR)/pkgconfig/xt.pc
+	@echo "Name: Xt" >> $(LIBDIR)/pkgconfig/xt.pc
+	@echo "Description: X Toolkit Library" >> $(LIBDIR)/pkgconfig/xt.pc
+	@echo "Version: 1.0.5" >> $(LIBDIR)/pkgconfig/xt.pc
+	@echo "Requires: sm ice x11 xau xdmcp" >> $(LIBDIR)/pkgconfig/xt.pc
+	@echo "Requires.private: sm ice x11 xau xdmcp" >> $(LIBDIR)/pkgconfig/xt.pc
+	@echo "Cflags: -I$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/xt.pc
+	@echo "Libs: -L$(PREDIR)/lib -lXt" >> $(LIBDIR)/pkgconfig/xt.pc
+	@echo "Libs.private: -L$(PREDIR)/lib -lXt" >> $(LIBDIR)/pkgconfig/xt.pc
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

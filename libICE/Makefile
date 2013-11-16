@@ -9,25 +9,37 @@ CFLAGS= -I../include -I../include/X11 -I../libxtrans $(COMMONDEFS) $(DEFS)
 OBJS=$(wildcard *.c)
 
 all:	$(OBJS:.c=.o)
-	@echo "prefix=$(PREDIR)" > ice.pc
-	@echo "exec_prefix=$(PREDIR)/bin" >> ice.pc
-	@echo "libdir=$(PREDIR)/lib" >> ice.pc
-	@echo "includedir=$(PREDIR)/include" >> ice.pc
-	@echo "" >> ice.pc
-	@echo "Name: ICE" >> ice.pc
-	@echo "Description: X Inter Client Exchange Library" >> ice.pc
-	@echo "Version: 1.0.4" >> ice.pc
-	@echo "Requires: x11" >> ice.pc
-	@echo "Requires.private: x11" >> ice.pc
-	@echo "Cflags: -I$(PREDIR)/include" >> ice.pc
-	@echo "Libs: -L$(PREDIR)/lib -lICE" >> ice.pc
-	@echo "Libs.private: -L$(PREDIR)/lib -lICE" >> ice.pc
+ifeq ($(STATIC),0)
+	$(CC) $(LDFLAGS) -o libICE.so.6.3~ -shared -Wl,-soname,libICE.so.6 $(OBJS:.c=.o)
+	mv -f libICE.so.6.3~ libICE.so.6.3
+	ln -s libICE.so.6.3 libICE.so.6
+	ln -s libICE.so.6.3 libICE.so
+endif
 
 clean:
-	rm -f *.o ice.pc
+	rm -f *.o *.so*
 
 install:
+ifeq ($(STATIC),0)
+	cp -af libICE.so.6.3 $(LIBDIR)
+	cp -af libICE.so.6 $(LIBDIR)
+	cp -af libICE.so $(LIBDIR)
+else
 	ln -s libX11.a $(LIBDIR)/libICE.a
+endif
+	@echo "prefix=$(PREDIR)" > $(LIBDIR)/pkgconfig/ice.pc
+	@echo "exec_prefix=$(PREDIR)/bin" >> $(LIBDIR)/pkgconfig/ice.pc
+	@echo "libdir=$(PREDIR)/lib" >> $(LIBDIR)/pkgconfig/ice.pc
+	@echo "includedir=$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/ice.pc
+	@echo "" >> $(LIBDIR)/pkgconfig/ice.pc
+	@echo "Name: ICE" >> $(LIBDIR)/pkgconfig/ice.pc
+	@echo "Description: X Inter Client Exchange Library" >> $(LIBDIR)/pkgconfig/ice.pc
+	@echo "Version: 1.0.4" >> $(LIBDIR)/pkgconfig/ice.pc
+	@echo "Requires: x11" >> $(LIBDIR)/pkgconfig/ice.pc
+	@echo "Requires.private: x11" >> $(LIBDIR)/pkgconfig/ice.pc
+	@echo "Cflags: -I$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/ice.pc
+	@echo "Libs: -L$(PREDIR)/lib -lICE" >> $(LIBDIR)/pkgconfig/ice.pc
+	@echo "Libs.private: -L$(PREDIR)/lib -lICE" >> $(LIBDIR)/pkgconfig/ice.pc
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

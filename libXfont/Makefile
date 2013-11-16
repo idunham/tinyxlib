@@ -7,12 +7,24 @@ CFLAGS= -I../include -I./include -I../include/X11 -I../libxtrans $(COMMONDEFS) $
 OBJS=$(wildcard bitmap/*.c fontfile/*.c fontcache/*.c fc/*.c  util/*.c stubs/*.c)
 
 all:	$(OBJS:.c=.o)
+ifeq ($(STATIC),0)
+	$(CC) $(LDFLAGS) -o libXfont.so.6.0~ -shared -Wl,-soname,libXfont.so.6 $(OBJS:.c=.o)
+	mv -f libXfont.so.6.0~ libXfont.so.6.0
+	ln -s libXfont.so.6.0 libXfont.so.6
+	ln -s libXfont.so.6.0 libXfont.so
+endif
 
 clean:
-	rm -f bitmap/*.o fontfile/*.o fontcache/*.o fc/*.o  util/*.o stubs/*.o
+	rm -f bitmap/*.o fontfile/*.o fontcache/*.o fc/*.o  util/*.o stubs/*.o *.so*
 
 install:
+ifeq ($(STATIC),0)
+	cp -af libXfont.so.6.0 $(LIBDIR)
+	cp -af libXfont.so.6 $(LIBDIR)
+	cp -af libXfont.so $(LIBDIR)
+else
 	ln -s libX11.a $(LIBDIR)/libXfont.a
+endif
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

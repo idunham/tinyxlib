@@ -9,12 +9,24 @@ CFLAGS= -I../include -I../include/X11 $(COMMONDEFS) $(DEFS)
 OBJS=$(wildcard *.c)
 
 all:	$(OBJS:.c=.o)
+ifeq ($(STATIC),0)
+	$(CC) $(LDFLAGS) -o libXss.so.1.0~ -shared -Wl,-soname,libXss.so.6 $(OBJS:.c=.o)
+	mv -f libXss.so.1.0~ libXss.so.1.0
+	ln -s libXss.so.1.0 libXss.so.1
+	ln -s libXss.so.1.0 libXss.so
+endif
 
 clean:
-	rm -f *.o
+	rm -f *.o *.so*
 
 install:
+ifeq ($(STATIC),0)
+	cp -af libXss.so.1.0 $(LIBDIR)
+	cp -af libXss.so.1 $(LIBDIR)
+	cp -af libXss.so $(LIBDIR)
+else
 	ln -s libX11.a $(LIBDIR)/libXss.a
+endif
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

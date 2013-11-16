@@ -7,25 +7,37 @@ CFLAGS= -I../include -I../include/X11 $(COMMONDEFS) $(DEFS)
 OBJS=$(wildcard *.c)
 
 all:	$(OBJS:.c=.o)
-	@echo "prefix=$(PREDIR)" > xcursor.pc
-	@echo "exec_prefix=$(PREDIR)/bin" >> xcursor.pc
-	@echo "libdir=$(PREDIR)/lib" >> xcursor.pc
-	@echo "includedir=$(PREDIR)/include" >> xcursor.pc
-	@echo "" >> xcursor.pc
-	@echo "Name: Xcursor" >> xcursor.pc
-	@echo "Description: X Cursor library" >> xcursor.pc
-	@echo "Version: .0" >> xcursor.pc
-	@echo "Requires:" >> xcursor.pc
-	@echo "Requires.private:" >> xcursor.pc
-	@echo "Cflags: -I$(PREDIR)/include" >> xcursor.pc
-	@echo "Libs: -L$(PREDIR)/lib -lXcursor" >> xcursor.pc
-	@echo "Libs.private: -L$(PREDIR)/lib -lXcursor" >> xcursor.pc
+ifeq ($(STATIC),0)
+	$(CC) $(LDFLAGS) -o libXcursor.so.6.0~ -shared -Wl,-soname,libXcursor.so.6 $(OBJS:.c=.o)
+	mv -f libXcursor.so.6.0~ libXcursor.so.6.0
+	ln -s libXcursor.so.6.0 libXcursor.so.6
+	ln -s libXcursor.so.6.0 libXcursor.so
+endif
 
 clean:
-	rm -f *.o xcursor.pc
+	rm -f *.o *.so*
 
 install:
+ifeq ($(STATIC),0)
+	cp -af libXcursor.so.6.0 $(LIBDIR)
+	cp -af libXcursor.so.6 $(LIBDIR)
+	cp -af libXcursor.so $(LIBDIR)
+else
 	ln -s libX11.a $(LIBDIR)/libXcursor.a
+endif
+	@echo "prefix=$(PREDIR)" > $(LIBDIR)/pkgconfig/xcursor.pc
+	@echo "exec_prefix=$(PREDIR)/bin" >> $(LIBDIR)/pkgconfig/xcursor.pc
+	@echo "libdir=$(PREDIR)/lib" >> $(LIBDIR)/pkgconfig/xcursor.pc
+	@echo "includedir=$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/xcursor.pc
+	@echo "" >> $(LIBDIR)/pkgconfig/xcursor.pc
+	@echo "Name: Xcursor" >> $(LIBDIR)/pkgconfig/xcursor.pc
+	@echo "Description: X Cursor library" >> $(LIBDIR)/pkgconfig/xcursor.pc
+	@echo "Version: .0" >> $(LIBDIR)/pkgconfig/xcursor.pc
+	@echo "Requires:" >> $(LIBDIR)/pkgconfig/xcursor.pc
+	@echo "Requires.private:" >> $(LIBDIR)/pkgconfig/xcursor.pc
+	@echo "Cflags: -I$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/xcursor.pc
+	@echo "Libs: -L$(PREDIR)/lib -lXcursor" >> $(LIBDIR)/pkgconfig/xcursor.pc
+	@echo "Libs.private: -L$(PREDIR)/lib -lXcursor" >> $(LIBDIR)/pkgconfig/xcursor.pc
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

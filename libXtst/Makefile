@@ -7,25 +7,37 @@ CFLAGS= -I../include -I../include/X11 $(COMMONDEFS) $(DEFS)
 OBJS=$(wildcard *.c)
 
 all:	$(OBJS:.c=.o)
-	@echo "prefix=$(PREDIR)" > xtst.pc
-	@echo "exec_prefix=$(PREDIR)/bin" >> xtst.pc
-	@echo "libdir=$(PREDIR)/lib" >> xtst.pc
-	@echo "includedir=$(PREDIR)/include" >> xtst.pc
-	@echo "" >> xtst.pc
-	@echo "Name: Xtst" >> xtst.pc
-	@echo "Description: The Xtst Library" >> xtst.pc
-	@echo "Version: 1.0.3" >> xtst.pc
-	@echo "Requires: xx11 xext" >> xtst.pc
-	@echo "Requires.private: x11 xext" >> xtst.pc
-	@echo "Cflags: -I$(PREDIR)/include" >> xtst.pc
-	@echo "Libs: -L$(PREDIR)/lib -lXtst" >> xtst.pc
-	@echo "Libs.private: -L$(PREDIR)/lib -lXtst" >> xtst.pc
+ifeq ($(STATIC),0)
+	$(CC) $(LDFLAGS) -o libXtst.so.6.1~ -shared -Wl,-soname,libXtst.so.6 $(OBJS:.c=.o)
+	mv -f libXtst.so.6.1~ libXtst.so.6.1
+	ln -s libXtst.so.6.1 libXtst.so.6
+	ln -s libXtst.so.6.1 libXtst.so
+endif
 
 clean:
-	rm -f *.o xtst.pc
+	rm -f *.o *.so*
 
 install:
+ifeq ($(STATIC),0)
+	cp -af libXtst.so.6.1 $(LIBDIR)
+	cp -af libXtst.so.6 $(LIBDIR)
+	cp -af libXtst.so $(LIBDIR)
+else
 	ln -s libX11.a $(LIBDIR)/libXtst.a
+endif
+	@echo "prefix=$(PREDIR)" > $(LIBDIR)/pkgconfig/xtst.pc
+	@echo "exec_prefix=$(PREDIR)/bin" >> $(LIBDIR)/pkgconfig/xtst.pc
+	@echo "libdir=$(PREDIR)/lib" >> $(LIBDIR)/pkgconfig/xtst.pc
+	@echo "includedir=$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/xtst.pc
+	@echo "" >> $(LIBDIR)/pkgconfig/xtst.pc
+	@echo "Name: Xtst" >> $(LIBDIR)/pkgconfig/xtst.pc
+	@echo "Description: The Xtst Library" >> $(LIBDIR)/pkgconfig/xtst.pc
+	@echo "Version: 1.0.3" >> $(LIBDIR)/pkgconfig/xtst.pc
+	@echo "Requires: xx11 xext" >> $(LIBDIR)/pkgconfig/xtst.pc
+	@echo "Requires.private: x11 xext" >> $(LIBDIR)/pkgconfig/xtst.pc
+	@echo "Cflags: -I$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/xtst.pc
+	@echo "Libs: -L$(PREDIR)/lib -lXtst" >> $(LIBDIR)/pkgconfig/xtst.pc
+	@echo "Libs.private: -L$(PREDIR)/lib -lXtst" >> $(LIBDIR)/pkgconfig/xtst.pc
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

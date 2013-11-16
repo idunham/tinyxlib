@@ -11,3 +11,5 @@ LIBDIR ?= /usr/lib
 INCDIR ?= /usr/include
 
 PREDIR ?= /usr
+
+STATIC ?= 0

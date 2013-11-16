@@ -7,25 +7,37 @@ CFLAGS= -I../include -I../include/X11 $(COMMONDEFS) $(DEFS)
 OBJS=$(wildcard *.c)
 
 all:	$(OBJS:.c=.o)
-	@echo "prefix=$(PREDIR)" > xau.pc
-	@echo "exec_prefix=$(PREDIR)/bin" >> xau.pc
-	@echo "libdir=$(PREDIR)/lib" >> xau.pc
-	@echo "includedir=$(PREDIR)/include" >> xau.pc
-	@echo "" >> xau.pc
-	@echo "Name: Xau" >> xau.pc
-	@echo "Description: X authorization file management libary" >> xau.pc
-	@echo "Version: 1.0.3" >> xau.pc
-	@echo "Requires:" >> xau.pc
-	@echo "Requires.private:" >> xau.pc
-	@echo "Cflags: -I$(PREDIR)/include" >> xau.pc
-	@echo "Libs: -L$(PREDIR)/lib -lXau" >> xau.pc
-	@echo "Libs.private: -L$(PREDIR)/lib -lXau " >> xau.pc
+ifeq ($(STATIC),0)
+	$(CC) $(LDFLAGS) -o libXau.so.6.0~ -shared -Wl,-soname,libXau.so.6 $(OBJS:.c=.o)
+	mv -f libXau.so.6.0~ libXau.so.6.0
+	ln -s libXau.so.6.0 libXau.so.6
+	ln -s libXau.so.6.0 libXau.so
+endif
 
 clean:
-	rm -f *.o xau.pc
+	rm -f *.o *.so*
 
 install:
+ifeq ($(STATIC),0)
+	cp -af libXau.so.6.0 $(LIBDIR)
+	cp -af libXau.so.6 $(LIBDIR)
+	cp -af libXau.so $(LIBDIR)
+else
 	ln -s libX11.a $(LIBDIR)/libXau.a
+endif
+	@echo "prefix=$(PREDIR)" > $(LIBDIR)/pkgconfig/xau.pc
+	@echo "exec_prefix=$(PREDIR)/bin" >> $(LIBDIR)/pkgconfig/xau.pc
+	@echo "libdir=$(PREDIR)/lib" >> $(LIBDIR)/pkgconfig/xau.pc
+	@echo "includedir=$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/xau.pc
+	@echo "" >> $(LIBDIR)/pkgconfig/xau.pc
+	@echo "Name: Xau" >> $(LIBDIR)/pkgconfig/xau.pc
+	@echo "Description: X authorization file management libary" >> $(LIBDIR)/pkgconfig/xau.pc
+	@echo "Version: 1.0.3" >> $(LIBDIR)/pkgconfig/xau.pc
+	@echo "Requires:" >> $(LIBDIR)/pkgconfig/xau.pc
+	@echo "Requires.private:" >> $(LIBDIR)/pkgconfig/xau.pc
+	@echo "Cflags: -I$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/xau.pc
+	@echo "Libs: -L$(PREDIR)/lib -lXau" >> $(LIBDIR)/pkgconfig/xau.pc
+	@echo "Libs.private: -L$(PREDIR)/lib -lXau " >> $(LIBDIR)/pkgconfig/xau.pc
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

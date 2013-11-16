@@ -7,25 +7,37 @@ CFLAGS= -I../include -I../include/X11 $(COMMONDEFS) $(DEFS)
 OBJS=$(wildcard *.c)
 
 all:	$(OBJS:.c=.o)
-	@echo "prefix=$(PREDIR)" > sm.pc
-	@echo "exec_prefix=$(PREDIR)/bin" >> sm.pc
-	@echo "libdir=$(PREDIR)/lib" >> sm.pc
-	@echo "includedir=$(PREDIR)/include" >> sm.pc
-	@echo "" >> sm.pc
-	@echo "Name: SM" >> sm.pc
-	@echo "Description: X Session Management Library" >> sm.pc
-	@echo "Version: 1.0.3" >> sm.pc
-	@echo "Requires: ice" >> sm.pc
-	@echo "Requires.private: ice" >> sm.pc
-	@echo "Cflags: -I$(PREDIR)/include" >> sm.pc
-	@echo "Libs: -L$(PREDIR)/lib -lSM" >> sm.pc
-	@echo "Libs.private: -L$(PREDIR)/lib -lSM" >> sm.pc
+ifeq ($(STATIC),0)
+	$(CC) $(LDFLAGS) -o libSM.so.6.0~ -shared -Wl,-soname,libSM.so.6 $(OBJS:.c=.o)
+	mv -f libSM.so.6.0~ libSM.so.6.0
+	ln -s libSM.so.6.0 libSM.so.6
+	ln -s libSM.so.6.0 libSM.so
+endif
 
 clean:
-	rm -f *.o sm.pc
+	rm -f *.o *.so*
 
 install:
+ifeq ($(STATIC),0)
+	cp -af libSM.so.6.0 $(LIBDIR)
+	cp -af libSM.so.6 $(LIBDIR)
+	cp -af libSM.so $(LIBDIR)
+else
 	ln -s libX11.a $(LIBDIR)/libSM.a
+endif
+	@echo "prefix=$(PREDIR)" > $(LIBDIR)/pkgconfig/sm.pc
+	@echo "exec_prefix=$(PREDIR)/bin" >> $(LIBDIR)/pkgconfig/sm.pc
+	@echo "libdir=$(PREDIR)/lib" >> $(LIBDIR)/pkgconfig/sm.pc
+	@echo "includedir=$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/sm.pc
+	@echo "" >> $(LIBDIR)/pkgconfig/sm.pc
+	@echo "Name: SM" >> $(LIBDIR)/pkgconfig/sm.pc
+	@echo "Description: X Session Management Library" >> $(LIBDIR)/pkgconfig/sm.pc
+	@echo "Version: 1.0.3" >> $(LIBDIR)/pkgconfig/sm.pc
+	@echo "Requires: ice" >> $(LIBDIR)/pkgconfig/sm.pc
+	@echo "Requires.private: ice" >> $(LIBDIR)/pkgconfig/sm.pc
+	@echo "Cflags: -I$(PREDIR)/include" >> $(LIBDIR)/pkgconfig/sm.pc
+	@echo "Libs: -L$(PREDIR)/lib -lSM" >> $(LIBDIR)/pkgconfig/sm.pc
+	@echo "Libs.private: -L$(PREDIR)/lib -lSM" >> $(LIBDIR)/pkgconfig/sm.pc
 
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

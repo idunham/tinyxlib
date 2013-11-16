@@ -1,7 +1,6 @@
 include	./standard_definitions.mk
 
 all:
-	rm -f libX11.a
 	cd libXau; make
 	cd libtinyX11; make
 	cd libICE; make
@@ -22,8 +21,11 @@ all:
 	cd libXss; make
 	cd libXfixes; make
 	cd libXcursor; make
+ifeq ($(STATIC),1)
 	ar cr libX11.a `find -name '*.o'`
+endif
 clean:
+	rm -f libX11.a
 	cd libtinyX11; make clean
 	cd libICE; make clean
 	cd libSM; make clean
@@ -44,8 +46,11 @@ clean:
 	cd libXss; make clean
 	cd libXfixes; make clean
 	cd libXcursor; make clean
-install: libX11.a
+install:
+ifeq ($(STATIC),1)
 	install -D -m 644 libX11.a $(LIBDIR)/libX11.a
+endif
+	mkdir -p $(LIBDIR)/pkgconfig $(INCDIR)
 	cd libXau; make install
 	cd libtinyX11; make install
 	cd libICE; make install
