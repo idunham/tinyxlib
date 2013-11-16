@@ -30,6 +30,7 @@ typedef unsigned short	Rotation;
 typedef unsigned short	VisualGroupID;
 typedef unsigned short	GroupOfVisualGroupID;
 typedef unsigned short	SizeID;
+typedef unsigned short	SubpixelOrder;
 
 #define RANDR_NAME		"RANDR"
 #define RANDR_MAJOR		0
@@ -44,6 +45,7 @@ typedef unsigned short	SizeID;
 #define X_RRScreenChangeSelectInput	3
 
 #define RRScreenChangeNotify	0
+#define RRScreenChangeNotifyMask	(1L << 0)
 
 #define RR_Rotate_0		1
 #define RR_Rotate_90		2
