@@ -44,58 +44,6 @@ in this Software without prior written authorization from The Open Group.
 #define X_NOT_STDC_ENV
 #endif
 
-#ifdef sony
-#if !defined(SYSTYPE_SYSV) && !defined(_SYSTYPE_SYSV)
-#define X_NOT_POSIX
-#endif
-#endif
-
-#ifdef UTEK
-#define X_NOT_POSIX
-#define X_NOT_STDC_ENV
-#endif
-
-#ifdef vax
-#ifndef ultrix			/* assume vanilla BSD */
-#define X_NOT_POSIX
-#define X_NOT_STDC_ENV
-#endif
-#endif
-
-#ifdef luna
-#define X_NOT_POSIX
-#define X_NOT_STDC_ENV
-#endif
-
-#ifdef Mips
-#define X_NOT_POSIX
-#define X_NOT_STDC_ENV
-#endif
-  
-#ifdef USL
-#ifdef SYSV /* (release 3.2) */
-#define X_NOT_POSIX
-#define X_NOT_STDC_ENV
-#endif
-#endif
-
-#ifdef i386
-#ifdef SYSV
-#if !defined(ISC) && !defined(SCO) && !defined(_SEQUENT_)
-#if !defined(_POSIX_SOURCE) && !defined(_SCO_DS)
-#define X_NOT_POSIX
-#endif
-#define X_NOT_STDC_ENV
-#endif
-#endif
-#endif
-
-#ifdef MOTOROLA
-#ifdef SYSV
-#define X_NOT_STDC_ENV
-#endif
-#endif
-
 #ifdef sun
 /* Imake configs define SVR4 on Solaris, but cc & gcc only define __SVR4
  * This check allows non-Imake configured programs to build correctly.
@@ -113,11 +61,6 @@ in this Software without prior written authorization from The Open Group.
 #ifndef _POSIX_
 #define X_NOT_POSIX
 #endif
-#endif
-
-#if defined(nec_ews_svr2) || defined(SX) || defined(PC_UX)
-#define X_NOT_POSIX
-#define X_NOT_STDC_ENV
 #endif
 
 #ifdef __EMX__

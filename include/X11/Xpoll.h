@@ -32,22 +32,11 @@ from The Open Group.
 #ifndef _XPOLL_H_
 #define _XPOLL_H_
 
-#ifndef WIN32
-
 #ifndef USE_POLL
 
 #include <X11/Xos.h>
-#if !defined(DGUX)
 #if (defined(SVR4) || defined(CRAY) || defined(AIXV3)) && !defined(FD_SETSIZE)
 #include <sys/select.h>
-#ifdef luna
-#include <sysent.h>
-#endif
-#endif
-#else /* DGUX  -- No sys/select in Intel DG/ux */
-#include <sys/time.h> 
-#include <sys/types.h>
-#include <unistd.h>
 #endif
 
 #ifdef __QNX__  /* Make sure we get 256 bit select masks */
@@ -55,10 +44,6 @@ from The Open Group.
 #include <sys/select.h>
 #endif
 
-/* AIX 4.2 fubar-ed <sys/select.h>, so go to heroic measures to get it */
-#if defined(AIXV4) && !defined(NFDBITS)
-#include <sys/select.h>
-#endif
 #include <X11/Xmd.h>
 #ifdef CSRG_BASED
 #include <sys/param.h>
@@ -94,15 +79,7 @@ typedef struct fd_set {
 # endif
 #endif
 
-#ifndef hpux /* and perhaps old BSD ??? */
-# define Select(n,r,w,e,t) select(n,(fd_set*)r,(fd_set*)w,(fd_set*)e,(struct timeval*)t)
-#else
-# ifndef _XPG4_EXTENDED /* HPUX 9.x and earlier */
-#  define Select(n,r,w,e,t) select(n,(int*)r,(int*)w,(int*)e,(struct timeval*)t)
-# else
-#  define Select(n,r,w,e,t) select(n,(fd_set*)r,(fd_set*)w,(fd_set*)e,(struct timeval*)t)
-# endif
-#endif
+#define Select(n,r,w,e,t) select(n,(fd_set*)r,(fd_set*)w,(fd_set*)e,(struct timeval*)t)
 
 #ifndef FD_SET
 #define FD_SET(n, p)    ((p)->fds_bits[(n)/NFDBITS] |= ((fd_mask)1 << ((n) % NFDBITS)))
@@ -178,66 +155,5 @@ typedef struct fd_set {
 #else /* USE_POLL */
 #include <sys/poll.h>
 #endif /* USE_POLL */
-
-#else /* WIN32 */
-
-#define XFD_SETSIZE	256
-#ifndef FD_SETSIZE
-#define FD_SETSIZE	XFD_SETSIZE
-#endif
-#include <X11/Xwinsock.h>
-
-#define Select(n,r,w,e,t) select(0,(fd_set*)r,(fd_set*)w,(fd_set*)e,(struct timeval*)t)
-
-#define XFD_SETCOUNT(p)	(((fd_set FAR *)(p))->fd_count)
-#define XFD_FD(p,i) (((fd_set FAR *)(p))->fd_array[i])
-#define XFD_ANYSET(p)	XFD_SETCOUNT(p)
-
-#define XFD_COPYSET(src,dst) { \
-    u_int __i; \
-    FD_ZERO(dst); \
-    for (__i = 0; __i < XFD_SETCOUNT(src) ; __i++) { \
-        XFD_FD(dst,__i) = XFD_FD(src,__i); \
-    } \
-    XFD_SETCOUNT(dst) = XFD_SETCOUNT(src); \
-}
-
-#define XFD_ANDSET(dst,b1,b2) { \
-    u_int __i; \
-    FD_ZERO(dst); \
-    for (__i = 0; __i < XFD_SETCOUNT(b1) ; __i++) { \
-        if (FD_ISSET(XFD_FD(b1,__i), b2)) \
-	   FD_SET(XFD_FD(b1,__i), dst); \
-    } \
-}
-
-#define XFD_ORSET(dst,b1,b2) { \
-    u_int __i; \
-    XFD_COPYSET(b1,dst); \
-    for (__i = 0; __i < XFD_SETCOUNT(b2) ; __i++) { \
-        if (!FD_ISSET(XFD_FD(b2,__i), dst)) \
-	   FD_SET(XFD_FD(b2,__i), dst); \
-    } \
-}
-
-/* this one is really sub-optimal */
-#define XFD_UNSET(dst,b1) { \
-    u_int __i; \
-    for (__i = 0; __i < XFD_SETCOUNT(b1) ; __i++) { \
-	FD_CLR(XFD_FD(b1,__i), dst); \
-    } \
-}
-
-/* we have to pay the price of having an array here, unlike with bitmasks
-   calling twice FD_SET with the same fd is not transparent, so be careful */
-#undef FD_SET
-#define FD_SET(fd,set) do { \
-    if (XFD_SETCOUNT(set) < FD_SETSIZE && !FD_ISSET(fd,set)) \
-        XFD_FD(set,XFD_SETCOUNT(set)++)=(fd); \
-} while(0)
-
-#define getdtablesize() FD_SETSIZE 
-
-#endif /* WIN32 */
 
 #endif /* _XPOLL_H_ */
