@@ -34,7 +34,7 @@ in this Software without prior written authorization from The Open Group.
 #ifndef _FONTFILE_H_
 #define _FONTFILE_H_
 
-#include "fontxlfd.h"
+#include <X11/fonts/fontxlfd.h>
 
 typedef struct _FontEntry	    *FontEntryPtr;
 typedef struct _FontTable	    *FontTablePtr;

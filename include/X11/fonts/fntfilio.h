@@ -34,7 +34,7 @@ in this Software without prior written authorization from The Open Group.
 #ifndef _FNTFILIO_H_
 #define _FNTFILIO_H_
 
-#include "bufio.h"
+#include <X11/fonts/bufio.h>
 
 typedef BufFilePtr  FontFilePtr;
 
