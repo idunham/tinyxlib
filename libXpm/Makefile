@@ -30,10 +30,10 @@ clean:
 	rm -f *.o *.a *.so* xpm.pc
 	
 install:
-	cp -af libXpm.a $(LIBDIR)
-	cp -af libXpm.so.1.0 $(LIBDIR)
-	cp -af libXpm.so.1 $(LIBDIR)
-	cp -af libXpm.so $(LIBDIR)
+	cp -af libXpm.a $(DESTDIR)$(LIBDIR)
+	cp -af libXpm.so.1.0 $(DESTDIR)$(LIBDIR)
+	cp -af libXpm.so.1 $(DESTDIR)$(LIBDIR)
+	cp -af libXpm.so $(DESTDIR)$(LIBDIR)
 	
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

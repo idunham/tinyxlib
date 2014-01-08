@@ -1,5 +1,4 @@
 all:
-	make clean
 	cd libXau; make
 	cd libtinyX11; make
 	cd libICE; make
@@ -20,6 +19,7 @@ all:
 	cd libXss; make
 	cd libXfixes; make
 	cd libXcursor; make
+	mkdir -p include/pkgconfig && cd include/pkgconfig && ln -sf ../../lib*/*.pc ./
 clean:
 	cd libtinyX11; make clean
 	cd libICE; make clean

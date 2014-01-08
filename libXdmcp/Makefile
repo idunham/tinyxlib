@@ -1,6 +1,6 @@
 include	../standard_definitions.mk
 
-DEFS=-Dlinux -D__i386__ -D_POSIX_SOURCE -D_POSIX_C_SOURCE=2	-D_BSD_SOURCE -D_SVID_SOURCE -D_GNU_SOURCE -DX_LOCALE -DFUNCPROTO=15 -DNARROWPROTO
+DEFS=-Dlinux -D_POSIX_SOURCE -D_POSIX_C_SOURCE=2	-D_BSD_SOURCE -D_SVID_SOURCE -D_GNU_SOURCE -DX_LOCALE -DFUNCPROTO=15 -DNARROWPROTO
 
 CFLAGS= -I../include -I../include/X11 $(COMMONDEFS) $(DEFS)
 
@@ -31,10 +31,10 @@ clean:
 	rm -f *.o *.a *.so* xdmcp.pc
 	
 install:	libXdmcp.a libXdmcp.so.6.0 libXdmcp.so.6 libXdmcp.so
-	cp -af libXdmcp.a $(LIBDIR)
-	cp -af libXdmcp.so.6.0 $(LIBDIR)
-	cp -af libXdmcp.so.6 $(LIBDIR)
-	cp -af libXdmcp.so $(LIBDIR)
+	cp -af libXdmcp.a $(DESTDIR)$(LIBDIR)
+	cp -af libXdmcp.so.6.0 $(DESTDIR)$(LIBDIR)
+	cp -af libXdmcp.so.6 $(DESTDIR)$(LIBDIR)
+	cp -af libXdmcp.so $(DESTDIR)$(LIBDIR)
 	
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

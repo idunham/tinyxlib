@@ -2,7 +2,7 @@ include	../standard_definitions.mk
 
 #-DXTSTRINGDEFINES 
 
-DEFS=-Dlinux -D__i386__ -D_POSIX_C_SOURCE=199309L -D_POSIX_SOURCE -D_XOPEN_SOURCE -D_BSD_SOURCE -D_SVID_SOURCE -D_GNU_SOURCE -DFUNCPROTO=15 -DNARROWPROTO -DXTHREADS -D_REENTRANT -DXUSE_MTSAFE_API -DUSE_SNPRINTF -DLIBXT -DXTSTRINGDEFINES  -DXFILESEARCHPATHDEFAULT=\"/usr/lib/X11/%L/%T/%N%C%S:/usr/lib/X11/%l/%T/%N%C%S:/usr/lib/X11/%T/%N%C%S:/usr/lib/X11/%L/%T/%N%S:/usr/lib/X11/%l/%T/%N%S:/usr/lib/X11/%T/%N%S\" -DERRORDB=\"/usr/lib/X11/XtErrorDB\" -DXTERROR_PREFIX=\"\" -DXTWARNING_PREFIX=\"\" -DMALLOC_0_RETURNS_NULL -DXTMALLOC_BC -DTINY
+DEFS=-Dlinux -D_POSIX_C_SOURCE=199309L -D_POSIX_SOURCE -D_XOPEN_SOURCE -D_BSD_SOURCE -D_SVID_SOURCE -D_GNU_SOURCE -DFUNCPROTO=15 -DNARROWPROTO -DXTHREADS -D_REENTRANT -DXUSE_MTSAFE_API -DUSE_SNPRINTF -DLIBXT -DXTSTRINGDEFINES  -DXFILESEARCHPATHDEFAULT=\"/usr/lib/X11/%L/%T/%N%C%S:/usr/lib/X11/%l/%T/%N%C%S:/usr/lib/X11/%T/%N%C%S:/usr/lib/X11/%L/%T/%N%S:/usr/lib/X11/%l/%T/%N%S:/usr/lib/X11/%T/%N%S\" -DERRORDB=\"/usr/lib/X11/XtErrorDB\" -DXTERROR_PREFIX=\"\" -DXTWARNING_PREFIX=\"\" -DMALLOC_0_RETURNS_NULL -DXTMALLOC_BC -DTINY
 
 CFLAGS= -I../include -I../include/X11 $(COMMONDEFS) $(DEFS)
 
@@ -33,10 +33,10 @@ clean:
 	rm -f *.o *.a *.so* xt.pc
 	
 install:
-	cp -af libXt.a $(LIBDIR)
-	cp -af libXt.so.6.1 $(LIBDIR)
-	cp -af libXt.so.6 $(LIBDIR)
-	cp -af libXt.so $(LIBDIR)
+	cp -af libXt.a $(DESTDIR)$(LIBDIR)
+	cp -af libXt.so.6.1 $(DESTDIR)$(LIBDIR)
+	cp -af libXt.so.6 $(DESTDIR)$(LIBDIR)
+	cp -af libXt.so $(DESTDIR)$(LIBDIR)
 	
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c

@@ -1,6 +1,6 @@
 include	../standard_definitions.mk
 
-DEFS=-Dlinux -D__i386__ -D_POSIX_SOURCE -D_POSIX_C_SOURCE=2 -D_BSD_SOURCE -D_SVID_SOURCE -D_GNU_SOURCE -DX_LOCALE -DFUNCPROTO=15 -DNARROWPROTO   -DMALLOC_0_RETURNS_NULL
+DEFS=-Dlinux -D_POSIX_SOURCE -D_POSIX_C_SOURCE=2 -D_BSD_SOURCE -D_SVID_SOURCE -D_GNU_SOURCE -DX_LOCALE -DFUNCPROTO=15 -DNARROWPROTO   -DMALLOC_0_RETURNS_NULL
 
 CFLAGS= -I../include -I../include/X11 $(COMMONDEFS) $(DEFS)
 
@@ -32,10 +32,10 @@ clean:
 	rm -f *.o *.a *.so* xrender.pc
 	
 install:
-	cp -af libXrender.a $(LIBDIR)
-	cp -af libXrender.so.1.1 $(LIBDIR)
-	cp -af libXrender.so.1 $(LIBDIR)
-	cp -af libXrender.so $(LIBDIR)
+	cp -af libXrender.a $(DESTDIR)$(LIBDIR)
+	cp -af libXrender.so.1.1 $(DESTDIR)$(LIBDIR)
+	cp -af libXrender.so.1 $(DESTDIR)$(LIBDIR)
+	cp -af libXrender.so $(DESTDIR)$(LIBDIR)
 	
 depend:
 	gccmakedep -- $(CFLAGS) -- *.c
