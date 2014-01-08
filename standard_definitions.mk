@@ -8,7 +8,7 @@ COMPFLAGS=-pipe -Os -mtune=i386 -Wall -D_XOPEN_SOURCE=600 -D_BSD_SOURCE -D_GNU_S
 
 COMMONDEFS=$(COMPFLAGS) -D_BSD_SOURCE -D_GNU_SOURCE
 
-LDFLAGS=-static -Wl,--gc-sections,--sort-common,-s
+LDFLAGS=-Wl,--gc-sections,--sort-common,-s
 
 #LINKDIR=-L/opt/musl/lib
 LINKDIR=-L/usr/lib
