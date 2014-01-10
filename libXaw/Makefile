@@ -8,7 +8,8 @@ OBJS=$(wildcard *.c)
 
 all:	$(OBJS:.c=.o) 
 	ar cr libXaw.a $(OBJS:.c=.o) 
-	$(CC) $(LDFLAGS) -o libXaw.so.7.1~ -shared -Wl,-soname,libXaw.so.7 $(OBJS:.c=.o) 
+	$(CC) $(LDFLAGS) -o libXaw.so.7.1~ -shared -Wl,-soname,libXaw.so.7 $(OBJS:.c=.o) \
+	-L../libXpm -lXpm -L../libXmu -lXmu 
 	mv -f libXaw.so.7.1~ libXaw.so.7.1
 	ln -s libXaw.so.7.1 libXaw.so.7
 	ln -s libXaw.so.7.1 libXaw.so

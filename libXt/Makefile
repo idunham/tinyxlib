@@ -10,7 +10,8 @@ OBJS=$(wildcard *.c)
 
 all:	$(OBJS:.c=.o) 
 	ar cr libXt.a $(OBJS:.c=.o) 
-	$(CC) $(LDFLAGS) -o libXt.so.6.1~ -shared -Wl,-soname,libXt.so.6 $(OBJS:.c=.o) 
+	$(CC) $(LDFLAGS) -o libXt.so.6.1~ -shared -Wl,-soname,libXt.so.6 $(OBJS:.c=.o) \
+	-L../libSM -lSM -L../libICE -lICE -L../libtinyX11 -lX11
 	mv -f libXt.so.6.1~ libXt.so.6.1
 	ln -s libXt.so.6.1 libXt.so.6
 	ln -s libXt.so.6.1 libXt.so

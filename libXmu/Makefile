@@ -8,7 +8,8 @@ OBJS=$(wildcard *.c)
 
 all:	$(OBJS:.c=.o) 
 	ar cr libXmu.a $(OBJS:.c=.o) 
-	$(CC) $(LDFLAGS) -o libXmu.so.6.2~ -shared -Wl,-soname,libXmu.so.6 $(OBJS:.c=.o)
+	$(CC) $(LDFLAGS) -o libXmu.so.6.2~ -shared -Wl,-soname,libXmu.so.6 $(OBJS:.c=.o) \
+	-L../libXt -lXt
 	mv -f libXmu.so.6.2~ libXmu.so.6.2
 	ln -s libXmu.so.6.2 libXmu.so.6
 	ln -s libXmu.so.6.2 libXmu.so	

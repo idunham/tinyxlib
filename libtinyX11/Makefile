@@ -16,7 +16,8 @@ XAUOBJS=../libXau/AuDispose.c ../libXau/AuFileName.c ../libXau/AuGetBest.c ../li
 
 all:	$(OBJS:.c=.o) 
 	ar cr libX11.a $(OBJS:.c=.o) $(XAUOBJS:.c=.o)
-	$(CC) $(LDFLAGS) -o libX11.so.6.2~ -shared -Wl,-soname,libX11.so.6.2 $(OBJS:.c=.o) $(XAUOBJS:.c=.o)
+	$(CC) $(LDFLAGS) -o libX11.so.6.2~ -shared -Wl,-soname,libX11.so.6.2 $(OBJS:.c=.o) $(XAUOBJS:.c=.o) \
+	-L../libXext -lXext
 	mv -f libX11.so.6.2~ libX11.so.6.2
 	ln -s libX11.so.6.2 libX11.so.6
 	ln -s libX11.so.6.2 libX11.so
