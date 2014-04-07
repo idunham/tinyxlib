@@ -21,6 +21,7 @@ all:
 	cd libXss; make
 	cd libXfixes; make
 	cd libXcursor; make
+	cd util-macros; make
 ifeq ($(STATIC),1)
 	ar cr libX11.a `find -name '*.o'`
 endif
@@ -71,4 +72,5 @@ endif
 	cd libXss; make install
 	cd libXfixes; make install
 	cd libXcursor; make install
+	cd util-macros; make
 	cd include; make install

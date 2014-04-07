@@ -16,4 +16,8 @@ LIBDIR ?= $(PREDIR)/lib
 
 INCDIR ?= $(PREDIR)/include
 
+DATADIR ?= $(PREDIR)/share
+
+DOCDIR ?= $(DATADIR)/doc
+
 STATIC ?= 0
