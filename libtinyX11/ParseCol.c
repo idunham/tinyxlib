@@ -30,6 +30,9 @@ in this Software without prior written authorization from the X Consortium.
 #include <stdio.h>
 #include "Xlibint.h"
 //#include "Xcmsint.h"
+#ifdef USECMS
+#include <X11/Xcms.h>
+#endif
 
 extern void _XcmsRGB_to_XColor();
 

@@ -29,7 +29,8 @@ in this Software without prior written authorization from the X Consortium.
 #define NEED_REPLIES
 #include <stdio.h>
 #include "Xlibint.h"
-//#include "Xcmsint.h"
+#include "Xcmsint.h"
+#include <X11/Xcms.h>
 
 extern void _XcmsRGB_to_XColor();
 

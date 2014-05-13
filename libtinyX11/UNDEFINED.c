@@ -36,6 +36,7 @@
 #ifdef USECMS
 #include "Xlibint.h"
 #include "Xcmsint.h"
+#include <X11/Xcms.h>
 
 /*
  *      FORWARD DECLARATIONS
