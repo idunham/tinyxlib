@@ -288,8 +288,8 @@ bdfReadCharacters(FontFilePtr file, FontPtr pFont, bdfFileState *pState,
 	bdfError("invalid number of CHARS in BDF file\n");
 	return (FALSE);
     }
-    ci = (CharInfoPtr) xalloc(nchars * sizeof(CharInfoRec));
-    if (!ci) {
+    if  ((nchars > INT32_MAX / sizeof(CharInfoRec)) || 
+	    (ci = (CharInfoPtr) xalloc(nchars * sizeof(CharInfoRec))) == NULL){
 	bdfError("Couldn't allocate pCI (%d*%d)\n", nchars,
 		 sizeof(CharInfoRec));
 	goto BAILOUT;

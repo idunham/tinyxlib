@@ -33,10 +33,13 @@ in this Software without prior written authorization from The Open Group.
 
 #include    "fntfilst.h"
 #include    <X11/keysym.h>
+#include    <stdint.h>
 
 Bool
 FontFileInitTable (FontTablePtr table, int size)
 {
+    if (size < 0 || (size > INT32_MAX/sizeof(FontEntryRec)))
+        return FALSE;
     if (size)
     {
 	table->entries = (FontEntryPtr) xalloc(sizeof(FontEntryRec) * size);
