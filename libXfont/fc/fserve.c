@@ -88,6 +88,8 @@ in this Software without prior written authorization from The Open Group.
 			     (pci)->characterWidth)
 
 #define LENGTHOF(r)	(SIZEOF(r) >> 2)
+/* Somewhat arbitrary limit on maximum reply size we'll try to read. */
+#define MAX_REPLY_LENGTH	((64 * 1024 * 1024) >> 2)
 
 static int fs_read_glyphs ( FontPathElementPtr fpe, FSBlockDataPtr blockrec );
 static int fs_read_list ( FontPathElementPtr fpe, FSBlockDataPtr blockrec );
@@ -617,6 +619,21 @@ fs_get_reply (FSFpePtr conn, int *error)
     }
     
     rep = (fsGenericReply *) buf;
+
+    /*
+     * Refuse to accept replies longer than a maximum reasonable length,
+     * before we pass to _fs_start_read, since it will try to resize the
+     * incoming connection buffer to this size.  Also avoids integer overflow
+     * on 32-bit systems.
+     */
+    if (rep->length > MAX_REPLY_LENGTH)
+    {
+	fprintf(stderr, "fserve: reply length %u > MAX_REPLY_LENGTH,"
+	       " disconnecting from font server\n", (uint)rep->length);
+	_fs_connection_died (conn);
+	*error = FSIO_ERROR;
+	return 0;
+    }
 
     ret = _fs_start_read (conn, rep->length << 2, &buf);
     if (ret != FSIO_READY)
