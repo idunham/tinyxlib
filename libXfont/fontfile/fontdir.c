@@ -190,6 +190,8 @@ FontFileAddEntry(FontTablePtr table, FontEntryPtr prototype)
     if (table->sorted)
 	return (FontEntryPtr) 0;    /* "cannot" happen */
     if (table->used == table->size) {
+	if (table->size >= ((INT32_MAX / sizeof(FontEntryRec)) - 100))
+	    return NULL;  /* CVE-2014-0209: don't alloc 2GB of entries */
 	newsize = table->size + 100;
 	entry = (FontEntryPtr) xrealloc(table->entries,
 					   newsize * sizeof(FontEntryRec));
