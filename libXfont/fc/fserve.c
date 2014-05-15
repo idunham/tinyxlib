@@ -1089,6 +1089,16 @@ fs_read_extent_info(FontPathElementPtr fpe, FSBlockDataPtr blockrec)
 		fsd->glyphs_to_get++;
 	    }
 	}
+    else if (numExtents > ((rep->length - LENGTHOF(fsQueryXExtents16Reply))
+			    / LENGTHOF(fsXCharInfo))) {
+#ifdef DEBUG
+	fprintf(stderr,
+		"fsQueryXExtents16: numExtents (%d) > (%d - %d) / %d\n",
+		numExtents, rep->length,
+		LENGTHOF(fsQueryXExtents16Reply), LENGTHOF(fsXCharInfo));
+#endif
+	pCI = NULL;
+    }
 	else
 	    pCI[i].bits = (char *)0;
 	ci++;
