@@ -66,6 +66,7 @@ in this Software without prior written authorization from The Open Group.
 #include	"fservestr.h"
 #include	"fontutil.h"
 #include	<errno.h>
+#include	<limits.h>
 
 #include	<time.h>
 #define Time_t time_t
@@ -1047,7 +1048,10 @@ fs_read_extent_info(FontPathElementPtr fpe, FSBlockDataPtr blockrec)
 	numInfos *= 2;
 	haveInk = TRUE;
     }
-    ci = pCI = (CharInfoPtr) xalloc(sizeof(CharInfoRec) * numInfos);
+    if (numInfos >= (INT_MAX / sizeof(CharInfoRec))) {
+	pCI = NULL;
+    } else
+	pCI = (CharInfoPtr) xalloc(sizeof(CharInfoRec) * numInfos);
 
     if (!pCI) 
     {
