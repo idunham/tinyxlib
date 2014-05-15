@@ -36,6 +36,7 @@
 #include	<X11/fonts/fontstruct.h>
 #include	"fservestr.h"
 #include	"fontutil.h"
+#include	<limits.h>
 
 extern char _fs_glyph_undefined;
 extern char _fs_glyph_requested;
@@ -763,10 +764,13 @@ fs_create_font (FontPathElementPtr  fpe,
 pointer
 fs_alloc_glyphs (FontPtr pFont, int size)
 {
-    FSGlyphPtr	glyphs;
+    FSGlyphPtr	glyphs = NULL;
     FSFontPtr	fsfont = (FSFontPtr) pFont->fontPrivate;
 
-    glyphs = xalloc (sizeof (FSGlyphRec) + size);
+    if (size < (INT_MAX - sizeof(FSGlyphRec)))
+	 glyphs = xalloc (sizeof (FSGlyphRec) + size);
+    if (!glyphs)
+	return NULL;
     glyphs->next = fsfont->glyphs;
     fsfont->glyphs = glyphs;
     return (pointer) (glyphs + 1);
