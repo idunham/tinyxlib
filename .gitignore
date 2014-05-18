@@ -2,10 +2,11 @@
 *.a
 *.so
 *.swp
-.*
 *.so*
 *.pc
 *.bak
 *.org
+*.orig
 *.diff
 *.log
+*.rej
