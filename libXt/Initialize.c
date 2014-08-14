@@ -75,16 +75,6 @@ in this Software without prior written authorization from The Open Group.
 
 #include <stdlib.h>
 
-#if (defined(SUNSHLIB) || defined(AIXSHLIB)) && defined(SHAREDCODE)
-/*
- * If used as a shared library, generate code under a different name so that
- * the stub routines in sharedlib.c get loaded into the application binary.
- */
-#define XtToolkitInitialize _XtToolkitInitialize
-#define XtOpenApplication _XtOpenApplication
-#define XtAppInitialize _XtAppInitialize
-#define XtInitialize _XtInitialize
-#endif /* (SUNSHLIB || AIXSHLIB) && SHAREDCODE */
 
 /*
  * hpux
@@ -157,14 +147,6 @@ static void GetHostname (
 }
 
 
-#ifdef SUNSHLIB
-void _XtInherit(void)
-{
-    extern void __XtInherit();
-    __XtInherit();
-}
-#define _XtInherit __XtInherit
-#endif
 
 
 #if defined(__CYGWIN__)

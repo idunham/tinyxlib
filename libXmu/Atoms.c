@@ -54,11 +54,7 @@ struct _AtomRec {
     DisplayRec* head;
 };
 
-#ifdef SUNSHLIB
-#define STATIC
-#else
 #define STATIC static
-#endif
 
 #if !defined(UNIXCPP) || defined(ANSICPP)
 #define DeclareAtom(atom,text) \

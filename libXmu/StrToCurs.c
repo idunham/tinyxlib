@@ -77,9 +77,6 @@ SOFTWARE.
    and broken object file formats that don't correctly distinguish
    references to procedures from references to data.
  */
-#if defined(SUNSHLIB) || defined(SVR4)
-#define XMU_KLUDGE
-#endif
 
 /*
  * XmuConvertStringToCursor:
