@@ -20,5 +20,7 @@ LIBDIR=${PREDIR}/lib
 
 INCDIR=${PREDIR}/include
 
+#If you do not have setlocale, set this:
+#COMMONDEFS+= -DX_LOCALE -DXLOCALEDIR=\"/usr/share/locale\" 
 #KEYSYMDB=/usr/X11R7/lib/X11/XKeysymDB
 KEYSYMDB=${PREDIR}/share/X11/XKeysymDB
