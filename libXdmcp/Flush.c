@@ -29,9 +29,6 @@ in this Software without prior written authorization from The Open Group.
 
 /* $XFree86: xc/lib/Xdmcp/Flush.c,v 3.8 2001/12/14 19:54:54 dawes Exp $ */
 
-#ifdef WIN32
-#define _WILLWINSOCK_
-#endif
 #include <X11/Xos.h>
 #include <X11/X.h>
 #include <X11/Xmd.h>
@@ -40,15 +37,11 @@ in this Software without prior written authorization from The Open Group.
 #ifdef STREAMSCONN
 #include <tiuser.h>
 #else
-#ifdef WIN32
-#include "../../include/Xwinsock.h"
-#else
 #ifndef Lynx
 #include <sys/socket.h>
 #else
 #include <socket.h>
 #endif /* !Lynx */
-#endif
 #endif
 
 int

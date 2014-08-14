@@ -83,12 +83,6 @@ typedef struct
 #endif
 
 /* Extension platform identifier (conditionally defined) */
-#if ( defined (__osf__) && defined(__alpha) )
-# define XETrapPlatform    PF_DECOSF1
-#endif
-#ifdef ultrix
-# define XETrapPlatform    PF_DECUltrix
-#endif
 #ifdef vms
 #ifdef VAXELN
 # define XETrapPlatform    PF_DECELN

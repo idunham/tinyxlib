@@ -187,25 +187,10 @@ typedef long BytesReadable_t;
 #endif
 
 
-#if defined(WIN32) || (defined(USG) && !defined(CRAY) && !defined(umips) && !defined(MOTOROLA) && !defined(uniosu) && !defined(__sxg__))
-
-/*
- *      TRANS(Readv) and TRANS(Writev) use struct iovec, normally found
- *      in Berkeley systems in <sys/uio.h>.  See the readv(2) and writev(2)
- *      manual pages for details.
- */
-
-struct iovec {
-    caddr_t iov_base;
-    int iov_len;
-};
-
-#else
 #ifndef Lynx
 #include <sys/uio.h>
 #else
 #include <uio.h>
-#endif
 #endif
 
 typedef struct _XtransConnInfo *XtransConnInfo;
@@ -471,8 +456,5 @@ TRANS(GetHostname) (
     int 	/* maxlen */
 );
 
-#if defined(WIN32) && (defined(TCPCONN) || defined(DNETCONN))
-int TRANS(WSAStartup)();
-#endif
 
 #endif /* _XTRANS_H_ */

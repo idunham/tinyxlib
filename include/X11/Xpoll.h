@@ -39,10 +39,6 @@ from The Open Group.
 #include <sys/select.h>
 #endif
 
-#ifdef __QNX__  /* Make sure we get 256 bit select masks */
-#define FD_SETSIZE 256
-#include <sys/select.h>
-#endif
 
 #include <X11/Xmd.h>
 #ifdef CSRG_BASED

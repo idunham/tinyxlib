@@ -108,9 +108,6 @@ Xtransport_table Xtransports[] = {
 #ifndef sun
     { &TRANS(PTSFuncs),		TRANS_LOCAL_PTS_INDEX },
 #endif /* sun */
-#ifdef SVR4
-    { &TRANS(NAMEDFuncs),	TRANS_LOCAL_NAMED_INDEX },
-#endif
 #ifndef sun
     { &TRANS(ISCFuncs),		TRANS_LOCAL_ISC_INDEX },
     { &TRANS(SCOFuncs),		TRANS_LOCAL_SCO_INDEX },
@@ -121,9 +118,6 @@ Xtransport_table Xtransports[] = {
 #define NUMTRANS	(sizeof(Xtransports)/sizeof(Xtransport_table))
 
 
-#ifdef WIN32
-#define ioctl ioctlsocket
-#endif
 
 
 
@@ -382,13 +376,6 @@ TRANS(Open) (int type, char *address)
 
     PRMSG (2,"Open(%d,%s)\n", type, address, 0);
 
-#if defined(WIN32) && (defined(TCPCONN) || defined(DNETCONN))
-    if (TRANS(WSAStartup)())
-    {
-	PRMSG (1,"Open: WSAStartup failed\n", 0, 0, 0);
-	return NULL;
-    }
-#endif
 
     /* Parse the Address */
 

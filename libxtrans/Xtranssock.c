@@ -56,7 +56,6 @@ from The Open Group.
 #include <X11/Xthreads.h>
 #endif
 
-#ifndef WIN32
 
 #if defined(TCPCONN) || defined(UNIXCONN)
 #include <netinet/in.h>
@@ -84,9 +83,6 @@ from The Open Group.
 #endif 
 
 #ifndef NO_TCP_H
-#ifdef __osf__
-#include <sys/param.h>
-#endif /* osf */
 #if defined(__NetBSD__) || defined(__OpenBSD__) || defined(__FreeBSD__) 
 #include <machine/endian.h>
 #endif /* __NetBSD__ || __OpenBSD__ || __FreeBSD__ */
@@ -94,35 +90,12 @@ from The Open Group.
 #endif /* !NO_TCP_H */
 
 #include <sys/ioctl.h>
-#if defined(SVR4) && !defined(SCO325) && !defined(DGUX) && !defined(_SEQUENT_)
-#include <sys/filio.h>
-#endif
 
-#if (defined(i386) && defined(SYSV)) && !defined(sco)
-#include <net/errno.h>
-#endif 
 
 #if (defined(i386) && defined(SYSV)) && (!defined(ISC) || !defined(I_NREAD) || defined(SCO325)) || defined(_SEQUENT_)
 #include <sys/stropts.h>
 #endif 
 
-#else /* !WIN32 */
-
-#include <X11/Xwinsock.h>
-#include <X11/Xw32defs.h>
-#undef close
-#define close closesocket
-#define ECONNREFUSED WSAECONNREFUSED
-#define EADDRINUSE WSAEADDRINUSE
-#define EPROTOTYPE WSAEPROTOTYPE
-#undef EWOULDBLOCK
-#define EWOULDBLOCK WSAEWOULDBLOCK
-#undef EINTR
-#define EINTR WSAEINTR
-#define X_INCLUDE_NETDB_H
-#define XOS_USE_MTSAFE_NETDBAPI
-#include <X11/Xos_r.h>
-#endif /* WIN32 */
 
 #if defined(SO_DONTLINGER) && defined(SO_LINGER)
 #undef SO_DONTLINGER
@@ -199,36 +172,6 @@ static Sockettrans2dev Sockettrans2devtab[] = {
 
 #ifdef UNIXCONN
 
-#ifdef hpux
-
-#if defined(X11_t)
-#define UNIX_PATH "/usr/spool/sockets/X11/"
-#define UNIX_DIR "/usr/spool/sockets/X11"
-#define OLD_UNIX_PATH "/tmp/.X11-unix/X"
-#endif /* X11_t */
-#if defined(XIM_t)
-#define UNIX_PATH "/usr/spool/sockets/XIM/"
-#define UNIX_DIR "/usr/spool/sockets/XIM"
-#define OLD_UNIX_PATH "/tmp/.XIM-unix/XIM"
-#endif /* XIM_t */
-#if defined(FS_t) || defined(FONT_t)
-#define UNIX_PATH "/usr/spool/sockets/fontserv/"
-#define UNIX_DIR "/usr/spool/sockets/fontserv"
-#endif /* FS_t || FONT_t */
-#if defined(ICE_t)
-#define UNIX_PATH "/usr/spool/sockets/ICE/"
-#define UNIX_DIR "/usr/spool/sockets/ICE"
-#endif /* ICE_t */
-#if defined(TEST_t)
-#define UNIX_PATH "/usr/spool/sockets/xtrans_test/"
-#define UNIX_DIR "/usr/spool/sockets/xtrans_test"
-#endif
-#if defined(LBXPROXY_t)
-#define UNIX_PATH "/usr/spool/sockets/X11/"
-#define UNIX_DIR  "/usr/spool/sockets/X11"
-#endif
-
-#else /* !hpux */
 
 #if defined(X11_t)
 #define UNIX_PATH "/tmp/.X11-unix/X"
@@ -255,7 +198,6 @@ static Sockettrans2dev Sockettrans2devtab[] = {
 #define UNIX_DIR  "/tmp/.X11-unix"
 #endif
 
-#endif /* hpux */
 
 #endif /* UNIXCONN */
 
@@ -293,11 +235,7 @@ TRANS(SocketINETGetAddr) (XtransConnInfo ciptr)
 
 {
     struct sockaddr_in 	sockname;
-#if defined(SVR4) || defined(SCO325)
-    size_t namelen = sizeof sockname;
-#else
     int namelen = sizeof sockname;
-#endif
 
     PRMSG (3,"SocketINETGetAddr(%x)\n", ciptr, 0, 0);
 
@@ -339,11 +277,7 @@ TRANS(SocketINETGetPeerAddr) (XtransConnInfo ciptr)
 
 {
     struct sockaddr_in 	sockname;
-#if defined(SVR4) || defined(SCO325)
-    size_t namelen = sizeof sockname;
-#else
     int namelen = sizeof sockname;
-#endif
 
     PRMSG (3,"SocketINETGetPeerAddr(%x)\n", ciptr, 0, 0);
 
@@ -391,10 +325,8 @@ TRANS(SocketOpen) (int i, int type)
 
     if ((ciptr->fd = socket(Sockettrans2devtab[i].family, type,
 	Sockettrans2devtab[i].protocol)) < 0
-#ifndef WIN32
 #if (defined(X11_t) && !defined(USE_POLL)) || defined(FS_t) || defined(FONT_t)
        || ciptr->fd >= TRANS_OPEN_MAX
-#endif
 #endif
       ) {
 	PRMSG (1, "SocketOpen: socket() failed for %s\n",
@@ -1154,11 +1086,7 @@ TRANS(SocketUNIXAccept) (XtransConnInfo ciptr, int *status)
 {
     XtransConnInfo	newciptr;
     struct sockaddr_un	sockname;
-#if defined(SVR4) || defined(SCO325)
-    size_t namelen = sizeof sockname;
-#else
     int namelen = sizeof sockname;
-#endif
 
     PRMSG (2, "SocketUNIXAccept(%x,%d)\n", ciptr, ciptr->fd, 0);
 
@@ -1234,11 +1162,7 @@ TRANS(SocketINETConnect) (XtransConnInfo ciptr, char *host, char *port)
 
 {
     struct sockaddr_in	sockname;
-#if defined(SVR4) || defined(SCO325)
-    size_t namelen = sizeof sockname;
-#else
     int namelen = sizeof sockname;
-#endif
 #ifdef XTHREADS_NEEDS_BYNAMEPARAMS
     _Xgethostbynameparams hparams;
     _Xgetservbynameparams sparams;
@@ -1395,11 +1319,7 @@ else
 
     if (connect (ciptr->fd, (struct sockaddr *) &sockname, namelen) < 0)
     {
-#ifdef WIN32
-	int olderrno = WSAGetLastError();
-#else
 	int olderrno = errno;
-#endif
 
 	/*
 	 * If the error was ECONNREFUSED, the server may be overloaded
@@ -1552,10 +1472,6 @@ TRANS(SocketUNIXConnect) (XtransConnInfo ciptr, char *host, char *port)
     struct sockaddr_un	sockname;
     int			namelen;
 
-#if defined(hpux) && defined(X11_t)
-    struct sockaddr_un	old_sockname;
-    int			old_namelen;
-#endif
 
 
     PRMSG (2,"SocketUNIXConnect(%d,%s,%s)\n", ciptr->fd, host, port);
@@ -1607,18 +1523,6 @@ TRANS(SocketUNIXConnect) (XtransConnInfo ciptr, char *host, char *port)
 #endif
 
 
-#if defined(hpux) && defined(X11_t)
-    /*
-     * This is gross, but it was in Xlib
-     */
-    old_sockname.sun_family = AF_UNIX;
-    if (set_sun_path(port, OLD_UNIX_PATH, old_sockname.sun_path) != 0) {
-	PRMSG (1, "SocketUNIXConnect: path too long\n", 0, 0, 0);
-	return TRANS_CONNECT_FAILED;
-    }
-    old_namelen = strlen (old_sockname.sun_path) +
-	sizeof (old_sockname.sun_family);
-#endif
 
 
     /*
@@ -1630,18 +1534,6 @@ TRANS(SocketUNIXConnect) (XtransConnInfo ciptr, char *host, char *port)
 	int olderrno = errno;
 	int connected = 0;
 	
-#if defined(hpux) && defined(X11_t)
-	if (olderrno == ENOENT)
-	{
-	    if (connect (ciptr->fd,
-		(struct sockaddr *) &old_sockname, old_namelen) >= 0)
-	    {
-		connected = 1;
-	    }
-	    else
-		olderrno = errno;
-	}
-#endif
 	if (!connected)
 	{
 	    errno = olderrno;
@@ -1708,9 +1600,6 @@ TRANS(SocketBytesReadable) (XtransConnInfo ciptr, BytesReadable_t *pend)
 #if defined(QNX4)
     *pend = 0L; /* FIONREAD only returns a short. Zero out upper bits */
 #endif
-#ifdef WIN32
-    return ioctlsocket ((SOCKET) ciptr->fd, FIONREAD, (u_long *) pend);
-#else
 #if (defined(i386) && defined(SYSV) && !defined(sco)) || (defined(_SEQUENT_) && _SOCKET_VERSION == 1)
     return ioctl (ciptr->fd, I_NREAD, (char *) pend);
 #else
@@ -1720,7 +1609,6 @@ TRANS(SocketBytesReadable) (XtransConnInfo ciptr, BytesReadable_t *pend)
     return ioctl (ciptr->fd, FIONREAD, (char *) pend);
 #endif /* __EMX__ */
 #endif /* i386 && SYSV || _SEQUENT_ && _SOCKET_VERSION == 1 */
-#endif /* WIN32 */
 }
 
 

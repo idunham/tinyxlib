@@ -148,7 +148,5 @@ externaldef(vendorshellclassrec) VendorShellClassRec vendorShellClassRec = {
   }
 };
 
-#if !defined(AIXSHLIB) || !defined(SHAREDCODE)
 externaldef(vendorshellwidgetclass) WidgetClass vendorShellWidgetClass =
 	(WidgetClass) (&vendorShellClassRec);
-#endif

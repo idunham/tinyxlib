@@ -51,17 +51,8 @@ in this Software without prior written authorization from The Open Group.
 #if defined(__SVR4) && !defined(SVR4)
 #define SVR4
 #endif
-#ifdef SVR4
-/* define this to whatever it needs to be */
-#define X_POSIX_C_SOURCE 199300L
-#endif
 #endif
 
-#ifdef WIN32
-#ifndef _POSIX_
-#define X_NOT_POSIX
-#endif
-#endif
 
 #ifdef __EMX__
 #define USGISH

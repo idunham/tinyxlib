@@ -2242,16 +2242,6 @@ IceReplyWaitInfo 	*replyWait;
 	    IcePoAuthProc authProc = myProtocol->auth_procs[(int)
 		(iceConn->protosetup_to_you->my_auth_index)];
 
-#ifdef SVR4
-
-/*
- * authProc is never NULL, but the cc compiler on UNIX System V/386
- * Release 4.2 Version 1 screws up an optimization.  Unless there is
- * some sort of reference to authProc before the function call, the
- * function call will seg fault.
- */
-	    if (authProc)
-#endif
 		(*authProc) (iceConn,
 		&iceConn->protosetup_to_you->my_auth_state,
 		True /* clean up */, False /* swap */,

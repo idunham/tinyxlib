@@ -36,18 +36,10 @@ in this Software without prior written authorization from The Open Group.
 #endif
 #include <stdio.h>
 #include <string.h>
-#if defined(hpux)
-#include <dl.h>
-#else
 #include <dlfcn.h>
-#endif
 #include "Cr.h"
 
-#if defined(hpux)
-typedef shl_dt	XModuleType;
-#else
 typedef void *XModuleType;
-#endif
 
 #ifndef LIBXCURSOR
 #define LIBXCURSOR "libXcursor.so"
@@ -63,11 +55,7 @@ open_library (void)
     XModuleType	module;
     for (;;)
     {
-#if defined(hpux)
-	module = shl_load(library, BIND_DEFERRED, 0L);
-#else
 	module =  dlopen(library, RTLD_LAZY);
-#endif
 	if (module)
 	    return module;
 	dot = strrchr (library, '.');
@@ -83,28 +71,9 @@ fetch_symbol (XModuleType module, char *under_symbol)
 {
     void *result = NULL;
     char *symbol = under_symbol + 1;
-#if defined(hpux)
-    int getsyms_cnt, i;
-    struct shl_symbol *symbols;
-    
-    getsyms_cnt = shl_getsymbols(module, TYPE_PROCEDURE,
-				 EXPORT_SYMBOLS, malloc, &symbols);
-
-    for(i=0; i<getsyms_cnt; i++) {
-        if(!strcmp(symbols[i].name, symbol)) {
-	    result = symbols[i].value;
-	    break;
-         }
-    }
-
-    if(getsyms_cnt > 0) {
-        free(symbols);
-    }
-#else
     result = dlsym (module, symbol);
     if (!result)
 	result = dlsym (module, under_symbol);
-#endif
     return result;
 }
 

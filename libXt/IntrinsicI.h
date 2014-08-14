@@ -51,9 +51,6 @@ SOFTWARE.
 
 #include "Xtos.h"
 #include "IntrinsicP.h"
-#ifdef WIN32
-#define _WILLWINSOCK_
-#endif
 #include <X11/Xos.h>
 
 #include "Object.h"

@@ -40,12 +40,7 @@ void bcopy();
 void bzero();
 int bcmp();
 #else
-#if defined(SYSV)
-#include <memory.h>
-void bcopy();
-#define bzero(b,len) memset(b, 0, len)
-#define bcmp(b1,b2,len) memcmp(b1, b2, len)
-#elif defined(__EMX__)
+#if   defined(__EMX__)
 #include <strings.h>
 /* bcopy, bcmp, bzero declared */
 #define _XFUNCS_H_INCLUDED_STRING_H
@@ -71,11 +66,6 @@ void bcopy();
 #if defined(SYSV) || defined(luna) || defined(sun) || defined(__sxg__)
 #include <memory.h>
 #define memmove(dst,src,len) bcopy((char *)(src),(char *)(dst),(int)(len))
-#if defined(SYSV) && defined(_XBCOPYFUNC)
-#undef memmove
-#define memmove(dst,src,len) _XBCOPYFUNC((char *)(src),(char *)(dst),(int)(len))
-#define _XNEEDBCOPYFUNC
-#endif
 #else /* else vanilla BSD */
 #define memmove(dst,src,len) bcopy((char *)(src),(char *)(dst),(int)(len))
 #define memcpy(dst,src,len) bcopy((char *)(src),(char *)(dst),(int)(len))

@@ -34,25 +34,19 @@ int
 XauUnlockAuth (
 _Xconst char *file_name)
 {
-#ifndef WIN32
     char	creat_name[1025];
-#endif
     char	link_name[1025];
 
     if (strlen (file_name) > 1022)
 	return 0;
-#ifndef WIN32
     (void) strcpy (creat_name, file_name);
     (void) strcat (creat_name, "-c");
-#endif
     (void) strcpy (link_name, file_name);
     (void) strcat (link_name, "-l");
     /*
      * I think this is the correct order
      */
-#ifndef WIN32
     (void) unlink (creat_name);
-#endif
     (void) unlink (link_name);
 
     return 1;

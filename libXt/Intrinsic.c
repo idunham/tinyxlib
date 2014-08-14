@@ -836,96 +836,6 @@ Boolean XtIsObject(
     return True;
 }
 
-#if defined(WIN32)
-static int access_file (
-    char* path,
-    char* pathbuf,
-    int len_pathbuf,
-    char** pathret)
-{
-    if (access (path, F_OK) == 0) {
-	if (strlen (path) < len_pathbuf)
-	    *pathret = pathbuf;
-	else
-	    *pathret = XtMalloc (strlen (path));
-	if (*pathret) {
-	    strcpy (*pathret, path);
-	    return 1;
-	}
-    }
-    return 0;
-}
-
-static int AccessFile (
-    char* path,
-    char* pathbuf,
-    int len_pathbuf,
-    char** pathret)
-{
-    unsigned long drives;
-    int i, len;
-    char* drive;
-    char buf[MAX_PATH];
-    char* bufp;
-
-    /* just try the "raw" name first and see if it works */
-    if (access_file (path, pathbuf, len_pathbuf, pathret))
-	return 1;
-
-    /* try the places set in the environment */
-    drive = getenv ("_XBASEDRIVE");
-#ifdef __UNIXOS2__
-    if (!drive)
-	drive = getenv ("X11ROOT");
-#endif
-    if (!drive)
-	drive = "C:";
-    len = strlen (drive) + strlen (path);
-    bufp = XtStackAlloc (len + 1, buf);
-    strcpy (bufp, drive);
-    strcat (bufp, path);
-    if (access_file (bufp, pathbuf, len_pathbuf, pathret)) {
-	XtStackFree (bufp, buf);
-	return 1;
-    }
-
-#ifndef __UNIXOS2__
-    /* one last place to look */
-    drive = getenv ("HOMEDRIVE");
-    if (drive) {
-	len = strlen (drive) + strlen (path);
-	bufp = XtStackAlloc (len + 1, buf);
-	strcpy (bufp, drive);
-	strcat (bufp, path);
-	if (access_file (bufp, pathbuf, len_pathbuf, pathret)) {
-	    XtStackFree (bufp, buf);
-	    return 1;
-	}
-    }
-
-    /* does OS/2 (with or with gcc-emx) have getdrives()? */
-    /* tried everywhere else, go fishing */
-    drives = _getdrives ();
-#define C_DRIVE ('C' - 'A')
-#define Z_DRIVE ('Z' - 'A')
-    for (i = C_DRIVE; i <= Z_DRIVE; i++) { /* don't check on A: or B: */
-	if ((1 << i) & drives) {
-	    len = 2 + strlen (path);
-	    bufp = XtStackAlloc (len + 1, buf);
-	    *bufp = 'A' + i;
-	    *(bufp + 1) = ':';
-	    *(bufp + 2) = '\0';
-	    strcat (bufp, path);
-	    if (access_file (bufp, pathbuf, len_pathbuf, pathret)) {
-		XtStackFree (bufp, buf);
-		return 1;
-	    }
-	}
-    }
-#endif
-    return 0;
-}
-#endif
 
 static Boolean TestFile(
     String path)
@@ -933,17 +843,6 @@ static Boolean TestFile(
 #ifndef VMS
     int ret = 0;
     struct stat status;
-#if defined(WIN32)
-    char buf[MAX_PATH];
-    char* bufp;
-    int len;
-    UINT olderror = SetErrorMode (SEM_FAILCRITICALERRORS);
-
-    if (AccessFile (path, buf, MAX_PATH, &bufp))
-	path = bufp;
-
-    (void) SetErrorMode (olderror);
-#endif
     ret = (access(path, R_OK) == 0 &&		/* exists and is readable */
 	    stat(path, &status) == 0 &&		/* get the status */
 #ifndef X_NOT_POSIX
@@ -951,9 +850,6 @@ static Boolean TestFile(
 #else
 	    (status.st_mode & S_IFMT) != S_IFDIR);	/* not a directory */
 #endif /* X_NOT_POSIX else */
-#if defined(WIN32)
-    XtStackFree ((XtPointer)bufp, buf);
-#endif
     return ret;
 #else /* VMS */
     return TRUE;	/* Who knows what to do here? */
@@ -1139,37 +1035,12 @@ static char *ExtractLocaleName(
 {
 
 #if defined(hpux) || defined(CSRG_BASED) || defined(sun) || defined(SVR4) || defined(sgi) || defined(__osf__) || defined(AIXV3) || defined(ultrix) || defined(WIN32) || defined(__UNIXOS2__) || defined (linux)
-# ifdef hpux
-/*
- * We need to discriminated between HPUX 9 and HPUX 10. The equivalent
- * code in Xlib in SetLocale.c does include locale.h via X11/Xlocale.h.
- */
-#  include <locale.h>
-#  ifndef _LastCategory
-   /* HPUX 9 and earlier */
-#   define SKIPCOUNT 2
-#   define STARTCHAR ':'
-#   define ENDCHAR ';'
-#  else
-    /* HPUX 10 */
-#   define ENDCHAR ' '
-#  endif
-# else
-#  ifdef ultrix
-#   define SKIPCOUNT 2
-#   define STARTCHAR '\001'
-#   define ENDCHAR '\001'
-#  else
 #   if defined(WIN32) || defined(__UNIXOS2__)
 #    define SKIPCOUNT 1
 #    define STARTCHAR '='
 #    define ENDCHAR ';'
 #    define WHITEFILL
 #   else
-#    if defined(__osf__) || (defined(AIXV3) && !defined(AIXV4))
-#     define STARTCHAR ' '
-#     define ENDCHAR ' '
-#    else
 #     if defined(linux)
 #      define STARTSTR "LC_CTYPE="
 #      define ENDCHAR ';'
@@ -1179,10 +1050,7 @@ static char *ExtractLocaleName(
 #       define ENDCHAR '/'
 #      endif
 #     endif
-#    endif
 #   endif
-#  endif
-# endif
 
     char           *start;
     char           *end;

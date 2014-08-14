@@ -39,7 +39,6 @@ from The Open Group.
 
 #include "../../../Xtrans.h"
 
-#ifndef WIN32
 
 /*
  * makedepend screws up on #undef OPEN_MAX, so we define a new symbol
@@ -58,11 +57,7 @@ from The Open Group.
 #endif
 #ifndef OPEN_MAX
 #if defined(SVR4) || defined(__EMX__)
-#ifdef SCO325
-#define OPEN_MAX sysconf(_SC_OPEN_MAX)
-#else
 #define OPEN_MAX 256
-#endif
 #else
 #include <sys/param.h>
 #ifndef OPEN_MAX
@@ -200,18 +195,3 @@ typedef FdSet FdSetPtr;
 #endif
 #endif
 
-#else /* not WIN32 */
-
-#include "../../../include/Xwinsock.h"
-#include "../../../include/Xw32defs.h"
-
-typedef fd_set FdSet;
-typedef FdSet *FdSetPtr;
-
-#define CLEARBITS(set) FD_ZERO(&set)
-#define BITSET(set,s) FD_SET(s,&set)
-#define BITCLEAR(set,s) FD_CLR(s,&set)
-#define GETBIT(set,s) FD_ISSET(s,&set)
-#define ANYSET(set) set->fd_count
-
-#endif

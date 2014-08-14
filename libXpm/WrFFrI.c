@@ -41,10 +41,6 @@
 /* October 2004, source code review by Thomas Biege <thomas@suse.de> */
 
 #include "XpmI.h"
-#if !defined(NO_ZPIPE) && defined(WIN32)
-# define popen _popen
-# define pclose _pclose
-#endif
 
 /* MS Windows define a function called WriteFile @#%#&!!! */
 LFUNC(xpmWriteFile, int, (FILE *file, XpmImage *image, char *name,

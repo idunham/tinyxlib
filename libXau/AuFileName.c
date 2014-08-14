@@ -38,23 +38,12 @@ XauFileName ()
     char    *name;
     static char	*buf;
     static int	bsize;
-#ifdef WIN32
-    char    dir[128];
-#endif
     int	    size;
 
     if ((name = getenv ("XAUTHORITY")))
 	return name;
     name = getenv ("HOME");
     if (!name) {
-#ifdef WIN32
-	(void) strcpy (dir, "/users/");
-	if (name = getenv("USERNAME")) {
-	    (void) strcat (dir, name);
-	    name = dir;
-	}
-	if (!name)
-#endif
 	return 0;
     }
     size = strlen (name) + strlen(&slashDotXauthority[1]) + 2;

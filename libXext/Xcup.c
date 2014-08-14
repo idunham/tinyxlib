@@ -26,15 +26,6 @@ in this Software without prior written authorization from The Open Group.
 */
 /* $Xorg: Xcup.c,v 1.5 2001/02/09 02:03:49 xorgcvs Exp $ */
 
-#ifdef WIN32
-#define BOOL wBOOL
-#undef Status
-#define Status wStatus
-#include <windows.h>
-#undef Status
-#define Status int
-#undef BOOL
-#endif
 
 #define NEED_EVENTS
 #define NEED_REPLIES

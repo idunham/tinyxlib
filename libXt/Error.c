@@ -231,7 +231,6 @@ static void DefaultMsg (
 /*need better solution here, perhaps use lower level printf primitives? */
     if (params == NULL || num_params == NULL || *num_params == 0)
 	(*fn)(buffer);
-#ifndef WIN32 /* and OS/2 */
     else if ((getuid () != geteuid ()) || getuid() == 0) {
 	if ((error && errorHandler == _XtDefaultError) ||
 	    (!error && warningHandler == _XtDefaultWarning)) {
@@ -266,7 +265,6 @@ program as a non-root user or by removing the suid bit on the executable.");
 	    (*fn)(buffer); /* if *fn is an ErrorHandler it should exit */
 	}
     }
-#endif
     else {
 	/*
 	 * If you have snprintf the worst thing that could happen is you'd

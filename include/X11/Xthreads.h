@@ -63,109 +63,6 @@ typedef struct mutex xmutex_rec;
 #define xcondition_broadcast(cv) condition_broadcast(cv)
 #define xcondition_set_name(cv,str) condition_set_name(cv,str)
 #else /* !CTHREADS */
-#if defined(SVR4) && !defined(__sgi) && !defined(_SEQUENT_)
-#include <thread.h>
-#include <synch.h>
-typedef thread_t xthread_t;
-typedef thread_key_t xthread_key_t;
-typedef cond_t xcondition_rec;
-typedef mutex_t xmutex_rec;
-#define xthread_self thr_self
-#define xthread_fork(func,closure) thr_create(NULL,0,func,closure,THR_NEW_LWP|THR_DETACHED,NULL)
-#define xthread_yield() thr_yield()
-#define xthread_exit(v) thr_exit(v)
-#define xthread_key_create(kp,d) thr_keycreate(kp,d)
-#ifdef sun
-#define xthread_key_delete(k) 0
-#else
-#define xthread_key_delete(k) thr_keydelete(k)
-#endif
-#define xthread_set_specific(k,v) thr_setspecific(k,v)
-#define xthread_get_specific(k,vp) thr_getspecific(k,vp)
-#define xmutex_init(m) mutex_init(m,USYNC_THREAD,0)
-#define xmutex_clear(m) mutex_destroy(m)
-#define xmutex_lock(m) mutex_lock(m)
-#define xmutex_unlock(m) mutex_unlock(m)
-#define xcondition_init(cv) cond_init(cv,USYNC_THREAD,0)
-#define xcondition_clear(cv) cond_destroy(cv)
-#define xcondition_wait(cv,m) cond_wait(cv,m)
-#define xcondition_signal(cv) cond_signal(cv)
-#define xcondition_broadcast(cv) cond_broadcast(cv)
-#else /* !SVR4 */
-#ifdef WIN32
-#define BOOL wBOOL
-#ifdef Status
-#undef Status
-#define Status wStatus
-#endif
-#include <windows.h>
-#ifdef Status
-#undef Status
-#define Status int
-#endif
-#undef BOOL
-typedef DWORD xthread_t;
-typedef DWORD xthread_key_t;
-struct _xthread_waiter {
-    HANDLE sem;
-    struct _xthread_waiter *next;
-};
-typedef struct {
-    CRITICAL_SECTION cs;
-    struct _xthread_waiter *waiters;
-} xcondition_rec;
-typedef CRITICAL_SECTION xmutex_rec;
-#define xthread_init() _Xthread_init()
-#define xthread_self GetCurrentThreadId
-#define xthread_fork(func,closure) { \
-    DWORD _tmptid; \
-    CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)func, (LPVOID)closure, 0, \
-		 &_tmptid); \
-}
-#define xthread_yield() Sleep(0)
-#define xthread_exit(v) ExitThread((DWORD)(v))
-#define xthread_key_create(kp,d) *(kp) = TlsAlloc()
-#define xthread_key_delete(k) TlsFree(k)
-#define xthread_set_specific(k,v) TlsSetValue(k,v)
-#define xthread_get_specific(k,vp) TlsGetValue(k)
-#define xmutex_init(m) InitializeCriticalSection(m)
-#define xmutex_clear(m) DeleteCriticalSection(m)
-#define _XMUTEX_NESTS
-#define xmutex_lock(m) EnterCriticalSection(m)
-#define xmutex_unlock(m) LeaveCriticalSection(m)
-#define xcondition_init(cv) { \
-    InitializeCriticalSection(&(cv)->cs); \
-    (cv)->waiters = NULL; \
-}
-#define xcondition_clear(cv) DeleteCriticalSection(&(cv)->cs)
-extern struct _xthread_waiter *_Xthread_waiter();
-#define xcondition_wait(cv,m) { \
-    struct _xthread_waiter *_tmpthr = _Xthread_waiter(); \
-    EnterCriticalSection(&(cv)->cs); \
-    _tmpthr->next = (cv)->waiters; \
-    (cv)->waiters = _tmpthr; \
-    LeaveCriticalSection(&(cv)->cs); \
-    LeaveCriticalSection(m); \
-    WaitForSingleObject(_tmpthr->sem, INFINITE); \
-    EnterCriticalSection(m); \
-}
-#define xcondition_signal(cv) { \
-    EnterCriticalSection(&(cv)->cs); \
-    if ((cv)->waiters) { \
-        ReleaseSemaphore((cv)->waiters->sem, 1, NULL); \
-	(cv)->waiters = (cv)->waiters->next; \
-    } \
-    LeaveCriticalSection(&(cv)->cs); \
-}
-#define xcondition_broadcast(cv) { \
-    struct _xthread_waiter *_tmpthr; \
-    EnterCriticalSection(&(cv)->cs); \
-    for (_tmpthr = (cv)->waiters; _tmpthr; _tmpthr = _tmpthr->next) \
-	ReleaseSemaphore(_tmpthr->sem, 1, NULL); \
-    (cv)->waiters = NULL; \
-    LeaveCriticalSection(&(cv)->cs); \
-}
-#else /* !WIN32 */
 #ifdef USE_TIS_SUPPORT
 /*
  * TIS support is intended for thread safe libraries.
@@ -249,8 +146,6 @@ static xthread_t _X_no_thread_id;
 #endif /* DEBUG */
 #endif /* _CMA_VENDOR_ == _CMA__IBM */
 #endif /* USE_TIS_SUPPORT */
-#endif /* WIN32 */
-#endif /* SVR4 */
 #endif /* CTHREADS */
 typedef xcondition_rec *xcondition_t;
 typedef xmutex_rec *xmutex_t;

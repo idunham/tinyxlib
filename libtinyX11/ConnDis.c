@@ -527,19 +527,11 @@ _XSendClientPrefix (dpy, client, auth_proto, auth_string, prefix)
 
 
 #ifdef STREAMSCONN
-#ifdef SVR4
-#include <tiuser.h>
-#else
 #undef HASXDMAUTH
-#endif
 #endif
 
 #ifdef SECURE_RPC
 #include <rpc/rpc.h>
-#ifdef ultrix
-#include <time.h>
-#include <rpc/auth_des.h>
-#endif
 #endif
 
 #ifdef HASXDMAUTH

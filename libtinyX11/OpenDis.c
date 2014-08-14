@@ -53,9 +53,6 @@ typedef struct {
 } _XBigReqState;
 
 extern int _Xdebug;
-#ifdef WIN32
-int *_Xdebug_p = &_Xdebug;
-#endif
 
 #ifdef XTHREADS
 int  (*_XInitDisplayLock_fn)() = NULL;

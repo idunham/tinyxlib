@@ -69,11 +69,9 @@ in this Software without prior written authorization from The Open Group.
 #ifdef XTHREADS
 #include <X11/Xthreads.h>
 #endif
-#ifndef WIN32
 #define X_INCLUDE_PWD_H
 #define XOS_USE_XT_LOCKING
 #include <X11/Xos_r.h>
-#endif
 
 #include <stdlib.h>
 
@@ -94,9 +92,6 @@ in this Software without prior written authorization from The Open Group.
  * -DUSE_UNAME in the appropriate config file to get long hostnames.
  */
 
-#ifdef USG
-#define USE_UNAME
-#endif
 
 #ifdef USE_UNAME
 #include <sys/utsname.h>
@@ -282,15 +277,6 @@ String _XtGetUserName(
     String dest,
     int len)
 {
-#ifdef WIN32
-    String ptr = NULL;
-
-    if ((ptr = getenv("USERNAME"))) {
-	(void) strncpy (dest, ptr, len-1);
-	dest[len-1] = '\0';
-    } else
-	*dest = '\0';
-#else
 #ifdef X_NEEDS_PWPARAMS
     _Xgetpwparams pwparams;
 #endif
@@ -307,7 +293,6 @@ String _XtGetUserName(
 	} else
 	    *dest = '\0';
     }
-#endif
     return dest;
 }
 
@@ -316,25 +301,6 @@ static String GetRootDirName(
     String dest,
     int len)
 {
-#ifdef WIN32
-    register char *ptr1;
-    register char *ptr2 = NULL;
-    int len1 = 0, len2 = 0;
-
-    if (ptr1 = getenv("HOME")) {	/* old, deprecated */
-	len1 = strlen (ptr1);
-    } else if ((ptr1 = getenv("HOMEDRIVE")) && (ptr2 = getenv("HOMEDIR"))) {
-	len1 = strlen (ptr1);
-	len2 = strlen (ptr2);
-    } else if (ptr2 = getenv("USERNAME")) {
-	len1 = strlen (ptr1 = "/users/");
-	len2 = strlen (ptr2);
-    }
-    if ((len1 + len2 + 1) < len)
-	sprintf (dest, "%s%s", ptr1, (ptr2) ? ptr2 : "");
-    else
-	*dest = '\0';
-#else
 #ifdef X_NEEDS_PWPARAMS
     _Xgetpwparams pwparams;
 #endif
@@ -358,7 +324,6 @@ static String GetRootDirName(
 	} else
 	    *dest = '\0';
     }
-#endif
     return dest;
 }
 

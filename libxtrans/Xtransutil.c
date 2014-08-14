@@ -394,19 +394,6 @@ TRANS(GetPeerNetworkId) (XtransConnInfo ciptr)
 #endif /* ICE_t */
 
 
-#if defined(WIN32) && (defined(TCPCONN) || defined(DNETCONN))
-int
-TRANS(WSAStartup) (void)
-{
-    static WSADATA wsadata;
-
-    PRMSG (2,"WSAStartup()\n", 0, 0, 0);
-
-    if (!wsadata.wVersion && WSAStartup(MAKEWORD(1,1), &wsadata))
-        return 1;
-    return 0;
-}
-#endif
 
 
 static int

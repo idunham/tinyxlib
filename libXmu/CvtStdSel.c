@@ -51,10 +51,6 @@ in this Software without prior written authorization from The Open Group.
 #include <stdio.h>
 
 #ifndef SYSVNET
-#ifdef WIN32
-#include <X11/Xwinsock.h>
-#define XOS_USE_MTSAFE_NETDBAPI
-#else
 #ifndef Lynx
 #include <sys/socket.h>
 #else
@@ -62,7 +58,6 @@ in this Software without prior written authorization from The Open Group.
 #include <socket.h>
 #endif
 #define XOS_USE_XT_LOCKING
-#endif
 #define X_INCLUDE_NETDB_H
 #include <X11/Xos_r.h>
 #endif
@@ -76,15 +71,6 @@ in this Software without prior written authorization from The Open Group.
 
 #ifndef OS_NAME
 #ifndef X_OS_FILE
-#ifdef SYSV			/* keep separate until makedepend fixed */
-#define USE_UNAME
-#endif
-#ifdef SVR4
-#define USE_UNAME
-#endif
-#ifdef ultrix
-#define USE_UNAME
-#endif
 #ifdef CSRG_BASED
 #define USE_UNAME
 #endif
@@ -117,15 +103,11 @@ get_os_name(void)
 	if (uname (&utss) == 0) {
 	    char *os_name;
 	    int len = strlen(utss.sysname) + 1;
-#ifndef hpux				/* because of hostname length crock */
 	    len += 2 + strlen(utss.release);
-#endif
 	    os_name = XtMalloc (len);
 	    strcpy (os_name, utss.sysname);
-#ifndef hpux
 	    strcat (os_name, " ");
 	    strcat (os_name, utss.release);
-#endif
 	    return os_name;
 	}
 #endif

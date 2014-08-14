@@ -50,29 +50,6 @@ in this Software without prior written authorization from The Open Group.
 /* in lcWrap.c */
 extern LockInfoPtr _Xi18n_lock;
 
-#ifdef WIN32
-static DWORD _X_TlsIndex = (DWORD)-1;
-
-_Xthread_init()
-{
-    if (_X_TlsIndex == (DWORD)-1)
-	_X_TlsIndex = TlsAlloc();
-}
-
-struct _xthread_waiter *
-_Xthread_waiter()
-{
-    struct _xthread_waiter *me;
-
-    if (!(me = TlsGetValue(_X_TlsIndex))) {
-	me = (struct _xthread_waiter *)xmalloc(sizeof(struct _xthread_waiter));
-	me->sem = CreateSemaphore(NULL, 0, 1, NULL);
-	me->next = NULL;
-	TlsSetValue(_X_TlsIndex, me);
-    }
-    return me;
-}
-#endif /* WIN32 */
 
 static xthread_t _Xthread_self(void)
 {

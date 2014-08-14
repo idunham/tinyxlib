@@ -60,11 +60,7 @@ SOFTWARE.
 #endif
 #endif
 #ifndef PATH_MAX
-#ifdef WIN32
-#define PATH_MAX 512
-#else
 #include <sys/param.h>
-#endif
 #ifndef PATH_MAX
 #ifdef MAXPATHLEN
 #define PATH_MAX MAXPATHLEN
@@ -77,11 +73,9 @@ SOFTWARE.
 #ifdef XTHREADS
 #include <X11/Xthreads.h>
 #endif
-#ifndef WIN32
 #define X_INCLUDE_PWD_H
 #define XOS_USE_XLIB_LOCKING
 #include <X11/Xos_r.h>
-#endif
 #include <stdio.h>
 #include <ctype.h>
 
@@ -92,25 +86,6 @@ GetHomeDir(
     char *dest,
     int len)
 {
-#ifdef WIN32
-    register char *ptr1;
-    register char *ptr2;
-    int len1 = 0, len2 = 0;
-
-    if (ptr1 = getenv("HOME")) {	/* old, deprecated */
-	len1 = strlen (ptr1);
-    } else if ((ptr1 = getenv("HOMEDRIVE")) && (ptr2 = getenv("HOMEDIR"))) {
-	len1 = strlen (ptr1);
-	len2 = strlen (ptr2);
-    } else if (ptr2 = getenv("USERNAME")) {
-	len1 = strlen (ptr1 = "/users/");
-	len2 = strlen (ptr2);
-    }
-    if ((len1 + len2 + 1) < len)
-	sprintf (dest, "%s%s", ptr1, (ptr2) ? ptr2 : "");
-    else
-	*dest = '\0';
-#else
 #ifdef X_NEEDS_PWPARAMS
     _Xgetpwparams pwparams;
 #endif
@@ -134,7 +109,6 @@ GetHomeDir(
 	} else
 	    *dest = '\0';
     }
-#endif
     return dest;
 }
 
@@ -201,9 +175,6 @@ XGetDefault(
 	XrmRepresentation fromType;
 	XrmValue result;
 	char *progname;
-#ifdef WIN32
-	char *progname2;
-#endif
 #ifdef __UNIXOS2__
 	char *progname2;
 	char *dotpos;
@@ -213,11 +184,6 @@ XGetDefault(
 	 * strip path off of program name (XXX - this is OS specific)
 	 */
 	progname = strrchr (prog, '/');
-#ifdef WIN32
-	progname2 = strrchr (prog, '\\');
-	if (progname2 && (!progname || progname < progname2))
-	    progname = progname2;
-#endif
 #ifdef __UNIXOS2__  /* Very similar to WIN32 */
 	progname2 = strrchr (prog, '\\');
 	if (progname2 && (!progname || progname < progname2))

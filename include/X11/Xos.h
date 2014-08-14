@@ -42,15 +42,6 @@ in this Software without prior written authorization from The Open Group.
  * Get major data types (esp. caddr_t)
  */
 
-#ifdef USG
-#ifndef __TYPES__
-#ifdef CRAY
-#define word word_t
-#endif /* CRAY */
-#include <sys/types.h>			/* forgot to protect it... */
-#define __TYPES__
-#endif /* __TYPES__ */
-#else /* USG */
 #if defined(_POSIX_SOURCE) && defined(MOTOROLA)
 #undef _POSIX_SOURCE
 #include <sys/types.h>
@@ -58,7 +49,6 @@ in this Software without prior written authorization from The Open Group.
 #else
 #include <sys/types.h>
 #endif
-#endif /* USG */
 
 #ifdef _SEQUENT_
 /*
@@ -103,18 +93,9 @@ in this Software without prior written authorization from The Open Group.
 
 #else
 
-#ifdef SYSV
-#if defined(clipper) || defined(__clipper__)
-#include <malloc.h>
-#endif
-#include <string.h>
-#define index strchr
-#define rindex strrchr
-#else
 #include <strings.h>
 #define strchr index
 #define strrchr rindex
-#endif
 
 #endif /* X_NOT_STDC_ENV */
 
@@ -138,11 +119,7 @@ extern int sys_nerr;
 #if defined(USL) || defined(CRAY) || defined(MOTOROLA) || (defined(i386) && (defined(SYSV) || defined(SVR4))) || defined(__sxg__)
 #include <unistd.h>
 #endif
-#ifdef WIN32
-#include <X11/Xw32defs.h>
-#else
 #include <sys/file.h>
-#endif
 #else /* X_NOT_POSIX */
 #if !defined(_POSIX_SOURCE) && defined(macII)
 #define _POSIX_SOURCE
@@ -164,73 +141,14 @@ extern int sys_nerr;
  * Get struct timeval and struct tm
  */
 
-#if defined(SYSV) && !defined(_SEQUENT_)
 
-#ifndef USL
-#include <sys/time.h>
-#endif
-#include <time.h>
-#ifdef CRAY
-#undef word
-#endif /* CRAY */
-#if defined(USG) && !defined(CRAY) && !defined(MOTOROLA) && !defined(uniosu) && !defined(__sxg__) && !defined(clipper) && !defined(__clipper__)
-struct timeval {
-    long tv_sec;
-    long tv_usec;
-};
-#ifndef USL_SHARELIB
-struct timezone {
-    int tz_minuteswest;
-    int tz_dsttime;
-};
-#endif /* USL_SHARELIB */
-#endif /* USG */
-
-#ifdef _SEQUENT_
-struct timezone {
-    int tz_minuteswest;
-    int tz_dsttime;
-};
-#endif /* _SEQUENT_ */
-
-#else /* not SYSV */
-
-#if defined(_POSIX_SOURCE) && defined(SVR4)
-/* need to omit _POSIX_SOURCE in order to get what we want in SVR4 */
-#undef _POSIX_SOURCE
-#include <sys/time.h>
-#define _POSIX_SOURCE
-#elif defined(WIN32)
-#include <time.h>
-#if !defined(_WINSOCKAPI_) && !defined(_WILLWINSOCK_)
-struct timeval {
-    long    tv_sec;         /* seconds */
-    long    tv_usec;        /* and microseconds */
-};
-#endif
-#include <sys/timeb.h>
-#define gettimeofday(t) \
-{ \
-    struct _timeb _gtodtmp; \
-    _ftime (&_gtodtmp); \
-    (t)->tv_sec = _gtodtmp.time; \
-    (t)->tv_usec = _gtodtmp.millitm * 1000; \
-}
-#elif defined(_SEQUENT_) || defined(Lynx)
-#include <time.h>
-#elif defined (__QNX__)
-typedef unsigned long fd_mask;
-/* Make sure we get 256 bit select masks */
-#define FD_SETSIZE 256
-#include <sys/select.h>
-#include <sys/time.h>
+#if   defined(_SEQUENT_) || defined(Lynx)
 #include <time.h>
 #else
 #include <sys/time.h>
 #include <time.h>
 #endif /* defined(_POSIX_SOURCE) && defined(SVR4) */
 
-#endif /* SYSV */
 
 /* define X_GETTIMEOFDAY macro, a portable gettimeofday() */
 #if defined(_XOPEN_XPG4) || defined(_XOPEN_UNIX) /* _XOPEN_UNIX is XPG4.2 */
@@ -256,9 +174,6 @@ typedef unsigned long fd_mask;
 #endif
 
 /* use POSIX name for signal */
-#if defined(X_NOT_POSIX) && defined(SYSV) && !defined(SIGCHLD) && !defined(ISC)
-#define SIGCHLD SIGCLD
-#endif
 
 #ifdef ISC
 #include <sys/bsdtypes.h>

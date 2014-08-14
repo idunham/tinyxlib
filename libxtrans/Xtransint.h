@@ -78,9 +78,6 @@ from The Open Group.
 #define XTRANSDEBUG 1
 #endif
 
-#ifdef WIN32
-#define _WILLWINSOCK_
-#endif
 
 #include <X11/Xtrans.h>
 
@@ -90,7 +87,6 @@ from The Open Group.
 
 #include <errno.h>
 
-#ifndef WIN32
 #ifndef Lynx
 #include <sys/socket.h>
 #else
@@ -133,9 +129,6 @@ from The Open Group.
 #ifdef __GNU__
 #define OPEN_MAX (sysconf(_SC_OPEN_MAX))
 #endif
-#ifdef SVR4
-#define OPEN_MAX 256
-#else
 #include <sys/param.h>
 #ifndef OPEN_MAX
 #ifdef __OSF1__
@@ -148,7 +141,6 @@ from The Open Group.
 #define OPEN_MAX NOFILES_MAX
 #else
 #define OPEN_MAX 256
-#endif
 #endif
 #endif
 #endif
@@ -173,14 +165,6 @@ from The Open Group.
 #endif
 #define EGET() errno
 
-#else /* WIN32 */
-
-#include <limits.h>	/* for USHRT_MAX */
-
-#define ESET(val) WSASetLastError(val)
-#define EGET() WSAGetLastError()
-
-#endif /* WIN32 */
 
 #include <stddef.h>
 

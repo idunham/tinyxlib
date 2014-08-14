@@ -37,15 +37,6 @@
 
 #include "XpmI.h"
 #include <sys/stat.h>
-#if !defined(NO_ZPIPE) && defined(WIN32)
-# define popen _popen
-# define pclose _pclose
-# if defined(STAT_ZFILE)
-#  include <io.h>
-#  define stat _stat
-#  define fstat _fstat
-# endif
-#endif
 
 LFUNC(OpenReadFile, int, (char *filename, xpmData *mdata));
 LFUNC(xpmDataClose, void, (xpmData *mdata));

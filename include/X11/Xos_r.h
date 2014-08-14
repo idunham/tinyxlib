@@ -89,7 +89,6 @@ in this Software without prior written authorization from The Open Group.
 # endif
 #endif /* _XOS_R_H */
 
-#ifndef WIN32
 
 #ifdef __cplusplus
 extern "C" {
@@ -186,7 +185,6 @@ extern void XtProcessUnlock(
 #  endif
 # endif
 
-#endif /* !defined WIN32 */
 
 /*
  * Solaris 2.5 has SVR4 thread-safe API, but defines the POSIX
@@ -333,7 +331,6 @@ typedef struct {
   struct passwd pws;
   char pwbuf[X_LINE_MAX];
 } _Xgetpwparams;
-# if defined(_POSIX_REENTRANT_FUNCTIONS) || !defined(SVR4) || defined(Lynx)
 #  ifndef Lynx
 #   define _XGetpwuid(u,p) \
 ((getpwuid_r((u),&(p).pws,(p).pwbuf,sizeof((p).pwbuf)) == -1) ? NULL : &(p).pws)
@@ -345,20 +342,9 @@ typedef struct {
 #   define _XGetpwnam(u,p) \
 ((getpwnam_r(&(p).pws,(u),(p).pwbuf,sizeof((p).pwbuf)) == -1) ? NULL : &(p).pws)
 #  endif
-# else /* SVR4 */
-#  define _XGetpwuid(u,p) \
-((getpwuid_r((u),&(p).pws,(p).pwbuf,sizeof((p).pwbuf)) == NULL) ? NULL : &(p).pws)
-#  define _XGetpwnam(u,p) \
-((getpwnam_r((u),&(p).pws,(p).pwbuf,sizeof((p).pwbuf)) == NULL) ? NULL : &(p).pws)
-# endif /* SVR4 */
 
 #else /* _POSIX_THREAD_SAFE_FUNCTIONS */
 /* Digital UNIX 4.0, but not (beta) T4.0-1 */
-# if defined(__osf__)
-/* OSF/1 V4.0 <pwd.h> doesn't declare the _P routines, breaking under C++. */
-extern int _Pgetpwuid_r(uid_t, struct passwd *, char *, size_t, struct passwd **);
-extern int _Pgetpwnam_r(const char *, struct passwd *, char *, size_t, struct passwd **);
-# endif
 # define X_NEEDS_PWPARAMS
 typedef struct {
   struct passwd pws;
@@ -622,35 +608,12 @@ typedef struct {
      defined(AIXV4) || defined(__APPLE__)
 /* AIX defines the draft POSIX symbol, but uses the final API. */
 /* POSIX final API, returns (int)0 on success. */
-#  if defined(__osf__)
-/* OSF/1 V4.0 <dirent.h> doesn't declare _Preaddir_r, breaking under C++. */
-extern int _Preaddir_r(DIR *, struct dirent *, struct dirent **);
-#  endif
 #  define _XReaddir(d,p)						\
     (readdir_r((d), &((p).dir_entry), &((p).result)) ? NULL : (p).result)
-# elif defined(_POSIX_REENTRANT_FUNCTIONS) && defined(__osf__)
-/*
- * OSF/1 V3.2 readdir_r() will SEGV if the main program is not
- * explicitly linked with -lc_r.  The library REQUIREDLIBS don't help.
- * Assume that if threads have been initialized we're linked properly.
- */
-#  define _XReaddir(d,p)						\
- ( (_Xos_isThreadInitialized) ?						\
-   (readdir_r((d), &((p).dir_entry)) ? NULL : &((p).dir_entry)) :	\
-   ((_Xos_processLock),							\
-    (((p).result = readdir((d))) ?					\
-     (memcpy(&((p).dir_entry), (p).result, (p).result->d_reclen),	\
-      ((p).result = &(p).dir_entry), 0) :				\
-     0),								\
-    (_Xos_processUnlock),						\
-    (p).result) )
 # elif defined(_POSIX_REENTRANT_FUNCTIONS)
 /* POSIX draft API, returns (int)0 on success. */
 #  define _XReaddir(d,p)	\
     (readdir_r((d),&((p).dir_entry)) ? NULL : &((p).dir_entry))
-# elif defined(SVR4)
-/* Pre-POSIX API, returns non-NULL on success. */
-#  define _XReaddir(d,p)	(readdir_r((d), &(p).dir_entry))
 # else
 /* We have no idea what is going on.  Fake it all using process locks. */
 #  define _XReaddir(d,p)	\
@@ -993,12 +956,6 @@ typedef struct tm _Xltimeparams;
  * extern struct tm *gmtime_r(const time_t *timer, struct tm *result);
  * extern struct tm *localtime_r(const time_t *timer, struct tm *result);
  */
-# if defined(__osf__)
-/* OSF/1 V4.0 <time.h> doesn't declare the _P routines, breaking under C++. */
-extern char *_Pasctime_r(const struct tm *, char *);
-extern char *_Pctime_r(const time_t *, char *);
-extern struct tm *_Plocaltime_r(const time_t *, struct tm *);
-# endif
 # ifdef TIMELEN
 typedef char _Xatimeparams[TIMELEN];
 typedef char _Xctimeparams[TIMELEN];
@@ -1064,24 +1021,12 @@ typedef struct {
   struct group *pgrp;
   size_t len;
 } _Xgetgrparams;
-#ifdef SVR4
-/* Copy the gr_passwd field too. */
-# define _Xgrp_copyGroup(p) \
- ( memcpy(&(p).grp, (p).pgrp, sizeof(struct group)), \
-   ((p).grp.gr_name = (p).buf), \
-   ((p).len = strlen((p).pgrp->gr_name)), \
-   strcpy((p).grp.gr_name, (p).pgrp->gr_name), \
-   ((p).grp.gr_passwd = (p).grp.gr_name + (p).len + 1), \
-   ((p).pgrp = &(p).grp), \
-   0 )
-#else
 # define _Xgrp_copyGroup(p) \
  ( memcpy(&(p).grp, (p).pgrp, sizeof(struct group)), \
    ((p).grp.gr_name = (p).buf), \
    strcpy((p).grp.gr_name, (p).pgrp->gr_name), \
    ((p).pgrp = &(p).grp), \
    0 )
-#endif
 #define _XGetgrgid(g,p) \
  ( (_Xos_processLock), \
    (((p).pgrp = getgrgid((g))) ? _Xgrp_copyGroup(p) : 0), \
@@ -1127,11 +1072,6 @@ typedef struct {
  * int getgrgid_r(gid_t, struct group *, char *, size_t, struct group **);
  * int getgrnam_r(const char *, struct group *, char *, size_t, struct group **);
  */
-# if defined(__osf__)
-/* OSF/1 V4.0 <grp.h> doesn't declare the _P routines, breaking under C++. */
-extern int _Pgetgrgid_r(gid_t, struct group *, char *, size_t, struct group **);
-extern int _Pgetgrnam_r(const char *, struct group *, char *, size_t, struct group **);
-# endif
 typedef struct {
   struct group grp;
   char buf[X_LINE_MAX];	/* Should be sysconf(_SC_GETGR_R_SIZE_MAX)? */

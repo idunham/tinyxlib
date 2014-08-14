@@ -38,12 +38,6 @@ in this Software without prior written authorization from the X Consortium.
 
 #define XlibSpecificationRelease 6
 
-#ifdef USG
-#ifndef __TYPES__
-#include <sys/types.h>			/* forgot to protect it... */
-#define __TYPES__
-#endif /* __TYPES__ */
-#else
 #if defined(_POSIX_SOURCE) && defined(MOTOROLA)
 #undef _POSIX_SOURCE
 #include <sys/types.h>
@@ -51,7 +45,6 @@ in this Software without prior written authorization from the X Consortium.
 #else
 #include <sys/types.h>
 #endif
-#endif /* USG */
 
 #include <X11/X.h>
 
@@ -1401,9 +1394,6 @@ typedef struct {
 
 _XFUNCPROTOBEGIN
 
-#if defined(WIN32) && !defined(_XLIBINT_)
-#define _Xdebug (*_Xdebug_p)
-#endif
 
 extern int _Xdebug;
 

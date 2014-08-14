@@ -1277,9 +1277,7 @@ static Boolean DispatchEvent(
 
 typedef enum _GrabType {pass, ignore, remap} GrabType;
 
-#if !defined(AIXV3) || !defined(AIXSHLIB)
 static /* AIX shared libraries are broken */
-#endif
 Boolean _XtDefaultDispatcher(
     XEvent  *event)
 {

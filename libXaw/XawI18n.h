@@ -39,9 +39,6 @@ in this Software without prior written authorization from The Open Group.
 #include <wchar.h>
 #endif
 
-#if defined(AIXV3) || defined(SCO325)
-#include <ctype.h>
-#endif
 
 #ifdef NCR
 #define iswspace(c) _Xaw_iswspace(c)
@@ -52,10 +49,8 @@ int _Xaw_iswspace
 #endif
 
 #ifdef sony
-#ifndef SVR4
 #include <jctype.h>
 #define iswspace(c) jisspace(c)
-#endif
 #endif
 
 #ifdef QNX4

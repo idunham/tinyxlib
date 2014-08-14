@@ -52,9 +52,6 @@ in this Software without prior written authorization from The Open Group.
  * font server specific font access
  */
 
-#ifdef WIN32
-#define _WILLWINSOCK_
-#endif
 #include	<X11/Xtrans.h>
 #include	<X11/Xpoll.h>
 #include	<X11/fonts/FS.h>

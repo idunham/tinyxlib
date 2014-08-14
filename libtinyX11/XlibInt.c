@@ -101,9 +101,6 @@ xthread_t (*_Xthread_self_fn)() = NULL;
 /* check for both EAGAIN and EWOULDBLOCK, because some supposedly POSIX
  * systems are broken and return EWOULDBLOCK when they should return EAGAIN
  */
-#ifdef WIN32
-#define ETEST() (WSAGetLastError() == WSAEWOULDBLOCK)
-#else
 #if defined(EAGAIN) && defined(EWOULDBLOCK)
 #define ETEST() (errno == EAGAIN || errno == EWOULDBLOCK)
 #else
@@ -113,11 +110,6 @@ xthread_t (*_Xthread_self_fn)() = NULL;
 #define ETEST() (errno == EWOULDBLOCK)
 #endif
 #endif
-#endif
-#ifdef WIN32
-#define ECHECK(err) (WSAGetLastError() == err)
-#define ESET(val) WSASetLastError(val)
-#else
 #ifdef __EMX__
 #define ECHECK(err) (errno == err)
 #define ESET(val)
@@ -128,7 +120,6 @@ xthread_t (*_Xthread_self_fn)() = NULL;
 #define ECHECK(err) (errno == err)
 #endif
 #define ESET(val) errno = val
-#endif
 #endif
 
 #if defined(LOCALCONN) || defined(LACHMAN)
@@ -2728,11 +2719,7 @@ int _XDefaultIOError (dpy)
 #if 0
 	    (void) fprintf (stderr, 
 			"XIO:  fatal IO error %d (%s) on X server \"%s\"\r\n",
-#ifdef WIN32
-			WSAGetLastError(), strerror(WSAGetLastError()),
-#else
 			errno, strerror (errno),
-#endif
 			DisplayString (dpy));
 	    (void) fprintf (stderr, 
 	 "      after %lu requests (%lu known processed) with %d events remaining.\r\n",
@@ -2938,9 +2925,6 @@ int _XIOError (dpy)
     Display *dpy;
 {
     dpy->flags |= XlibDisplayIOError;
-#ifdef WIN32
-    errno = WSAGetLastError();
-#endif
 
     if (_XIOErrorFunction != NULL)
 	(*_XIOErrorFunction)(dpy);

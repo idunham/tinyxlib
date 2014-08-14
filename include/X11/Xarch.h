@@ -40,15 +40,7 @@
 
 #else
 
-#ifdef SVR4
-#if defined(NCR) || defined(Mips)
-#include <sys/endian.h>
-#else
-#if !defined(sun) && !defined(__sgi)
-#include <sys/byteorder.h>
-#endif
-#endif
-#elif defined(CSRG_BASED)
+#if   defined(CSRG_BASED)
 #if defined(__NetBSD__) || defined(__OpenBSD__)
 #include <sys/types.h>
 #endif
@@ -87,9 +79,6 @@
 #define LITTLE_ENDIAN 1234
 #define BIG_ENDIAN    4321
 
-#if defined(__QNX__) && !defined(__QNXNTO__)
-#define BYTE_ORDER LITTLE_ENDIAN
-#endif
 
 #if defined(__QNXNTO__)
 #if defined(i386) || defined(__i386__) || defined(__x86__)
@@ -106,15 +95,6 @@
 #define BYTE_ORDER BIG_ENDIAN
 #endif
 #endif
-#if (defined(sun) && defined(SVR4)) && !defined(Lynx)
-#include <sys/isa_defs.h>
-#ifdef _LITTLE_ENDIAN
-#define BYTE_ORDER LITTLE_ENDIAN
-#endif
-#ifdef _BIG_ENDIAN
-#define BYTE_ORDER BIG_ENDIAN
-#endif
-#endif /* sun */
 #endif /* BYTE_ORDER */
 
 #define X_BYTE_ORDER BYTE_ORDER

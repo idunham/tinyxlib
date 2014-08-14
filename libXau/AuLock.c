@@ -36,11 +36,7 @@ in this Software without prior written authorization from The Open Group.
 #ifndef X_NOT_POSIX
 #include <unistd.h>
 #else
-#ifndef WIN32
 extern unsigned	sleep ();
-#else
-#define link rename
-#endif
 #endif
 #ifdef __UNIXOS2__
 #define link rename

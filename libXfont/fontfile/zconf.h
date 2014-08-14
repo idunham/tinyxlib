@@ -69,9 +69,7 @@
 #  define WINDOWS
 #endif
 #if defined(_WIN32) || defined(_WIN32_WCE) || defined(__WIN32__)
-#  ifndef WIN32
 #    define WIN32
-#  endif
 #endif
 #if (defined(MSDOS) || defined(OS2) || defined(WINDOWS)) && !defined(WIN32)
 #  if !defined(__GNUC__) && !defined(__FLAT__) && !defined(__386__)
@@ -87,9 +85,6 @@
  */
 #ifdef SYS16BIT
 #  define MAXSEG_64K
-#endif
-#ifdef MSDOS
-#  define UNALIGNED_OK
 #endif
 
 #ifdef __STDC_VERSION__
@@ -203,13 +198,6 @@
     * This is not mandatory, but it offers a little performance increase.
     */
 #  ifdef ZLIB_DLL
-#    if defined(WIN32) && (!defined(__BORLANDC__) || (__BORLANDC__ >= 0x500))
-#      ifdef ZLIB_INTERNAL
-#        define ZEXTERN extern __declspec(dllexport)
-#      else
-#        define ZEXTERN extern __declspec(dllimport)
-#      endif
-#    endif
 #  endif  /* ZLIB_DLL */
    /* If building or using zlib with the WINAPI/WINAPIV calling convention,
     * define ZLIB_WINAPI.
@@ -223,11 +211,7 @@
      /* No need for _export, use ZLIB.DEF instead. */
      /* For complete Windows compatibility, use WINAPI, not __stdcall. */
 #    define ZEXPORT WINAPI
-#    ifdef WIN32
-#      define ZEXPORTVA WINAPIV
-#    else
 #      define ZEXPORTVA FAR CDECL
-#    endif
 #  endif
 #endif
 

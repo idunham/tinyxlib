@@ -60,9 +60,6 @@ from The Open Group.
 #include "Xlcint.h"
 #include "Xlocale.h"
 #include <X11/Xos.h>
-#ifdef WIN32
-#undef close
-#endif
 #include <Xutil.h>
 #include "XlcPubI.h"
 
@@ -112,9 +109,6 @@ Bool _XlcValidModSyntax(
 	for (ptr = valid_mods; *ptr; ptr++) {
 	    i = strlen(*ptr);
 	    if (strncmp(mods, *ptr, i) || ((mods[i] != '=')
-#ifdef WIN32
-					   && (mods[i] != '#')
-#endif
 					   ))
 		continue;
 	    mods = strchr(mods+i+1, '@');
@@ -148,19 +142,6 @@ _XlcDefaultMapModifiers(
 	strcpy(mods, prog_mods);
 	if (user_mods)
 	    strcat(mods, user_mods);
-#ifdef WIN32
-	{
-	    char *s;
-	    for (s = mods; s = strchr(s, '@'); s++) {
-		for (s++; *s && *s != '='; s++) {
-		    if (*s == '#') {
-			*s = '=';
-			break;
-		    }
-		}
-	    }
-	}
-#endif
     }
     return mods;
 }

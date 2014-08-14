@@ -26,15 +26,6 @@ in this Software without prior written authorization from The Open Group.
 */
 /* $Xorg: XAppgroup.c,v 1.5 2001/02/09 02:03:49 xorgcvs Exp $ */
 
-#ifdef WIN32
-#define BOOL wBOOL
-#undef Status
-#define Status wStatus
-#include <windows.h>
-#undef Status
-#define Status int
-#undef BOOL
-#endif
 
 #define NEED_EVENTS
 #define NEED_REPLIES
@@ -350,25 +341,6 @@ XagCreateAssociation(dpy, window_return, system_window)
     Window* window_return;
     void* system_window;
 {
-#ifdef WIN32
-    long tmp = *(HWND*) system_window;
-    XExtDisplayInfo *info = find_display (dpy);
-    xXagCreateAssocReq *req;
-
-    XagCheckExtension (dpy, info, False);
-
-    LockDisplay(dpy);
-    GetReq(XagCreateAssoc, req);
-    req->reqType = info->codes->major_opcode;
-    req->xagReqType = X_XagCreateAssoc;
-    *window_return = req->window = XAllocID(dpy);
-    req->window_type = XagWindowTypeWin32;
-    req->system_window_len = sizeof(HWND);
-    Data32 (dpy, (long*) tmp, 1L);
-    req->length++;
-    UnlockDisplay(dpy);
-    SyncHandle();
-#else
     /* other platforms go here */
 
     /* this whole thing could be arranged better, but since X need
@@ -376,7 +348,6 @@ XagCreateAssociation(dpy, window_return, system_window)
      * platform the XC supports, it will suffice for now.
      */
     *window_return = *(Window*)system_window;
-#endif
     return True;
 }
 
@@ -385,20 +356,6 @@ XagDestroyAssociation(dpy, window)
     Display* dpy;
     Window window;
 {
-#ifdef WIN32
-    XExtDisplayInfo *info = find_display (dpy);
-    xXagDestroyAssocReq *req;
-
-    XagCheckExtension (dpy, info, False);
-
-    LockDisplay(dpy);
-    GetReq(XagDestroyAssoc, req);
-    req->reqType = info->codes->major_opcode;
-    req->xagReqType = X_XagDestroyAssoc;
-    req->window = window;
-    UnlockDisplay(dpy);
-    SyncHandle();
-#endif
     return True;
 }
 

@@ -31,9 +31,6 @@ in this Software without prior written authorization from The Open Group.
  * Author: Ralph Mor, X Consortium
  */
 
-#ifdef WIN32
-#define _WILLWINSOCK_
-#endif
 #include <X11/SM/SMlib.h>
 #include "SMlibint.h"
 #ifdef XTHREADS
@@ -44,7 +41,6 @@ in this Software without prior written authorization from The Open Group.
 #include <time.h>
 #define Time_t time_t
 
-#ifndef WIN32
 
 #if defined(TCPCONN) || defined(STREAMSCONN)
 #ifndef Lynx
@@ -59,15 +55,6 @@ in this Software without prior written authorization from The Open Group.
 #include <X11/Xos_r.h>
 #endif
 
-#else /* WIN32 */
-
-#include <X11/Xwinsock.h>
-#include <X11/Xw32defs.h>
-#define X_INCLUDE_NETDB_H
-#define XOS_USE_MTSAFE_NETDBAPI
-#include <X11/Xos_r.h>
-
-#endif /* WIN32 */
 
 #ifdef MNX_TCPCONN
 #include <net/gen/netdb.h>

@@ -50,11 +50,7 @@ in this Software without prior written authorization from The Open Group.
 #endif
 #endif /* X_NOT_POSIX */
 #ifndef PATH_MAX
-#ifdef WIN32
-#define PATH_MAX 512
-#else
 #include <sys/param.h>
-#endif
 #ifndef PATH_MAX
 #ifdef MAXPATHLEN
 #define PATH_MAX MAXPATHLEN

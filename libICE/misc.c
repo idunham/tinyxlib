@@ -28,17 +28,10 @@ Author: Ralph Mor, X Consortium
 ******************************************************************************/
 /* $XFree86: xc/lib/ICE/misc.c,v 1.3 2001/01/17 19:41:29 dawes Exp $ */
 
-#ifdef WIN32
-#define _WILLWINSOCK_
-#endif
 #include <X11/ICE/ICElib.h>
 #include "ICElibint.h"
 #include <X11/Xtrans.h>
 #include <stdio.h>
-#ifdef WIN32
-#include <X11/Xwinsock.h>
-#include <X11/Xw32defs.h>
-#endif
 
 
 /*
@@ -261,9 +254,6 @@ register char	 *ptr;
 
 	if (nread <= 0)
 	{
-#ifdef WIN32
-	    errno = WSAGetLastError();
-#endif
 	    if (iceConn->want_to_close)
 	    {
 		/*
@@ -385,9 +375,6 @@ register char	 *ptr;
 
 	if (nwritten <= 0)
 	{
-#ifdef WIN32
-	    errno = WSAGetLastError();
-#endif
 	    /*
 	     * Fatal IO error.  First notify each protocol's IceIOErrorProc
 	     * callback, then invoke the application IO error handler.

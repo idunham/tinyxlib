@@ -36,11 +36,7 @@ in this Software without prior written authorization from the X Consortium.
 #else
 #define Const /**/
 #endif
-#if defined(__STDC__) && ((defined(sun) && defined(SVR4)) || defined(WIN32))
-#define RConst /**/
-#else
 #define RConst Const
-#endif
 
 /* assumes pad is a power of 2 */
 #define ROUNDUP(nbytes, pad) (((nbytes) + ((pad) - 1)) & ~(long)((pad) - 1))

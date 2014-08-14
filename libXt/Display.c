@@ -256,11 +256,7 @@ Display *XtOpenDisplay(
 
 	if (! applName && !(applName = getenv("RESOURCE_NAME"))) {
 	    if (*argc > 0 && argv[0] && *argv[0]) {
-#ifdef WIN32
-		char *ptr = strrchr(argv[0], '\\');
-#else
 		char *ptr = strrchr(argv[0], '/');
-#endif
 #ifdef __UNIXOS2__
 		char *dot_ptr,*ptr2;
 		ptr2 = strrchr(argv[0],'\\');

@@ -118,10 +118,6 @@ char _XsTypeOfStream[100] = { 0 };
 
 extern int write();
 extern int close();
-#ifdef SVR4
-extern int _XsSetupSpStream();
-extern int _XsSetupNamedStream();
-#endif 
 extern int _XsSetupLocalStream();
 extern int _XsConnectLocalClient();
 extern int _XsCallLocalServer();
@@ -152,14 +148,8 @@ Xstream _XsStream[] = {
 	NULL
     },
     { 
-#ifdef SVR4
-	/* local connections using named streams */
-
-        _XsSetupNamedStream,
-#else
 	/* local connections using streams */
         _XsSetupLocalStream,
-#endif
         _XsConnectLocalClient,
         _XsCallLocalServer,
         _XsReadLocalStream,
@@ -170,12 +160,7 @@ Xstream _XsStream[] = {
     },
     /* Enhanced Application Compatibility Support */
     {
-#ifdef SVR4
-	/* SVR4 stream pipe code */
-	_XsSetupSpStream,
-#else
 	_XsSetupLocalStream,
-#endif
 	_XsConnectLocalClient,
 	_XsCallLocalServer,
 	_XsReadLocalStream,

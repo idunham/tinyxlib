@@ -47,10 +47,6 @@ getbits (long data, unsigned char *dst)
 
 #include <stdlib.h>
 
-#if defined(SYSV) || defined(SVR4)
-#define srandom srand48
-#define random lrand48
-#endif
 
 void
 XdmcpGenerateKey (XdmAuthKeyPtr key)

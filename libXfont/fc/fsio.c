@@ -28,9 +28,6 @@
  * font server i/o routines
  */
 
-#ifdef WIN32
-#define _WILLWINSOCK_
-#endif
 
 #include 	<X11/Xtrans.h>
 #include	<X11/Xpoll.h>
@@ -43,19 +40,12 @@
 #include	<stdio.h>
 #include	<signal.h>
 #include	<sys/types.h>
-#if !defined(WIN32)
 #ifndef Lynx
 #include	<sys/socket.h>
 #else
 #include	<socket.h>
 #endif
-#endif
 #include	<errno.h>
-#ifdef WIN32
-#define EWOULDBLOCK WSAEWOULDBLOCK
-#undef EINTR
-#define EINTR WSAEINTR
-#endif
 
 #ifdef __EMX__
 #define select(n,r,w,x,t) os2PseudoSelect(n,r,w,x,t)
@@ -490,21 +480,5 @@ _fs_any_bit_set(fd_set *mask)
 void
 _fs_or_bits(fd_set *dst, fd_set *m1, fd_set *m2)
 {
-#ifdef WIN32
-    int i;
-    if (dst != m1) {
-	for (i = m1->fd_count; --i >= 0; ) {
-	    if (!FD_ISSET(m1->fd_array[i], dst))
-		FD_SET(m1->fd_array[i], dst);
-	}
-    }
-    if (dst != m2) {
-	for (i = m2->fd_count; --i >= 0; ) {
-	    if (!FD_ISSET(m2->fd_array[i], dst))
-		FD_SET(m2->fd_array[i], dst);
-	}
-    }
-#else
     XFD_ORSET(dst, m1, m2);
-#endif
 }

@@ -37,13 +37,7 @@ in this Software without prior written authorization from The Open Group.
 #include <string.h>
 #include <unistd.h>
 
-#ifdef WIN32
-#include <X11/Xwinsock.h>
-#endif
 
-#ifdef USG
-#define NEED_UTSNAME
-#endif
 
 #ifdef NEED_UTSNAME
 #include <sys/utsname.h>
@@ -55,12 +49,6 @@ int
 XmuGetHostname(char *buf, int maxlen)
 {
     int len;
-#ifdef WIN32
-    static WSADATA wsadata;
-
-    if (!wsadata.wVersion && WSAStartup(MAKEWORD(1,1), &wsadata))
-	return -1;
-#endif
 
 #ifdef NEED_UTSNAME
     /*
