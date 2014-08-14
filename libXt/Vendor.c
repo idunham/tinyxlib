@@ -62,27 +62,6 @@ SOFTWARE.
  *
  ***************************************************************************/
 
-#if defined(__UNIXOS2__) || defined(__CYGWIN__)
-/* to fix the EditRes problem because of wrong linker semantics */
-extern WidgetClass vendorShellWidgetClass;
-
-
-#if defined(__CYGWIN__)
-int __stdcall
-DllMain(unsigned long mod_handle, unsigned long flag, void *routine)
-{
-  switch (flag)
-    {
-    case 1: /* DLL_PROCESS_ATTACH - process attach */
-      vendorShellWidgetClass = (WidgetClass)(&vendorShellClassRec);
-      break;
-    case 0: /* DLL_PROCESS_DETACH - process detach */
-      break;
-    }
-  return 1;
-}
-#endif
-#endif
 
 externaldef(vendorshellclassrec) VendorShellClassRec vendorShellClassRec = {
   {

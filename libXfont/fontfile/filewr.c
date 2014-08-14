@@ -39,11 +39,7 @@ FontFileOpenWrite (const char *name)
 {
     int	fd;
 
-#if defined(WIN32) || defined(__EMX__) || defined(__CYGWIN__)
-    fd = open (name, O_CREAT|O_TRUNC|O_RDWR|O_BINARY, 0666);
-#else
     fd = creat (name, 0666);
-#endif
     if (fd < 0)
 	return 0;
     return (FontFilePtr) BufFileOpenWrite (fd);

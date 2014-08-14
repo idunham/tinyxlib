@@ -62,11 +62,6 @@ from The Open Group.
 #include <X11/Xthreads.h>
 #endif
 
-#ifdef __CYGWIN__
-#include <sys/unistd.h>
-#define fchown chown
-#define fchmod chmod
-#endif
 
 #ifdef X11_t
 

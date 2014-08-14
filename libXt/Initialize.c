@@ -149,63 +149,6 @@ static void GetHostname (
 
 
 
-#if defined(__CYGWIN__)
-/*
- * The Symbol _XtInherit is used in two different manners.
- * First it could be used as a generic function and second
- * as an absolute address reference, which will be used to
- * check the initialisation process of several other libraries.
- * Because of this the symbol must be accessable by all
- * client dll's and applications.  In unix environments
- * this is no problem, because the used shared libraries
- * format (elf) supports this immediatly.  Under Windows
- * this isn't true, because a functions address in a dll
- * is different from the same function in another dll or
- * applications, because the used Portable Executable
- * File adds a code stub to each client to provide the
- * exported symbol name.  This stub uses an indirect
- * pointer to get the original symbol address, which is
- * then jumped to, like in this example:
- *
- * --- client ---                                     --- dll ----
- *  ...
- *  call foo
- *
- * foo: jmp (*_imp_foo)               ---->           foo: ....
- *      nop
- *      nop
- *
- * _imp_foo: .long <index of foo in dll export table, is
- *		    set to the real address by the runtime linker>
- *
- * Now it is clear why the clients symbol foo isn't the same
- * as in the dll and we can think about how to deal which
- * this two above mentioned requirements, to export this
- * symbol to all clients and to allow calling this symbol
- * as a function.  The solution I've used exports the
- * symbol _XtInherit as data symbol, because global data
- * symbols are exported to all clients.  But how to deal
- * with the second requirement, that this symbol should
- * be used as function.  The Trick is to build a little
- * code stub in the data section in the exact manner as
- * above explained.  This is done with the assembler code
- * below.
- *
- * Ralf Habacker
- *
- * References:
- * msdn          http://msdn.microsoft.com/msdnmag/issues/02/02/PE/PE.asp
- * cygwin-xfree: http://www.cygwin.com/ml/cygwin-xfree/2003-10/msg00000.html
- */
-
-asm (".data\n\
- .globl __XtInherit        \n\
- __XtInherit:      jmp *_y \n\
-  _y: .long ___XtInherit   \n\
-    .text                 \n");
-
-#define _XtInherit __XtInherit
-#endif
 
 
 void _XtInherit(void)
