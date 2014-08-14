@@ -66,11 +66,6 @@ SOFTWARE.
     defined(__amd64__) || defined(__x86_64__)
 #define LONG64				/* 32/64-bit architecture */
 #endif
-#ifdef __sgi
-#if (_MIPS_SZLONG == 64)
-#define LONG64
-#endif
-#endif
 
 /*
  * Stuff to handle large architecture machines; the constants were generated
@@ -116,13 +111,8 @@ typedef unsigned long CARD64;
 typedef unsigned int INT32;
 typedef unsigned int INT16;
 #else
-#ifdef __STDC__
 typedef signed int INT32;
 typedef signed int INT16;
-#else
-typedef int INT32;
-typedef int INT16;
-#endif
 #endif
 #else
 #define B32
@@ -136,11 +126,7 @@ typedef long INT32;
 typedef short INT16;
 #endif
 
-#if defined(__STDC__) || defined(sgi) || defined(AIXV3)
 typedef signed char    INT8;
-#else
-typedef char           INT8;
-#endif
 
 #ifdef LONG64
 typedef unsigned long CARD64;

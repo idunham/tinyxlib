@@ -73,10 +73,8 @@ typedef struct _XLCdGenericPart {
     unsigned long wc_shift_bits;
     CodeSet initial_state_GL;
     CodeSet initial_state_GR;
-#ifndef X_NOT_STDC_ENV
     Bool use_stdc_env;
     Bool force_convert_to_mb;
-#endif
 } XLCdGenericPart;
 
 typedef struct _XLCdGenericRec {

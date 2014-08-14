@@ -38,14 +38,7 @@ from the X Consortium.
 #include "../../../include/keysymdef.h"
 #include <stdio.h>
 
-#ifndef X_NOT_STDC_ENV
 #include <stdlib.h>
-#else
-char *malloc();
-#endif
-#if defined(macII) && !defined(__STDC__)  /* stdlib.h fails to define these */
-char *malloc();
-#endif /* macII */
 
 typedef unsigned long Signature;
 

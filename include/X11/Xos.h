@@ -72,32 +72,15 @@ in this Software without prior written authorization from The Open Group.
  * which can be really inconvenient. :-(
  */
 
-#ifndef X_NOT_STDC_ENV
 
 #include <string.h>
-#ifdef __STDC__
 #ifndef index
 #define index(s,c) (strchr((s),(c)))
 #endif
 #ifndef rindex
 #define rindex(s,c) (strrchr((s),(c)))
 #endif
-#else
-#ifndef index
-#define index strchr
-#endif
-#ifndef rindex
-#define rindex strrchr
-#endif
-#endif
 
-#else
-
-#include <strings.h>
-#define strchr index
-#define strrchr rindex
-
-#endif /* X_NOT_STDC_ENV */
 
 /*
  * strerror()
@@ -121,15 +104,8 @@ extern int sys_nerr;
 #endif
 #include <sys/file.h>
 #else /* X_NOT_POSIX */
-#if !defined(_POSIX_SOURCE) && defined(macII)
-#define _POSIX_SOURCE
 #include <fcntl.h>
 #include <unistd.h>
-#undef _POSIX_SOURCE
-#else
-#include <fcntl.h>
-#include <unistd.h>
-#endif
 #endif /* X_NOT_POSIX else */
 
 #ifdef CSRG_BASED

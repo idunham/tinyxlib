@@ -59,9 +59,6 @@ SOFTWARE.
 #include "Xutil.h"
 #include <X11/Xos.h>
 
-#ifdef X_NOT_STDC_ENV
-extern char *getenv();
-#endif
 
 /* 
  * XSetWMProperties sets the following properties:

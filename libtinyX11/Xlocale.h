@@ -36,9 +36,6 @@ from the X Consortium.
 #include <X11/Xosdefs.h>
 
 #ifndef X_LOCALE
-#ifdef X_NOT_STDC_ENV
-#define X_LOCALE
-#endif
 #endif
 
 #ifndef X_LOCALE

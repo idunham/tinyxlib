@@ -29,11 +29,7 @@ in this Software without prior written authorization from the X Consortium.
 #define NEED_EVENTS
 #include "Xlibint.h"
 
-#ifdef __STDC__
 #define Const const
-#else
-#define Const /**/
-#endif
 
 extern long Const _Xevent_to_mask[];
 #define AllPointers (PointerMotionMask|PointerMotionHintMask|ButtonMotionMask)

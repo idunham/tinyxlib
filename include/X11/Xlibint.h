@@ -200,9 +200,6 @@ typedef struct _XSQEvent
 #define NEED_REPLIES
 #endif
 #include <X11/Xproto.h>
-#ifdef __sgi
-#define _SGI_MP_SOURCE  /* turn this on to get MP safe errno */
-#endif
 #include <errno.h>
 #define _XBCOPYFUNC _Xbcopy
 #include <X11/Xfuncs.h>
@@ -213,14 +210,8 @@ typedef struct _XSQEvent
 #undef dirty
 #endif
 
-#ifndef X_NOT_STDC_ENV
 #include <stdlib.h>
 #include <string.h>
-#else
-char *malloc(), *realloc(), *calloc();
-void exit();
-#include <strings.h>
-#endif
 
 /*
  * The following definitions can be used for locking requests in multi-threaded
@@ -327,9 +318,6 @@ extern LockInfoPtr _Xglobal_lock;
 #define LOCKED 1
 #define UNLOCKED 0
 
-#ifdef X_NOT_STDC_ENV
-extern int errno;			/* Internal system error number. */
-#endif
 
 #ifndef BUFSIZE
 #define BUFSIZE 2048			/* X output buffer size. */

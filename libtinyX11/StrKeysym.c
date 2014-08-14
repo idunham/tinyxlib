@@ -33,17 +33,10 @@ in this Software without prior written authorization from the X Consortium.
 
 #define XK_VoidSymbol              0xFFFFFF  /* void symbol */
 
-#ifdef X_NOT_STDC_ENV
-extern char *getenv();
-#endif
 
 extern XrmQuark _XrmInternalStringToQuark();
 
-#ifdef __STDC__
 #define Const const
-#else
-#define Const /**/
-#endif
 
 typedef unsigned long Signature;
 

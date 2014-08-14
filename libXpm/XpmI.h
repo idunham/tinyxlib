@@ -303,11 +303,7 @@ FUNC(xpm_znormalizeimagebits, void, (register unsigned char *bp,
 #define ZINDEX1(x, y, img) ((y) * img->bytes_per_line) + ((x) >> 3)
 #endif /* not AMIGA */
 
-#ifdef __STDC__
 #define Const const
-#else
-#define Const /**/
-#endif
 
 #ifdef NEED_STRDUP
 FUNC(xpmstrdup, char *, (char *s1));

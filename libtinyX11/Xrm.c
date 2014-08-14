@@ -64,11 +64,7 @@ from the X Consortium.
 #include 	"XrmI.h"
 #include <X11/Xos.h>
 
-#ifdef __STDC__
 #define Const const
-#else
-#define Const /**/
-#endif
 #if defined(__STDC__) && !defined(NORCONST)
 #define RConst const
 #else

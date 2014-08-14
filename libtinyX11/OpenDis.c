@@ -35,9 +35,6 @@ in this Software without prior written authorization from the X Consortium.
 #include <X11/extensions/bigreqstr.h>
 #include <stdio.h>
 
-#ifdef X_NOT_STDC_ENV
-extern char *getenv();
-#endif
 
 #ifdef X_NOT_POSIX
 #define Size_t unsigned int

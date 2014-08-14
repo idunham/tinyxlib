@@ -66,11 +66,7 @@ SOFTWARE.
 #define XETrapProtocol     32L
 
 #ifndef SIZEOF
-# ifdef __STDC__
 #  define SIZEOF(x) sz_##x
-# else
-#  define SIZEOF(x) sz_/**/x
-# endif /* if ANSI C compiler else not */
 #endif
 #ifndef sz_CARD32
 #define sz_CARD32   4L

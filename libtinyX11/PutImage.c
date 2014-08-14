@@ -31,11 +31,7 @@ in this Software without prior written authorization from the X Consortium.
 #include <stdio.h>
 #include "ImUtil.h"	//gn
 
-#ifdef __STDC__
 #define Const const
-#else
-#define Const /**/
-#endif
 #define RConst Const
 
 /* assumes pad is a power of 2 */

@@ -53,13 +53,6 @@ in this Software without prior written authorization from the X Consortium.
 #include <X11/Xosdefs.h>
 
 #ifndef X_WCHAR
-#ifdef X_NOT_STDC_ENV
-#ifndef SCO324
-#ifndef ISC
-#define X_WCHAR
-#endif
-#endif
-#endif
 #endif
 
 #ifndef X_WCHAR

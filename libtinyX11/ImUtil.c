@@ -30,11 +30,7 @@ in this Software without prior written authorization from the X Consortium.
 #include "Xutil.h"
 #include <stdio.h>
 #include "ImUtil.h"	//gn add
-#ifdef __STDC__
 #define Const const
-#else
-#define Const /**/
-#endif
 
 #if NeedFunctionPrototypes
 static int _XDestroyImage(XImage *);
