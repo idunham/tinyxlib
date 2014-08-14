@@ -70,11 +70,7 @@ static void _search_child(Widget, char *, char *, char *, char *, char, char *);
 static void _set_and_search(Widget, char *, char *, char *, char *, char , char *);
 static int _locate_children(Widget, Widget **);
 
-#if defined(sun) && !defined(SVR4)
-# define Strtoul(a,b,c) (unsigned long)strtol(a,b,c)
-#else
 # define Strtoul(a,b,c) strtoul(a,b,c)
-#endif
 
 
 /*

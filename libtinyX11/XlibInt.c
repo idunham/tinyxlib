@@ -3203,10 +3203,8 @@ _XData32 (dpy, data, len)
  *       and so, you may be better off using gethostname (if it exists).
  */
 
-#if (defined(_POSIX_SOURCE) && !defined(AIXV3)) || defined(hpux) || defined(USG) || defined(SVR4)
 #define NEED_UTSNAME
 #include <sys/utsname.h>
-#endif
 
 /*
  * _XGetHostname - similar to gethostname but allows special processing.

@@ -38,13 +38,7 @@ in this Software without prior written authorization from the X Consortium.
 
 #define XlibSpecificationRelease 6
 
-#if defined(_POSIX_SOURCE) && defined(MOTOROLA)
-#undef _POSIX_SOURCE
 #include <sys/types.h>
-#define _POSIX_SOURCE
-#else
-#include <sys/types.h>
-#endif
 
 #include <X11/X.h>
 

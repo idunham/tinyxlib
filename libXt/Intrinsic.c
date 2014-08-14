@@ -1045,10 +1045,8 @@ static char *ExtractLocaleName(
 #      define STARTSTR "LC_CTYPE="
 #      define ENDCHAR ';'
 #     else
-#      if !defined(sun) || defined(SVR4)
 #       define STARTCHAR '/'
 #       define ENDCHAR '/'
-#      endif
 #     endif
 #   endif
 

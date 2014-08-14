@@ -105,13 +105,9 @@ Xtransport_table Xtransports[] = {
 #endif /* OS2PIPECONN */
 #if defined(LOCALCONN)
     { &TRANS(LocalFuncs),	TRANS_LOCAL_LOCAL_INDEX },
-#ifndef sun
     { &TRANS(PTSFuncs),		TRANS_LOCAL_PTS_INDEX },
-#endif /* sun */
-#ifndef sun
     { &TRANS(ISCFuncs),		TRANS_LOCAL_ISC_INDEX },
     { &TRANS(SCOFuncs),		TRANS_LOCAL_SCO_INDEX },
-#endif /* sun */
 #endif /* LOCALCONN */
 };
 
@@ -1288,12 +1284,10 @@ static int TRANS(WriteV) (XtransConnInfo ciptr, struct iovec *iov, int iovcnt)
 #endif /* SYSV && i386 || WIN32 || __sxg__ */
 
 
-#if (defined(_POSIX_SOURCE) && !defined(AIXV3) && !defined(__QNX__)) || defined(hpux) || defined(USG) || defined(SVR4) || defined(SCO)
 #ifndef NEED_UTSNAME
 #define NEED_UTSNAME
 #endif
 #include <sys/utsname.h>
-#endif
 
 /*
  * TRANS(GetHostname) - similar to gethostname but allows special processing.

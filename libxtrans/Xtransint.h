@@ -103,12 +103,10 @@ from The Open Group.
  * to avoid a race condition. JKJ (6/5/97)
  */
 
-#if (defined(_POSIX_SOURCE) && !defined(AIXV3) && !defined(__QNX__)) || defined(hpux) || defined(USG) || defined(SVR4) || defined(SCO)
 #ifndef NEED_UTSNAME
 #define NEED_UTSNAME
 #endif
 #include <sys/utsname.h>
-#endif
 
 /*
  * makedepend screws up on #undef OPEN_MAX, so we define a new symbol
@@ -117,13 +115,7 @@ from The Open Group.
 #ifndef TRANS_OPEN_MAX
 
 #ifndef X_NOT_POSIX
-#ifdef _POSIX_SOURCE
 #include <limits.h>
-#else
-#define _POSIX_SOURCE
-#include <limits.h>
-#undef _POSIX_SOURCE
-#endif
 #endif
 #ifndef OPEN_MAX
 #ifdef __GNU__

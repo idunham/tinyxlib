@@ -56,13 +56,7 @@ SOFTWARE.
  ****************************************************************/
 
 #ifndef X_NOT_POSIX
-#ifdef _POSIX_SOURCE
 #include <limits.h>
-#else
-#define _POSIX_SOURCE
-#include <limits.h>
-#undef _POSIX_SOURCE
-#endif
 #endif
 #ifndef PATH_MAX
 #include <sys/param.h>

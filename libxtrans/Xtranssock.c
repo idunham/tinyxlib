@@ -92,9 +92,6 @@ from The Open Group.
 #include <sys/ioctl.h>
 
 
-#if (defined(i386) && defined(SYSV)) && (!defined(ISC) || !defined(I_NREAD) || defined(SCO325)) || defined(_SEQUENT_)
-#include <sys/stropts.h>
-#endif 
 
 
 #if defined(SO_DONTLINGER) && defined(SO_LINGER)
@@ -1597,18 +1594,11 @@ TRANS(SocketBytesReadable) (XtransConnInfo ciptr, BytesReadable_t *pend)
 {
     PRMSG (2,"SocketBytesReadable(%x,%d,%x)\n",
 	ciptr, ciptr->fd, pend);
-#if defined(QNX4)
-    *pend = 0L; /* FIONREAD only returns a short. Zero out upper bits */
-#endif
-#if (defined(i386) && defined(SYSV) && !defined(sco)) || (defined(_SEQUENT_) && _SOCKET_VERSION == 1)
-    return ioctl (ciptr->fd, I_NREAD, (char *) pend);
-#else
 #if defined(__EMX__)
     return ioctl (ciptr->fd, FIONREAD, (char*) pend, sizeof(int));
 #else
     return ioctl (ciptr->fd, FIONREAD, (char *) pend);
 #endif /* __EMX__ */
-#endif /* i386 && SYSV || _SEQUENT_ && _SOCKET_VERSION == 1 */
 }
 
 

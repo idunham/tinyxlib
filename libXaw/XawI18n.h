@@ -53,9 +53,6 @@ int _Xaw_iswspace
 #define iswspace(c) jisspace(c)
 #endif
 
-#ifdef QNX4
-#define toascii( c ) ((unsigned)(c) & 0x007f)
-#endif
 
 #include <stdlib.h>
 

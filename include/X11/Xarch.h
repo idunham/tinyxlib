@@ -80,13 +80,6 @@
 #define BIG_ENDIAN    4321
 
 
-#if defined(__QNXNTO__)
-#if defined(i386) || defined(__i386__) || defined(__x86__)
-#define BYTE_ORDER LITTLE_ENDIAN
-#else
-#define BYTE_ORDER BIG_ENDIAN
-#endif
-#endif
 
 #ifdef Lynx
 #if defined(i386) || defined(__i386__) || defined(__x86__)

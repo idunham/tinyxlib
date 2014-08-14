@@ -42,22 +42,8 @@ in this Software without prior written authorization from The Open Group.
  * Get major data types (esp. caddr_t)
  */
 
-#if defined(_POSIX_SOURCE) && defined(MOTOROLA)
-#undef _POSIX_SOURCE
 #include <sys/types.h>
-#define _POSIX_SOURCE
-#else
-#include <sys/types.h>
-#endif
 
-#ifdef _SEQUENT_
-/*
- * in_systm.h compatibility between SysV and BSD types u_char u_short u_long
- * select.h  for typedef of args to select, fd_set, may use SVR4 later
- */
-#include <netinet/in_systm.h>
-#include <sys/select.h>
-#endif /* _SEQUENT_ */
 
 /*
  * Just about everyone needs the strings routines.  We provide both forms here,
@@ -85,14 +71,6 @@ in this Software without prior written authorization from The Open Group.
 /*
  * strerror()
  */
-#if (defined(X_NOT_STDC_ENV) || (defined(sun) && !defined(SVR4)) || defined(macII)) && !defined(__GLIBC__)
-#ifndef strerror
-extern char *sys_errlist[];
-extern int sys_nerr;
-#define strerror(n) \
-    (((n) >= 0 && (n) < sys_nerr) ? sys_errlist[n] : "unknown error")
-#endif
-#endif
 
 /*
  * Get open(2) constants

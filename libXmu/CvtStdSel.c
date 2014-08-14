@@ -133,15 +133,11 @@ get_os_name(void)
 	    }
 	}
 
-#ifdef sun
-	return XtNewString("SunOS");
-#else
 # if !defined(SYSV) && (defined(CSRG_BASED) || defined(unix))
 	return XtNewString("BSD");
 # else
 	return NULL;
 # endif
-#endif
 
 #endif /*OS_NAME*/
 }

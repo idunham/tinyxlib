@@ -74,13 +74,7 @@ in this Software without prior written authorization from The Open Group.
 # include <X11/Xfuncs.h>
 
 # ifndef X_NOT_POSIX
-#  ifdef _POSIX_SOURCE
 #   include <limits.h>
-#  else
-#   define _POSIX_SOURCE
-#   include <limits.h>
-#   undef _POSIX_SOURCE
-#  endif
 #  ifndef LINE_MAX
 #   define X_LINE_MAX 2048
 #  else
@@ -190,9 +184,6 @@ extern void XtProcessUnlock(
  * Solaris 2.5 has SVR4 thread-safe API, but defines the POSIX
  * thread-safe feature test macro.  Fix the feature test macro.
  */
-#if defined(sun) && defined(_POSIX_THREAD_SAFE_FUNCTIONS)
-# undef _POSIX_THREAD_SAFE_FUNCTIONS
-#endif
 
 /*
  * LynxOS 3.1 defines _POSIX_THREAD_SAFE_FUNCTIONS but
@@ -926,28 +917,6 @@ typedef struct tm _Xltimeparams;
 # define _XGmtime(t,p)		(gmtime_r((t),&(p)) ? NULL : &(p))
 # define _XLocaltime(t,p)	(localtime_r((t),&(p)) ? NULL : &(p))
 
-#elif !defined(_POSIX_THREAD_SAFE_FUNCTIONS) && defined(sun)
-/* Returns NULL on failure.  Solaris 2.5
- *
- * extern char *asctime_r(const struct tm *tm,char *buf, int buflen);
- * extern char *ctime_r(const time_t *clock, char *buf, int buflen);
- * extern struct tm *gmtime_r(const time_t *clock, struct tm *res);
- * extern struct tm *localtime_r(const time_t *clock, struct tm *res);
- */
-# ifdef TIMELEN
-typedef char _Xatimeparams[TIMELEN];
-typedef char _Xctimeparams[TIMELEN];
-# else
-typedef char _Xatimeparams[26];
-typedef char _Xctimeparams[26];
-# endif
-typedef struct tm _Xgtimeparams;
-typedef struct tm _Xltimeparams;
-# define _XAsctime(t,p)		asctime_r((t),(p),sizeof((p)))
-# define _XCtime(t,p)		ctime_r((t),(p),sizeof((p)))
-# define _XGmtime(t,p)		gmtime_r((t),&(p))
-# define _XLocaltime(t,p)	localtime_r((t),&(p))
-
 #else /* defined(_POSIX_THREAD_SAFE_FUNCTIONS) */
 /* POSIX final API.  OSF/1 v4.0, AIX, etc.
  *
@@ -1037,19 +1006,6 @@ typedef struct {
    (((p).pgrp = getgrnam((n))) ? _Xgrp_copyGroup(p) : 0), \
    (_Xos_processUnlock), \
    (p).pgrp )
-
-#elif !defined(_POSIX_THREAD_SAFE_FUNCTIONS) && (defined(sun) || defined(__osf__))
-/* Non-POSIX API.  Solaris, DEC v3.2.
- *
- * extern struct group *getgrgid_r(gid_t, struct group *, char *, int);
- * extern struct group *getgrnam_r(const char *, struct group *, char *, int);
- */
-typedef struct {
-  struct group grp;
-  char buf[X_LINE_MAX];	/* Should be sysconf(_SC_GETGR_R_SIZE_MAX)? */
-} _Xgetgrparams;
-#define _XGetgrgid(g,p)	getgrgid_r((g), &(p).grp, (p).buf, sizeof((p).buf))
-#define _XGetgrnam(n,p)	getgrnam_r((n), &(p).grp, (p).buf, sizeof((p).buf))
 
 #elif !defined(_POSIX_THREAD_SAFE_FUNCTIONS)
 /* Non-POSIX API.  HP/UX 10, AIX 4.

@@ -99,9 +99,6 @@ typedef struct
 #ifdef PC
 # define XETrapPlatform    PF_IBMAT
 #endif
-#ifdef sun
-# define XETrapPlatform    PF_SunSparc
-#endif
 #ifndef XETrapPlatform
 # define XETrapPlatform    PF_Other
 #endif  /* XETrapPlatform */

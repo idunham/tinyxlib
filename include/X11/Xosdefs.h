@@ -44,14 +44,6 @@ in this Software without prior written authorization from The Open Group.
 #define X_NOT_STDC_ENV
 #endif
 
-#ifdef sun
-/* Imake configs define SVR4 on Solaris, but cc & gcc only define __SVR4
- * This check allows non-Imake configured programs to build correctly.
- */
-#if defined(__SVR4) && !defined(SVR4)
-#define SVR4
-#endif
-#endif
 
 
 #ifdef __EMX__

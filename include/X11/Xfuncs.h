@@ -55,27 +55,13 @@ int bcmp();
 
 /* the new Xfuncs.h */
 
-#if !defined(X_NOT_STDC_ENV) && (!defined(sun) || defined(SVR4))
 /* the ANSI C way */
 #ifndef _XFUNCS_H_INCLUDED_STRING_H
 #include <string.h>
 #endif
 #undef bzero
 #define bzero(b,len) memset(b,0,len)
-#else /* else X_NOT_STDC_ENV or SunOS 4 */
-#if defined(SYSV) || defined(luna) || defined(sun) || defined(__sxg__)
-#include <memory.h>
-#define memmove(dst,src,len) bcopy((char *)(src),(char *)(dst),(int)(len))
-#else /* else vanilla BSD */
-#define memmove(dst,src,len) bcopy((char *)(src),(char *)(dst),(int)(len))
-#define memcpy(dst,src,len) bcopy((char *)(src),(char *)(dst),(int)(len))
-#define memcmp(b1,b2,len) bcmp((char *)(b1),(char *)(b2),(int)(len))
-#endif /* SYSV else */
-#endif /* ! X_NOT_STDC_ENV else */
 
-#if defined(X_NOT_STDC_ENV) || (defined(sun) && !defined(SVR4))
-#define atexit(f) on_exit(f, 0)
-#endif
 
 #endif /* !(defined(XFree86LOADER) && defined(IN_MODULE)) */
 

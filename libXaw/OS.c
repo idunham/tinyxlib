@@ -21,9 +21,6 @@
 #define HAS_GETPAGESIZE
 #endif
 
-#if defined(sun)
-#define HAS_GETPAGESIZE
-#endif
 
 int
 _XawGetPageSize()
