@@ -33,11 +33,7 @@ in this Software without prior written authorization from The Open Group.
 #include <errno.h>
 #include <time.h>
 #define Time_t time_t
-#ifndef X_NOT_POSIX
 #include <unistd.h>
-#else
-extern unsigned	sleep ();
-#endif
 #ifdef __UNIXOS2__
 #define link rename
 #endif

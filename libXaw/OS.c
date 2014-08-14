@@ -6,9 +6,7 @@
 #include <X11/Xt/IntrinsicP.h>
 #include "Private.h"
 
-#ifndef X_NOT_POSIX
 #include <unistd.h>	/* for sysconf(), and getpagesize() */
-#endif
 
 #if defined(linux)
 //#include <asm/page.h>	/* for PAGE_SIZE */

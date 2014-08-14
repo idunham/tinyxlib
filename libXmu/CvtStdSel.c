@@ -51,12 +51,7 @@ in this Software without prior written authorization from The Open Group.
 #include <stdio.h>
 
 #ifndef SYSVNET
-#ifndef Lynx
 #include <sys/socket.h>
-#else
-#include <sys/types.h>
-#include <socket.h>
-#endif
 #define XOS_USE_XT_LOCKING
 #define X_INCLUDE_NETDB_H
 #include <X11/Xos_r.h>
@@ -75,9 +70,7 @@ in this Software without prior written authorization from The Open Group.
 #define USE_UNAME
 #endif
 #endif /*X_OS_FILE*/
-#ifdef USE_UNAME
 #include <sys/utsname.h>
-#endif
 #endif
 
 /*
@@ -95,9 +88,6 @@ get_os_name(void)
 #ifdef OS_NAME
 	return XtNewString(OS_NAME);
 #else
-	FILE *f = NULL;
-
-#ifdef USE_UNAME
 	struct utsname utss;
 
 	if (uname (&utss) == 0) {
@@ -110,35 +100,6 @@ get_os_name(void)
 	    strcat (os_name, utss.release);
 	    return os_name;
 	}
-#endif
-
-#ifdef X_OS_FILE
-	f = fopen(X_OS_FILE, "r");
-	if (!f)
-#endif
-#ifdef MOTD_FILE
-	       f = fopen(MOTD_FILE, "r");
-#endif
-	if (f) {
-	    char motd[512];
-	    motd[0] = '\0';
-	    (void) fgets(motd, 511, f);
-	    fclose(f);
-	    motd[511] = '\0';
-	    if (motd[0] != '\0') {
-		int len = strlen(motd);
-		if (motd[len - 1] == '\n')
-		    motd[len - 1] = '\0';
-		return XtNewString(motd);
-	    }
-	}
-
-# if !defined(SYSV) && (defined(CSRG_BASED) || defined(unix))
-	return XtNewString("BSD");
-# else
-	return NULL;
-# endif
-
 #endif /*OS_NAME*/
 }
 
@@ -215,11 +176,6 @@ XmuConvertStandardSelection(Widget w, Time time, Atom *selection, Atom *target,
 	return True;
     }
 #endif
-#ifdef DNETCONN
-    if (*target == XA_DECNET_ADDRESS(d)) {
-	return False;		/* XXX niy */
-    }
-#endif
     if (*target == XA_USER(d)) {
 	char *name = (char*)getenv("USER");
 	if (name == NULL) return False;
@@ -285,15 +241,11 @@ XmuConvertStandardSelection(Widget w, Time time, Atom *selection, Atom *target,
 	return True;
     }
     if (*target == XA_TARGETS(d)) {
-#if defined(unix) && defined(DNETCONN)
-#  define NUM_TARGETS 9
-#else
 #  if defined(unix) || defined(DNETCONN)
 #    define NUM_TARGETS 8
 #  else
 #    define NUM_TARGETS 7
 #  endif
-#endif
 	Atom* std_targets = (Atom*)XtMalloc(NUM_TARGETS*sizeof(Atom));
 	int i = 0;
 	std_targets[i++] = XA_TIMESTAMP(d);
@@ -305,9 +257,6 @@ XmuConvertStandardSelection(Widget w, Time time, Atom *selection, Atom *target,
 	std_targets[i++] = XA_CLIENT_WINDOW(d);
 #ifdef unix
 	std_targets[i++] = XA_OWNER_OS(d);
-#endif
-#ifdef DNETCONN
-	std_targets[i++] = XA_DECNET_ADDRESS(d);
 #endif
 	*value = (XPointer)std_targets;
 	*type = XA_ATOM;

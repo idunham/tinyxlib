@@ -42,11 +42,7 @@ Author: Ralph Mor, X Consortium
 extern char* getenv(const char*);
 #define link rename
 #endif
-#ifndef X_NOT_POSIX
 #include <unistd.h>
-#else
-extern unsigned	sleep ();
-#endif
 
 static Status read_short ();
 static Status read_string ();

@@ -1555,13 +1555,8 @@ Boolean XtCvtStringToDirectoryString(
     str = (String)fromVal->addr;
     if (CompareISOLatin1(str, "XtCurrentDirectory") == 0) {
 	/* uglier, but does not depend on compiler knowing return type */
-#if !defined(X_NOT_POSIX) || defined(SYSV) || defined(WIN32)
 	if (getcwd(directory, PATH_MAX + 1))
 	    str = directory;
-#else
-	if (getwd(directory))
-	    str = directory;
-#endif
 	if (!str) {
 	    if (errno == EACCES)
 		errno = 0;	    /* reset errno */

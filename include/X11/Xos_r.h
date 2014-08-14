@@ -73,14 +73,12 @@ in this Software without prior written authorization from The Open Group.
 # include <X11/Xos.h>
 # include <X11/Xfuncs.h>
 
-# ifndef X_NOT_POSIX
 #   include <limits.h>
 #  ifndef LINE_MAX
 #   define X_LINE_MAX 2048
 #  else
 #   define X_LINE_MAX LINE_MAX
 #  endif
-# endif
 #endif /* _XOS_R_H */
 
 
@@ -189,9 +187,6 @@ extern void XtProcessUnlock(
  * LynxOS 3.1 defines _POSIX_THREAD_SAFE_FUNCTIONS but
  * getpwuid_r has different semantics than defined by POSIX
  */
-#if defined(Lynx) && defined(_POSIX_THREAD_SAFE_FUNCTIONS)
-# undef _POSIX_THREAD_SAFE_FUNCTIONS
-#endif
 
 
 /***** <pwd.h> wrappers *****/
@@ -222,9 +217,6 @@ extern void XtProcessUnlock(
 
 #elif !defined(XTHREADS) && !defined(X_FORCE_USE_MTSAFE_API)
 /* Use regular, unsafe API. */
-# if defined(X_NOT_POSIX) && !defined(i386) && !defined(SYSV)
-extern struct passwd *getpwuid(), *getpwnam();
-# endif
 typedef int _Xgetpwparams;	/* dummy */
 # define _XGetpwuid(u,p)	getpwuid((u))
 # define _XGetpwnam(u,p)	getpwnam((u))
@@ -322,17 +314,10 @@ typedef struct {
   struct passwd pws;
   char pwbuf[X_LINE_MAX];
 } _Xgetpwparams;
-#  ifndef Lynx
 #   define _XGetpwuid(u,p) \
 ((getpwuid_r((u),&(p).pws,(p).pwbuf,sizeof((p).pwbuf)) == -1) ? NULL : &(p).pws)
 #   define _XGetpwnam(u,p) \
 ((getpwnam_r((u),&(p).pws,(p).pwbuf,sizeof((p).pwbuf)) == -1) ? NULL : &(p).pws)
-#  else /* Lynx */
-#   define _XGetpwuid(u,p) \
-((getpwuid_r(&(p).pws,(u),(p).pwbuf,sizeof((p).pwbuf)) == -1) ? NULL : &(p).pws)
-#   define _XGetpwnam(u,p) \
-((getpwnam_r(&(p).pws,(u),(p).pwbuf,sizeof((p).pwbuf)) == -1) ? NULL : &(p).pws)
-#  endif
 
 #else /* _POSIX_THREAD_SAFE_FUNCTIONS */
 /* Digital UNIX 4.0, but not (beta) T4.0-1 */
@@ -538,14 +523,7 @@ typedef int _Xgetservbynameparams; /* dummy */
 
 #if defined(X_INCLUDE_DIRENT_H) && !defined(_XOS_INCLUDED_DIRENT_H)
 # include <sys/types.h>
-# if !defined(X_NOT_POSIX) || defined(SYSV) || defined(USG)
 #  include <dirent.h>
-# else
-#  include <sys/dir.h>
-#  ifndef dirent
-#   define dirent direct
-#  endif
-# endif
 # if defined(XUSE_MTSAFE_API) || defined(XUSE_MTSAFE_DIRENTAPI)
 #  define XOS_USE_MTSAFE_DIRENTAPI 1
 # endif

@@ -93,9 +93,7 @@ in this Software without prior written authorization from The Open Group.
  */
 
 
-#ifdef USE_UNAME
 #include <sys/utsname.h>
-#endif
 
 /* some unspecified magic number of expected search levels for Xrm */
 #define SEARCH_LIST_SIZE 1000
@@ -145,7 +143,6 @@ static void GetHostname (
     char *buf,
     int maxlen)
 {
-#ifdef USE_UNAME
     int len;
     struct utsname name;
 
@@ -157,14 +154,6 @@ static void GetHostname (
 	len = maxlen - 1;
     (void) strncpy(buf, name.nodename, len);
     buf[len] = '\0';
-#else
-    if (maxlen <= 0 || buf == NULL)
-	return;
-
-    buf[0] = '\0';
-    (void) gethostname(buf, maxlen);
-    buf[maxlen - 1] = '\0';
-#endif
 }
 
 

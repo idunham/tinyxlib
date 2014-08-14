@@ -50,9 +50,7 @@ SOFTWARE.
 #include <X11/Xos.h>
 #include <X11/Xresource.h>
 
-#ifndef X_NOT_POSIX
 #include <limits.h>
-#endif
 #ifndef PATH_MAX
 #include <sys/param.h>
 #ifndef PATH_MAX

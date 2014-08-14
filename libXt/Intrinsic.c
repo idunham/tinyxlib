@@ -845,11 +845,7 @@ static Boolean TestFile(
     struct stat status;
     ret = (access(path, R_OK) == 0 &&		/* exists and is readable */
 	    stat(path, &status) == 0 &&		/* get the status */
-#ifndef X_NOT_POSIX
 	    S_ISDIR(status.st_mode) == 0);	/* not a directory */
-#else
-	    (status.st_mode & S_IFMT) != S_IFDIR);	/* not a directory */
-#endif /* X_NOT_POSIX else */
     return ret;
 #else /* VMS */
     return TRUE;	/* Who knows what to do here? */

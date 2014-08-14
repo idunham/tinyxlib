@@ -46,9 +46,7 @@ from The Open Group.
 
 #ifndef FONT_OPEN_MAX
 
-#ifndef X_NOT_POSIX
 #include <limits.h>
-#endif
 #ifndef OPEN_MAX
 #if defined(SVR4) || defined(__EMX__)
 #define OPEN_MAX 256

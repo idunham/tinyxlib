@@ -69,11 +69,7 @@ from The Open Group.
 
 #ifdef UNIXCONN
 #ifndef X_NO_SYS_UN
-#ifndef Lynx
 #include <sys/un.h>
-#else
-#include <un.h>
-#endif
 #endif
 #include <sys/stat.h>
 #endif

@@ -39,11 +39,7 @@ in this Software without prior written authorization from The Open Group.
 #include <stdlib.h>
 #include <stdio.h>
 
-#ifndef X_NOT_POSIX
 #include <unistd.h>
-#else
-extern int close();
-#endif
 
 #endif /* FONTMODULE */
 

@@ -87,11 +87,7 @@ from The Open Group.
 
 #include <errno.h>
 
-#ifndef Lynx
 #include <sys/socket.h>
-#else
-#include <socket.h>
-#endif
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #ifdef __EMX__
@@ -114,9 +110,7 @@ from The Open Group.
 
 #ifndef TRANS_OPEN_MAX
 
-#ifndef X_NOT_POSIX
 #include <limits.h>
-#endif
 #ifndef OPEN_MAX
 #ifdef __GNU__
 #define OPEN_MAX (sysconf(_SC_OPEN_MAX))

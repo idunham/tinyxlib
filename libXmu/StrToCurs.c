@@ -59,10 +59,8 @@ SOFTWARE.
 #include	<X11/Xmu/CurUtil.h>
 #include	<X11/Xmu/CharSet.h>
 
-#ifndef X_NOT_POSIX
 #include <stdlib.h>
 #include <limits.h>
-#endif /* X_NOT_POSIX */
 #ifndef PATH_MAX
 #include <sys/param.h>
 #ifndef PATH_MAX

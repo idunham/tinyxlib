@@ -49,11 +49,7 @@ THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 #endif /* XKB_IN_SERVER */
 
-#ifdef X_NOT_POSIX
-#define Size_t unsigned int
-#else
 #define Size_t size_t
-#endif
 
 /***====================================================================***/
 

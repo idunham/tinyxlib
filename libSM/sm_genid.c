@@ -43,11 +43,7 @@ in this Software without prior written authorization from The Open Group.
 
 
 #if defined(TCPCONN) || defined(STREAMSCONN)
-#ifndef Lynx
 #include <sys/socket.h>
-#else
-#include <socket.h>
-#endif
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #define XOS_USE_NO_LOCKING

@@ -163,16 +163,7 @@ _X11TransConnectDisplay (display_name, fullnamep, dpynump, screenp,
     if ((lastp != lastc) && (*(lastc - 1) == ':')) {
 	/* DECnet display specified */
 
-#ifndef DNETCONN
 	goto bad;
-#else
-	dnet = True;
-	/* override the protocol specified */
-	if (pprotocol)
-	    Xfree (pprotocol);
-	pprotocol = copystring ("dnet", 4);
-	hostlen = lastc - 1 - lastp;
-#endif
     }
     else
 	hostlen = lastc - lastp;
@@ -526,9 +517,6 @@ _XSendClientPrefix (dpy, client, auth_proto, auth_string, prefix)
 }
 
 
-#ifdef STREAMSCONN
-#undef HASXDMAUTH
-#endif
 
 #ifdef SECURE_RPC
 #include <rpc/rpc.h>

@@ -40,9 +40,7 @@ in this Software without prior written authorization from The Open Group.
 #include <X11/Xmu/Drawing.h>
 #include <X11/Xmu/SysUtil.h>
 
-#ifndef X_NOT_POSIX
 #include <limits.h>
-#endif /* X_NOT_POSIX */
 #ifndef PATH_MAX
 #include <sys/param.h>
 #ifndef PATH_MAX

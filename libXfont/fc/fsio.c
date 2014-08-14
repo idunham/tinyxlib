@@ -40,11 +40,7 @@
 #include	<stdio.h>
 #include	<signal.h>
 #include	<sys/types.h>
-#ifndef Lynx
 #include	<sys/socket.h>
-#else
-#include	<socket.h>
-#endif
 #include	<errno.h>
 
 #ifdef __EMX__

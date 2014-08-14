@@ -36,11 +36,7 @@ in this Software without prior written authorization from the X Consortium.
 #include <stdio.h>
 
 
-#ifdef X_NOT_POSIX
-#define Size_t unsigned int
-#else
 #define Size_t size_t
-#endif
 
 #define bignamelen (sizeof(XBigReqExtensionName) - 1)
 

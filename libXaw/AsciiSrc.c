@@ -58,13 +58,8 @@ in this Software without prior written authorization from The Open Group.
 #include "AsciiText.h"		/* for Widget Classes */
 #endif
 
-#ifdef X_NOT_POSIX
-#define Off_t long
-#define Size_t unsigned int
-#else
 #define Off_t off_t
 #define Size_t size_t
-#endif
 
 #define MAGIC_VALUE	((XawTextPosition)-1)
 #define streq(a, b)	(strcmp((a), (b)) == 0)

@@ -34,15 +34,7 @@ in this Software without prior written authorization from The Open Group.
 #include <X11/Xmd.h>
 #include "Xdmcp.h"
 
-#ifdef STREAMSCONN
-#include <tiuser.h>
-#else
-#ifndef Lynx
 #include <sys/socket.h>
-#else
-#include <socket.h>
-#endif /* !Lynx */
-#endif
 
 int
 XdmcpFill (fd, buffer, from, fromlen)
@@ -52,10 +44,6 @@ XdmcpFill (fd, buffer, from, fromlen)
     int		    *fromlen;	/* return */
 {
     BYTE    *newBuf;
-#ifdef STREAMSCONN
-    struct t_unitdata dataunit;
-    int gotallflag, result;
-#endif
 
     if (buffer->size < XDM_MAX_MSGLEN)
     {
@@ -68,22 +56,8 @@ XdmcpFill (fd, buffer, from, fromlen)
 	}
     }
     buffer->pointer = 0;
-#ifdef STREAMSCONN
-    dataunit.addr.buf = from;
-    dataunit.addr.maxlen = *fromlen;
-    dataunit.opt.maxlen = 0;	/* don't care to know about options */
-    dataunit.udata.buf = (char *)buffer->data;
-    dataunit.udata.maxlen = buffer->size;
-    result = t_rcvudata (fd, &dataunit, &gotallflag);
-    if (result < 0) {
-	return FALSE;
-    }
-    buffer->count = dataunit.udata.len;
-    *fromlen = dataunit.addr.len;
-#else
     buffer->count = recvfrom (fd, (char*)buffer->data, buffer->size, 0,
 			      (struct sockaddr *)from, (void *)fromlen);
-#endif
     if (buffer->count < 6) {
 	buffer->count = 0;
 	return FALSE;

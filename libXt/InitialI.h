@@ -55,9 +55,7 @@ SOFTWARE.
  *
  ****************************************************************/
 
-#ifndef X_NOT_POSIX
 #include <limits.h>
-#endif
 #ifndef PATH_MAX
 #include <sys/param.h>
 #ifndef PATH_MAX

@@ -78,11 +78,7 @@
 
 #include <sys/types.h>
 
-#ifndef Lynx
 #include <sys/uio.h>
-#else
-#include <uio.h>
-#endif
 
 typedef void *LbxStreamCompHandle;
 

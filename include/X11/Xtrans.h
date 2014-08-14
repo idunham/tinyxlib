@@ -187,11 +187,7 @@ typedef long BytesReadable_t;
 #endif
 
 
-#ifndef Lynx
 #include <sys/uio.h>
-#else
-#include <uio.h>
-#endif
 
 typedef struct _XtransConnInfo *XtransConnInfo;
 

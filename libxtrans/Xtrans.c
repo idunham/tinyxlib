@@ -82,18 +82,10 @@ from The Open Group.
 
 static
 Xtransport_table Xtransports[] = {
-#if defined(STREAMSCONN)
-    { &TRANS(TLITCPFuncs),	TRANS_TLI_TCP_INDEX },
-    { &TRANS(TLIINETFuncs),	TRANS_TLI_INET_INDEX },
-    { &TRANS(TLITLIFuncs),	TRANS_TLI_TLI_INDEX },
-#endif /* STREAMSCONN */
 #if defined(TCPCONN)
     { &TRANS(SocketTCPFuncs),	TRANS_SOCKET_TCP_INDEX },
     { &TRANS(SocketINETFuncs),	TRANS_SOCKET_INET_INDEX },
 #endif /* TCPCONN */
-#if defined(DNETCONN)
-    { &TRANS(DNETFuncs),	TRANS_DNET_INDEX },
-#endif /* DNETCONN */
 #if defined(UNIXCONN)
 #if !defined(LOCALCONN)
     { &TRANS(SocketLocalFuncs),	TRANS_SOCKET_LOCAL_INDEX },

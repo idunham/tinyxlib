@@ -75,16 +75,8 @@ in this Software without prior written authorization from The Open Group.
 /*
  * Get open(2) constants
  */
-#if defined(X_NOT_POSIX)
-#include <fcntl.h>
-#if defined(USL) || defined(CRAY) || defined(MOTOROLA) || (defined(i386) && (defined(SYSV) || defined(SVR4))) || defined(__sxg__)
-#include <unistd.h>
-#endif
-#include <sys/file.h>
-#else /* X_NOT_POSIX */
 #include <fcntl.h>
 #include <unistd.h>
-#endif /* X_NOT_POSIX else */
 
 #ifdef CSRG_BASED
 #include <stdlib.h>
@@ -96,12 +88,8 @@ in this Software without prior written authorization from The Open Group.
  */
 
 
-#if   defined(_SEQUENT_) || defined(Lynx)
-#include <time.h>
-#else
 #include <sys/time.h>
 #include <time.h>
-#endif /* defined(_POSIX_SOURCE) && defined(SVR4) */
 
 
 /* define X_GETTIMEOFDAY macro, a portable gettimeofday() */
