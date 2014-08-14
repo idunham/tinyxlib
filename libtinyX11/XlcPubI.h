@@ -234,12 +234,6 @@ _Xsetlocale(
     int           category,
     _Xconst char  *name);
 #else
-#ifdef __DARWIN__
-extern char *
-_Xsetlocale(
-    int           category,
-    _Xconst char  *name);
-#endif
 extern char *_XlcMapOSLocaleName(
     char *osname,
     char *siname);

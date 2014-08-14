@@ -109,28 +109,6 @@ static XtResource resources[] = {
  *
  ***************************************************************************/
 
-#ifdef __UNIXOS2__
-/* to fix the EditRes problem because of wrong linker semantics */
-extern WidgetClass vendorShellWidgetClass; /* from Xt/Vendor.c */
-extern VendorShellClassRec _XawVendorShellClassRec;
-extern void _XawFixupVendorShell();
-unsigned long _DLL_InitTerm(unsigned long mod,unsigned long flag)
-{
-	switch (flag) {
-	case 0: /*called on init*/
-		_CRT_init();
-		vendorShellWidgetClass = (WidgetClass)(&_XawVendorShellClassRec);
-		_XawFixupVendorShell();
-		return 1;
-	case 1: /*called on exit*/
-		return 1;
-	default:
-		return 0;
-	}
-}
-#define vendorShellClassRec _XawVendorShellClassRec
-
-#endif
 
 static CompositeClassExtensionRec vendorCompositeExt = {
     /* next_extension     */	NULL,
@@ -191,10 +169,8 @@ externaldef(vendorshellclassrec) VendorShellClassRec vendorShellClassRec = {
   }
 };
 
-#ifndef __UNIXOS2__
 externaldef(vendorshellwidgetclass) WidgetClass vendorShellWidgetClass =
 	(WidgetClass) (&vendorShellClassRec);
-#endif
 
 /***************************************************************************
  *
@@ -335,17 +311,6 @@ XawVendorShellClassPartInit(WidgetClass cclass)
     }
 }
 
-#if defined(__osf__) || defined(__UNIXOS2__)
-/* stupid OSF/1 shared libraries have the wrong semantics */
-/* symbols do not get resolved external to the shared library */
-void _XawFixupVendorShell()
-{
-    transientShellWidgetClass->core_class.superclass =
-        (WidgetClass) &vendorShellClassRec;
-    topLevelShellWidgetClass->core_class.superclass =
-        (WidgetClass) &vendorShellClassRec;
-}
-#endif
 
 /* ARGSUSED */
 static void

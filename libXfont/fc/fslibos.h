@@ -48,9 +48,6 @@ from The Open Group.
 
 #include <limits.h>
 #ifndef OPEN_MAX
-#if defined(SVR4) || defined(__EMX__)
-#define OPEN_MAX 256
-#else
 #include <sys/param.h>
 #ifndef OPEN_MAX
 #ifdef __OSF1__
@@ -60,7 +57,6 @@ from The Open Group.
 #define OPEN_MAX NOFILE
 #else
 #define OPEN_MAX NOFILES_MAX
-#endif
 #endif
 #endif
 #endif

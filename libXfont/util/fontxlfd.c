@@ -198,7 +198,6 @@ xlfd_round_double(double x)
     defined(ia64) || defined(__ia64__) || \
     defined(__alpha__) || defined(__alpha) || \
     defined(__hppa__)
-#if !defined(__EMX__)
 #include <float.h>
 
 /* if we have IEEE 754 fp, we can round to binary digits... */
@@ -259,7 +258,6 @@ xlfd_round_double(double x)
    }
    else 
 #endif
-#endif /* !__EMX__ */
 #endif /* i386 || __i386__ */
     {
 	/*

@@ -48,13 +48,6 @@ int
 FontFileNameCheck (char *name)
 {
 #ifndef NCD
-#ifdef __EMX__
-    /* OS/2 uses D:/... as a path name for fonts, so accept this as a valid
-     * path if it starts with a letter and a colon
-     */
-    if (isalpha(*name) && name[1]==':')
-        return TRUE;
-#endif
     return *name == '/';
 #else
     return ((strcmp(name, "built-ins") == 0) || (*name == '/'));

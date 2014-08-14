@@ -34,9 +34,6 @@ in this Software without prior written authorization from The Open Group.
 #include <time.h>
 #define Time_t time_t
 #include <unistd.h>
-#ifdef __UNIXOS2__
-#define link rename
-#endif
 
 int
 XauLockAuth (

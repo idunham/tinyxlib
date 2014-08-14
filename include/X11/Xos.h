@@ -103,11 +103,6 @@ in this Software without prior written authorization from The Open Group.
 #endif
 #endif /* XPG4 else */
 
-#ifdef __EMX__
-typedef unsigned long fd_mask;
-#include <limits.h>
-#define MAX_PATH _POSIX_PATH_MAX
-#endif
 
 #ifdef __GNU__
 #define PATH_MAX 4096

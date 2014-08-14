@@ -224,14 +224,6 @@ _fs_add_rep_log (FSFpePtr conn, fsGenericReply *rep)
 static Bool
 fs_name_check(char *name)
 {
-#ifdef __EMX__
-    /* OS/2 uses D:/XFree86/.... as fontfile pathnames, so check that
-     * there is not only a protocol/ prefix, but also that the first chars
-     * are not a drive letter
-     */
-    if (name && isalpha(*name) && name[1] == ':')
-      return FALSE;
-#endif
     /* Just make sure there is a protocol/ prefix */
     return (name && *name != '/' && strchr(name, '/'));
 }

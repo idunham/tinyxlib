@@ -114,9 +114,6 @@ int XWriteBitmapFile(display, filename, bitmap, width, height, x_hot, y_hot)
   else
     name++;
 
-#ifdef __EMX__
-  filename = (char*)__XOS2RedirRoot(filename);
-#endif
   if (!(stream = fopen(filename, "w")))
     return(BitmapOpenFailed);
 

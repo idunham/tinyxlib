@@ -74,9 +74,6 @@ from The Open Group.
 #include <sys/stat.h>
 #endif
 
-#if defined(hpux) || defined(__EMX__) || (defined(MOTOROLA) && defined(SYSV))
-#define NO_TCP_H
-#endif 
 
 #ifndef NO_TCP_H
 #if defined(__NetBSD__) || defined(__OpenBSD__) || defined(__FreeBSD__) 
@@ -94,33 +91,8 @@ from The Open Group.
 #undef SO_DONTLINGER
 #endif
 
-#if defined(__EMX__)
-#if defined(NOT_EMX09A)
-static int IBMsockInit = 0;
-#define SocketInitOnce()\
-    if (!IBMsockInit) {\
-	sock_init();\
-	IBMsockInit = 1;\
-    }
-#undef EINTR
-#define EINTR SOCEINTR
-#undef EINVAL
-#define EINVAL SOCEINVAL
-#undef errno
-#define errno sock_errno()
-#undef close
-#define close soclose
-#undef ioctl
-#define ioctl sockioctl
-#else
-#define SocketInitOnce() /**/
-#endif
-/* this is still not there */
-#define SOCKET int
-#else
 /* others don't need this */
 #define SocketInitOnce() /**/
-#endif
 
 #define MIN_BACKLOG 128
 #ifdef SOMAXCONN
@@ -1590,11 +1562,7 @@ TRANS(SocketBytesReadable) (XtransConnInfo ciptr, BytesReadable_t *pend)
 {
     PRMSG (2,"SocketBytesReadable(%x,%d,%x)\n",
 	ciptr, ciptr->fd, pend);
-#if defined(__EMX__)
-    return ioctl (ciptr->fd, FIONREAD, (char*) pend, sizeof(int));
-#else
     return ioctl (ciptr->fd, FIONREAD, (char *) pend);
-#endif /* __EMX__ */
 }
 
 
@@ -1604,11 +1572,7 @@ TRANS(SocketRead) (XtransConnInfo ciptr, char *buf, int size)
 {
     PRMSG (2,"SocketRead(%d,%x,%d)\n", ciptr->fd, buf, size);
 
-#if defined(WIN32) || defined(__EMX__)
-    return recv ((SOCKET)ciptr->fd, buf, size, 0);
-#else
     return read (ciptr->fd, buf, size);
-#endif /* WIN32 */
 }
 
 
@@ -1618,11 +1582,7 @@ TRANS(SocketWrite) (XtransConnInfo ciptr, char *buf, int size)
 {
     PRMSG (2,"SocketWrite(%d,%x,%d)\n", ciptr->fd, buf, size);
 
-#if defined(WIN32) || defined(__EMX__)
-    return send ((SOCKET)ciptr->fd, buf, size, 0);
-#else
     return write (ciptr->fd, buf, size);
-#endif /* WIN32 */
 }
 
 

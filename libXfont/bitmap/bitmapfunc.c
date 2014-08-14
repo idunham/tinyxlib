@@ -60,9 +60,6 @@ static BitmapFileFunctionsRec readers[] = {
 #ifdef X_GZIP_FONT_COMPRESSION
     { pcfReadFont, pcfReadFontInfo} ,
 #endif
-#ifdef __EMX__
-    { pcfReadFont, pcfReadFontInfo},
-#endif
 #endif
 #ifdef SNFFORMAT
     { snfReadFont, snfReadFontInfo},
@@ -96,12 +93,6 @@ static FontRendererRec	renderers[] = {
 	CAPABILITIES },
 #ifdef X_GZIP_FONT_COMPRESSION
     { ".pcf.gz", 7,
-    BitmapOpenBitmap, BitmapOpenScalable,
-	BitmapGetInfoBitmap, BitmapGetInfoScalable, 0,
-	CAPABILITIES },
-#endif
-#ifdef __EMX__
-    { ".pcz", 4,
     BitmapOpenBitmap, BitmapOpenScalable,
 	BitmapGetInfoBitmap, BitmapGetInfoScalable, 0,
 	CAPABILITIES },

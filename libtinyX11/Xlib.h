@@ -52,12 +52,8 @@ in this Software without prior written authorization from the X Consortium.
 #ifndef X_WCHAR
 #include <stddef.h>
 #else
-#ifdef __EMX__
-#include <stdlib.h>
-#else
 /* replace this with #include or typedef appropriate for your system */
 typedef unsigned long wchar_t;
-#endif
 #endif
 
 

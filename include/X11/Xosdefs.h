@@ -46,14 +46,7 @@ in this Software without prior written authorization from The Open Group.
 
 
 
-#ifdef __EMX__
-#define USGISH
-#define NULL_NOT_ZERO
-#endif
 
-#ifdef __DARWIN__
-#define NULL_NOT_ZERO
-#endif
 
 #ifdef __GNU__
 #ifndef PATH_MAX

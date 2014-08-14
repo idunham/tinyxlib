@@ -112,12 +112,7 @@ FontFileMakeDir(char *dirName, int size)
 #endif
 
 #ifdef FONTDIRATTRIB
-#ifndef __EMX__
     attrib = strchr(dirName, ':');
-#else
-    /* OS/2 uses the colon in the drive letter descriptor, skip this */
-    attrib = strchr(dirName+2, ':');
-#endif
     if (attrib) {
 	dirlen = attrib - dirName;
 	attriblen = strlen(attrib);

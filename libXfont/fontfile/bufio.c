@@ -122,10 +122,6 @@ BufFileRawClose (BufFilePtr f, int doClose)
 BufFilePtr
 BufFileOpenRead (int fd)
 {
-#ifdef __EMX__
-    /* hv: I'd bet WIN32 has the same effect here */
-    setmode(fd,O_BINARY);
-#endif
     return BufFileCreate ((char *)(long) fd, BufFileRawFill, 0, BufFileRawSkip, BufFileRawClose);
 }
 
@@ -149,10 +145,6 @@ BufFileOpenWrite (int fd)
 {
     BufFilePtr	f;
 
-#ifdef __EMX__
-    /* hv: I'd bet WIN32 has the same effect here */
-    setmode(fd,O_BINARY);
-#endif
     f = BufFileCreate ((char *)(long) fd, 0, BufFileRawFlush, 0, BufFileFlush);
     f->bufp = f->buffer;
     f->left = BUFFILESIZE;

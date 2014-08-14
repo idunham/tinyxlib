@@ -91,9 +91,6 @@ ScaleFunc scale[] =
 #ifdef X_GZIP_FONT_COMPRESSION
     BitmapScaleBitmaps,
 #endif
-#ifdef __EMX__
-    BitmapScaleBitmaps,
-#endif
 #endif
 #ifdef	SNFFORMAT
     BitmapScaleBitmaps,
@@ -141,9 +138,6 @@ FindToScale find_scale[] =
     FindBestToScale,
     FindBestToScale,
 #ifdef X_GZIP_FONT_COMPRESSION
-    FindBestToScale,
-#endif
-#ifdef __EMX__
     FindBestToScale,
 #endif
     FindBestToScale,

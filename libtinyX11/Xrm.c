@@ -295,11 +295,7 @@ typedef unsigned char XrmBits;
 /* parsing types */
 static XrmBits Const xrmtypes[256] = {
     EOS,0,0,0,0,0,0,0,
-#ifndef __EMX__
     0,SPACE,EOL,0,0,0,0,0,
-#else
-    0,SPACE,EOL,0,0,EOL,0,0,
-#endif
     0,0,0,0,0,0,0,0,
     0,0,0,0,0,0,0,0,
     SPACE,NORMAL,NORMAL,NORMAL,NORMAL,NORMAL,NORMAL,NORMAL,
@@ -1536,9 +1532,6 @@ char * filename;
 {
     register int fd, size;
     char * filebuf;
-#ifdef __EMX__
-    filename = __XOS2RedirRoot(filename);
-#endif
     if ( (fd = OpenFile(filename)) == -1 )
 	return (char *)NULL;
 
@@ -1550,16 +1543,6 @@ char * filename;
     }
 
     size = ReadFile(fd, filebuf, size);
-#ifdef __EMX__
-    { /* kill CRLF */
-      int i,k;
-      for (i=k=0; i<size; i++)
-	if (filebuf[i] != 0x0d) {
-	   filebuf[k++] = filebuf[i];
-	}
-	filebuf[k] = 0;
-    }
-#endif
     if (size < 0) {
 	CloseFile(fd);
 	Xfree(filebuf);

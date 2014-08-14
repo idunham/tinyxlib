@@ -43,9 +43,6 @@
 #include	<sys/socket.h>
 #include	<errno.h>
 
-#ifdef __EMX__
-#define select(n,r,w,x,t) os2PseudoSelect(n,r,w,x,t)
-#endif
 
 
 static int  padlength[4] = {0, 3, 2, 1};

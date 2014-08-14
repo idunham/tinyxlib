@@ -56,13 +56,8 @@ char		*_SmAuthNames[] = {"MIT-MAGIC-COOKIE-1"};
 IcePoAuthProc 	_SmcAuthProcs[] = {_IcePoMagicCookie1Proc};
 IcePaAuthProc 	_SmsAuthProcs[] = {_IcePaMagicCookie1Proc};
 
-#ifndef __UNIXOS2__
 SmsNewClientProc _SmsNewClientProc;
 SmPointer        _SmsNewClientData;
-#else
-SmsNewClientProc _SmsNewClientProc = 0;
-SmPointer        _SmsNewClientData = 0;
-#endif
 
 SmcErrorHandler _SmcErrorHandler = _SmcDefaultErrorHandler;
 SmsErrorHandler _SmsErrorHandler = _SmsDefaultErrorHandler;

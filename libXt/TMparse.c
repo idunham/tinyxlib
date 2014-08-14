@@ -367,11 +367,7 @@ static EventKey events[] = {
 
 };
 
-#ifndef __UNIXOS2__
 #define IsNewline(str) ((str) == '\n')
-#else
-#define IsNewline(str) ((str) == '\n' || (str) == '\r')
-#endif
 
 #define ScanFor(str, ch) \
     while ((*(str) != (ch)) && (*(str) != '\0') && !IsNewline(*(str))) (str)++
@@ -383,13 +379,8 @@ static EventKey events[] = {
            ('a' <= *(str) && *(str) <= 'z') || \
            ('0' <= *(str) && *(str) <= '9')) (str)++
 
-#ifndef __UNIXOS2__
 #define ScanWhitespace(str) \
     while (*(str) == ' ' || *(str) == '\t') (str)++
-#else
-#define ScanWhitespace(str) \
-    while (*(str) == ' ' || *(str) == '\t' || *(str) == '\r') (str)++
-#endif
 
 static Boolean initialized = FALSE;
 static XrmQuark QMeta;
@@ -1800,10 +1791,6 @@ static void ShowProduction(
     size_t len;
     char *eol, *production, productionbuf[500];
 
-#ifdef __UNIXOS2__
-    eol = strchr(currentProduction, '\r');
-    if (!eol) /* try '\n' as well below */
-#endif
         eol = strchr(currentProduction, '\n');
     if (eol) len = eol - currentProduction;
     else len = strlen (currentProduction);

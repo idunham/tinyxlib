@@ -92,9 +92,6 @@ Xtransport_table Xtransports[] = {
 #endif /* !LOCALCONN */
     { &TRANS(SocketUNIXFuncs),	TRANS_SOCKET_UNIX_INDEX },
 #endif /* UNIXCONN */
-#if defined(OS2PIPECONN)
-    { &TRANS(OS2LocalFuncs),	TRANS_LOCAL_LOCAL_INDEX },
-#endif /* OS2PIPECONN */
 #if defined(LOCALCONN)
     { &TRANS(LocalFuncs),	TRANS_LOCAL_LOCAL_INDEX },
     { &TRANS(PTSFuncs),		TRANS_LOCAL_PTS_INDEX },
@@ -658,26 +655,12 @@ TRANS(SetOption) (XtransConnInfo ciptr, int option, int arg)
 	    ret = ioctl (fd, FIOSNBIO, &arg);
 	}
 #else
-#if (defined(AIXV3) || defined(uniosu) || defined(WIN32) || defined(__EMX__) || defined(__QNX__)) && defined(FIONBIO)
-	{
-	    int arg;
-	    arg = 1;
-/* IBM TCP/IP understands this option too well: it causes TRANS(Read) to fail
- * eventually with EWOULDBLOCK */
-#ifndef __EMX__
-	    ret = ioctl (fd, FIONBIO, &arg);
-#else
-/*	    ret = ioctl(fd, FIONBIO, &arg, sizeof(int));*/
-#endif
-	}
-#else
 	    ret = fcntl (fd, F_GETFL, 0);
 #ifdef FNDELAY
 	    ret = fcntl (fd, F_SETFL, ret | FNDELAY);
 #else
 	    ret = fcntl (fd, F_SETFL, ret | O_NDELAY);
 #endif
-#endif /* AIXV3  || uniosu */
 #endif /* FIOSNBIO */
 #endif /* O_NONBLOCK */
 	    break;

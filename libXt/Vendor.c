@@ -66,21 +66,6 @@ SOFTWARE.
 /* to fix the EditRes problem because of wrong linker semantics */
 extern WidgetClass vendorShellWidgetClass;
 
-#if defined(__UNIXOS2__)
-unsigned long _DLL_InitTerm(unsigned long mod,unsigned long flag)
-{
-        switch (flag) {
-        case 0: /*called on init*/
-                _CRT_init();
-                vendorShellWidgetClass = (WidgetClass)(&vendorShellClassRec);
-                return 1;
-        case 1: /*called on exit*/
-                return 1;
-        default:
-                return 0;
-        }
-}
-#endif
 
 #if defined(__CYGWIN__)
 int __stdcall

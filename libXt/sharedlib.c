@@ -33,24 +33,9 @@ in this Software without prior written authorization from The Open Group.
 #include "CreateI.h"
 
 
-#if defined(AIXSHLIB) || defined(__UNIXOS2__)
-WidgetClass vendorShellWidgetClass = (WidgetClass) &vendorShellClassRec;
-
-static void _XtVendorInitialize()
-{
-    transientShellWidgetClass->core_class.superclass =
-	(WidgetClass) &vendorShellClassRec;
-    topLevelShellWidgetClass->core_class.superclass =
-	(WidgetClass) &vendorShellClassRec;
-}
-
-#define VENDORINIT _XtVendorInitialize();
-
-#else
 
 #define VENDORINIT /* as nothing */
 
-#endif
 
 #ifdef SUNSHLIB
 /*

@@ -159,9 +159,6 @@ int XReadBitmapFileData (filename, width, height, data, x_hot, y_hot)
     /* first time initialization */
     if (initialized == False) initHexTable();
 
-#ifdef __EMX__
-    filename = __XOS2RedirRoot(filename);
-#endif
     if (!(fstream = fopen(filename, "r")))
 	return BitmapOpenFailed;
 

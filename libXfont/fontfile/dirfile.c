@@ -71,12 +71,7 @@ FontFileReadDirectory (char *directory, FontDirectoryPtr *pdir)
 
 #ifdef FONTDIRATTRIB
     /* Check for font directory attributes */
-#ifndef __EMX__
     if ((ptr = strchr(directory, ':'))) {
-#else
-    /* OS/2 path might start with a drive letter, don't clip this */
-    if (ptr = strchr(directory+2, ':')) {
-#endif
 	strncpy(dir_path, directory, ptr - directory);
 	dir_path[ptr - directory] = '\0';
     } else {
@@ -108,12 +103,6 @@ FontFileReadDirectory (char *directory, FontDirectoryPtr *pdir)
 	    sprintf(format, "%%%ds %%%d[^\n]\n",
 		MAXFONTFILENAMELEN-1, MAXFONTNAMELEN-1);
 	while ((count = fscanf(file, format, file_name, font_name)) != EOF) {
-#ifdef __EMX__
-	    /* strip any existing trailing CR */
-	    for (i=0; i<strlen(font_name); i++) {
-		if (font_name[i]=='\r') font_name[i] = '\0';
-	    }
-#endif
 	    if (count != 2) {
 		FontFileFreeDir (dir);
 		fclose(file);

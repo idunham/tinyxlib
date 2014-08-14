@@ -140,17 +140,8 @@ typedef unsigned char  CARD8;
 typedef CARD32		BITS32;
 typedef CARD16		BITS16;
 
-#ifndef __EMX__
 typedef CARD8		BYTE;
 typedef CARD8           BOOL;
-#else /* __EMX__ */
-/*
- * This is bad style, but the central include file <os2.h> declares them
- * as well
- */
-#define BYTE		CARD8
-#define BOOL		CARD8
-#endif /* __EMX__ */
 
 /*
  * definitions for sign-extending bitfields on 64-bit architectures

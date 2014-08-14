@@ -1204,13 +1204,6 @@ struct _XConnWatchInfo {	/* info from XAddConnectionWatch */
     struct _XConnWatchInfo *next;
 };
 
-#ifdef __EMX__
-extern char* __XOS2RedirRoot(
-#if NeedFunctionPrototypes
-    char*
-#endif
-);
-#endif
 
 _XFUNCPROTOEND
 

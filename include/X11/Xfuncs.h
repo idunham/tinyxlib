@@ -40,17 +40,11 @@ void bcopy();
 void bzero();
 int bcmp();
 #else
-#if   defined(__EMX__)
-#include <strings.h>
-/* bcopy, bcmp, bzero declared */
-#define _XFUNCS_H_INCLUDED_STRING_H
-#else
 #include <string.h>
 #define _XFUNCS_H_INCLUDED_STRING_H
 #define bcopy(b1,b2,len) memmove(b2, b1, (size_t)(len))
 #define bzero(b,len) memset(b, 0, (size_t)(len))
 #define bcmp(b1,b2,len) memcmp(b1, b2, (size_t)(len))
-#endif
 #endif /* X_USEBFUNCS */
 
 /* the new Xfuncs.h */

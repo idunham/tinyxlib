@@ -115,16 +115,6 @@ _Xsetlocale(
 
 #else /* X_LOCALE */
 
-#ifdef __DARWIN__
-char *
-_Xsetlocale(
-    int           category,
-    _Xconst char  *name
-)
-{
-    return setlocale(category, name);
-}
-#endif /* __DARWIN__ */
 
 /*
  * _XlcMapOSLocaleName is an implementation dependent routine that derives
@@ -148,12 +138,6 @@ _XlcMapOSLocaleName(
     char *siname)
 {
 #if defined(hpux) || defined(CSRG_BASED) || defined(sun) || defined(SVR4) || defined(sgi) || defined(__osf__) || defined(AIXV3) || defined(ultrix) || defined(WIN32) || defined(__UNIXOS2__) || defined(linux)
-#   if defined(WIN32) || defined(__UNIXOS2__)
-#    define SKIPCOUNT 1
-#    define STARTCHAR '='
-#    define ENDCHAR ';'
-#    define WHITEFILL
-#   else
 #     if defined(linux)
 #      define STARTSTR "LC_CTYPE="
 #      define ENDCHAR ';'
@@ -161,7 +145,6 @@ _XlcMapOSLocaleName(
 #       define STARTCHAR '/'
 #       define ENDCHAR '/'
 #     endif
-#   endif
 
     char           *start;
     char           *end;

@@ -72,11 +72,7 @@ from The Open Group.
  * message.
  */
 
-#ifndef __EMX__
 #  define XTRANSDEBUG 1
-#else
-#define XTRANSDEBUG 1
-#endif
 
 
 #include <X11/Xtrans.h>
@@ -90,9 +86,6 @@ from The Open Group.
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-#ifdef __EMX__
-#include <sys/ioctl.h>
-#endif
 
 /*
  * Moved the setting of NEED_UTSNAME to this header file from Xtrans.c,
@@ -123,11 +116,7 @@ from The Open Group.
 #ifdef NOFILE
 #define OPEN_MAX NOFILE
 #else
-#if !defined(__EMX__) && !defined(__QNX__)
 #define OPEN_MAX NOFILES_MAX
-#else
-#define OPEN_MAX 256
-#endif
 #endif
 #endif
 #endif
@@ -144,11 +133,7 @@ from The Open Group.
 
 #endif /* TRANS_OPEN_MAX */
 
-#ifdef __EMX__
-#define ESET(val)
-#else
 #define ESET(val) errno = val
-#endif
 #define EGET() errno
 
 

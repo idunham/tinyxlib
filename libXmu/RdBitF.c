@@ -275,9 +275,6 @@ XmuReadBitmapDataFromFile(_Xconst char *filename, unsigned int *width,
     FILE *fstream;
     int status;
 
-#ifdef __UNIXOS2__
-    filename = __XOS2RedirRoot(filename);
-#endif
     if ((fstream = fopen_file (filename, "r")) == NULL) {
 	return BitmapOpenFailed;
     }

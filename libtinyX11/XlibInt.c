@@ -110,17 +110,12 @@ xthread_t (*_Xthread_self_fn)() = NULL;
 #define ETEST() (errno == EWOULDBLOCK)
 #endif
 #endif
-#ifdef __EMX__
-#define ECHECK(err) (errno == err)
-#define ESET(val)
-#else
 #ifdef ISC
 #define ECHECK(err) ((errno == err) || ETEST())
 #else
 #define ECHECK(err) (errno == err)
 #endif
 #define ESET(val) errno = val
-#endif
 
 #if defined(LOCALCONN) || defined(LACHMAN)
 #ifdef EMSGSIZE
@@ -134,9 +129,6 @@ xthread_t (*_Xthread_self_fn)() = NULL;
 #endif
 #endif
 
-#ifdef __EMX__
-#define select(n,r,w,x,t) os2ClientSelect(n,r,w,x,t)
-#endif
 
 #ifdef MUSTCOPY
 

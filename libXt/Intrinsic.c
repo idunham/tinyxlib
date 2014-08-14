@@ -973,21 +973,12 @@ String XtFindFile(
 		continue;
 	    }
 	    if (*colon == ':')
-#ifdef __UNIXOS2__
-	      if (colon > (path+1))
-#endif
 		break;
 	}
 	len = colon - path;
 	if (Resolve(path, len, substitutions, num_substitutions,
 		    buf, '/')) {
 	    if (firstTime || strcmp(buf1,buf2) != 0) {
-#ifdef __UNIXOS2__
-		{
-			char *bufx = (char*)__XOS2RedirRoot(buf);
-			strcpy(buf,bufx);
-		}
-#endif
 #ifdef XNL_DEBUG
 		printf("Testing file %s\n", buf);
 #endif /* XNL_DEBUG */
@@ -1031,12 +1022,6 @@ static char *ExtractLocaleName(
 {
 
 #if defined(hpux) || defined(CSRG_BASED) || defined(sun) || defined(SVR4) || defined(sgi) || defined(__osf__) || defined(AIXV3) || defined(ultrix) || defined(WIN32) || defined(__UNIXOS2__) || defined (linux)
-#   if defined(WIN32) || defined(__UNIXOS2__)
-#    define SKIPCOUNT 1
-#    define STARTCHAR '='
-#    define ENDCHAR ';'
-#    define WHITEFILL
-#   else
 #     if defined(linux)
 #      define STARTSTR "LC_CTYPE="
 #      define ENDCHAR ';'
@@ -1044,7 +1029,6 @@ static char *ExtractLocaleName(
 #       define STARTCHAR '/'
 #       define ENDCHAR '/'
 #     endif
-#   endif
 
     char           *start;
     char           *end;
@@ -1174,21 +1158,7 @@ static void FillInLangSubs(
  */
 static char *implementation_default_path(void)
 {
-#if defined(WIN32) || defined(__UNIXOS2__)
-    /* if you know how to pass % thru the compiler let me know */
-    static char xfilesearchpath[] = XFILESEARCHPATHDEFAULT;
-    static Bool fixed;
-    char *ch;
-
-    if (!fixed) {
-	for (ch = xfilesearchpath; ch = strchr(ch, ';'); ch++)
-	    *ch = '%';
-	fixed = True;
-    }
-    return xfilesearchpath;
-#else
     return XFILESEARCHPATHDEFAULT;
-#endif
 }
 
 
