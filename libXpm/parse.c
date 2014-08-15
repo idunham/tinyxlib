@@ -377,17 +377,7 @@ ParsePixels(data, width, height, ncolors, cpp, colorTable, hashtable, pixels)
     if ((height > 0 && width >= UINT_MAX / height) ||
 	width * height >= UINT_MAX / sizeof(unsigned int)) 
 	return XpmNoMemory;
-#ifndef FOR_MSW
     iptr2 = (unsigned int *) XpmMalloc(sizeof(unsigned int) * width * height);
-#else
-
-    /*
-     * special treatment to trick DOS malloc(size_t) where size_t is 16 bit!!
-     * XpmMalloc is defined to longMalloc(long) and checks the 16 bit boundary
-     */
-    iptr2 = (unsigned int *)
-	XpmMalloc((long) sizeof(unsigned int) * (long) width * (long) height);
-#endif
     if (!iptr2)
 	return (XpmNoMemory);
 

@@ -90,13 +90,8 @@ typedef char *String;
 
 #include <stddef.h>
 
-#ifdef VMS
-#define externalref globalref
-#define externaldef(psect) globaldef {"psect"} noshare
-#else
 #define externalref extern
 #define externaldef(psect)
-#endif /* VMS */
 
 #ifndef FALSE
 #define FALSE 0

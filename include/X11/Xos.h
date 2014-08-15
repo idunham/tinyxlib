@@ -96,11 +96,7 @@ in this Software without prior written authorization from The Open Group.
 #if defined(_XOPEN_XPG4) || defined(_XOPEN_UNIX) /* _XOPEN_UNIX is XPG4.2 */
 #define X_GETTIMEOFDAY(t) gettimeofday(t, (struct timezone*)0)
 #else
-#if defined(SVR4) || defined(VMS) || defined(WIN32)
-#define X_GETTIMEOFDAY(t) gettimeofday(t)
-#else
 #define X_GETTIMEOFDAY(t) gettimeofday(t, (struct timezone*)0)
-#endif
 #endif /* XPG4 else */
 
 

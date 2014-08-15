@@ -65,9 +65,7 @@ in this Software without prior written authorization from The Open Group.
 #ifndef NO_IDENTIFY_WINDOWS
 #include <X11/Xatom.h>
 #endif
-#ifndef VMS
 #include <sys/stat.h>
-#endif /* VMS */
 
 #include <stdlib.h>
 
@@ -840,16 +838,12 @@ Boolean XtIsObject(
 static Boolean TestFile(
     String path)
 {
-#ifndef VMS
     int ret = 0;
     struct stat status;
     ret = (access(path, R_OK) == 0 &&		/* exists and is readable */
 	    stat(path, &status) == 0 &&		/* get the status */
 	    S_ISDIR(status.st_mode) == 0);	/* not a directory */
     return ret;
-#else /* VMS */
-    return TRUE;	/* Who knows what to do here? */
-#endif /* VMS */
 }
 
 /* return of TRUE = resolved string fit, FALSE = didn't fit.  Not
@@ -1201,16 +1195,12 @@ String XtResolvePathname(
     LOCK_PROCESS;
     pd = _XtGetPerDisplay(dpy);
     if (path == NULL) {
-#ifndef VMS
 	if (defaultPath == NULL) {
 	    defaultPath = getenv("XFILESEARCHPATH");
 	    if (defaultPath == NULL)
 		defaultPath = impl_default;
 	}
 	path = defaultPath;
-#else
-	path = "";	/* NULL would kill us later */
-#endif /* VMS */
     }
 
     if (filename == NULL) {

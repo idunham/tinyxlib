@@ -105,18 +105,11 @@ XpmWriteFileFromXpmImage(filename, image, info)
 
     /* figure out a name */
     if (filename) {
-#ifdef VMS
-	name = filename;
-#else
 	if (!(name = rindex(filename, '/'))
-#ifdef AMIGA
-	    && !(name = rindex(filename, ':'))
-#endif
      )
 	    name = filename;
 	else
 	    name++;
-#endif
 	/* let's try to make a valid C syntax name */
 	if (index(name, '.')) {
 	    strncpy(new_name, name, sizeof(new_name));

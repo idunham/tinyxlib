@@ -80,7 +80,6 @@ typedef int (*storeFuncPtr)(Pixel pixel, PixelsMap *pmap,
 			    unsigned int *index_return);
 
 #ifndef FOR_MSW
-# ifndef AMIGA
 LFUNC(GetImagePixels, int, (XImage *image, unsigned int width,
 			    unsigned int height, PixelsMap *pmap));
 
@@ -96,11 +95,6 @@ LFUNC(GetImagePixels8, int, (XImage *image, unsigned int width,
 LFUNC(GetImagePixels1, int, (XImage *image, unsigned int width,
 			     unsigned int height, PixelsMap *pmap,
 			     storeFuncPtr storeFunc));
-# else /* AMIGA */
-LFUNC(AGetImagePixels, int, (XImage *image, unsigned int width,
-			     unsigned int height, PixelsMap *pmap,
-			     storeFuncPtr storeFunc));
-# endif/* AMIGA */
 #else  /* ndef FOR_MSW */
 LFUNC(MSWGetImagePixels, int, (Display *d, XImage *image, unsigned int width,
 			       unsigned int height, PixelsMap *pmap,
@@ -255,13 +249,8 @@ XpmCreateXpmImageFromImage(display, image, shapeimage,
      */
     if (shapeimage) {
 #ifndef FOR_MSW
-# ifndef AMIGA
 	ErrorStatus = GetImagePixels1(shapeimage, width, height, &pmap,
 				      storeMaskPixel);
-# else
-	ErrorStatus = AGetImagePixels(shapeimage, width, height, &pmap,
-				      storeMaskPixel);
-# endif
 #else
 	ErrorStatus = MSWGetImagePixels(display, shapeimage, width, height,
 					&pmap, storeMaskPixel);
@@ -284,7 +273,6 @@ XpmCreateXpmImageFromImage(display, image, shapeimage,
 	    image->bitmap_unit < 0 || image->bitmap_unit > 32)
 	    return (XpmNoMemory);
 #ifndef FOR_MSW
-# ifndef AMIGA
 	if (((image->bits_per_pixel | image->depth) == 1)  &&
 	    (image->byte_order == image->bitmap_bit_order))
 	    ErrorStatus = GetImagePixels1(image, width, height, &pmap,
@@ -298,10 +286,6 @@ XpmCreateXpmImageFromImage(display, image, shapeimage,
 		ErrorStatus = GetImagePixels32(image, width, height, &pmap);
 	} else
 	    ErrorStatus = GetImagePixels(image, width, height, &pmap);
-# else
-	ErrorStatus = AGetImagePixels(image, width, height, &pmap,
-				      storePixel);
-# endif
 #else
 	ErrorStatus = MSWGetImagePixels(display, image, width, height, &pmap,
 					storePixel);
@@ -582,7 +566,6 @@ ScanOtherColors(display, colors, ncolors, pixels, mask, cpp, attributes)
 }
 
 #ifndef FOR_MSW
-# ifndef AMIGA
 /*
  * The functions below are written from X11R5 MIT's code (XImUtil.c)
  *
@@ -904,53 +887,6 @@ GetImagePixels1(image, width, height, pmap, storeFunc)
     return (XpmSuccess);
 }
 
-# else /* AMIGA */
-
-#define CLEAN_UP(status) \
-do {\
-    if (pixels) XpmFree (pixels);\
-    if (tmp_img) FreeXImage (tmp_img);\
-    return (status);\
-} while(0)
-
-static int
-AGetImagePixels (
-    XImage        *image,
-    unsigned int   width,
-    unsigned int   height,
-    PixelsMap     *pmap,
-    int          (*storeFunc) ())
-{
-    unsigned int   *iptr;
-    unsigned int    x, y;
-    unsigned char  *pixels;
-    XImage         *tmp_img;
-    
-    pixels = XpmMalloc ((((width+15)>>4)<<4)*sizeof (*pixels));
-    if (pixels == NULL)
-	return XpmNoMemory;
-    
-    tmp_img = AllocXImage ((((width+15)>>4)<<4), 1, image->rp->BitMap->Depth);
-    if (tmp_img == NULL)
-	CLEAN_UP (XpmNoMemory);
-    
-    iptr = pmap->pixelindex;
-    for (y = 0; y < height; ++y)
-    {
-	ReadPixelLine8 (image->rp, 0, y, width, pixels, tmp_img->rp);
-	for (x = 0; x < width; ++x, ++iptr)
-	{
-	    if ((*storeFunc) (pixels[x], pmap, iptr))
-		CLEAN_UP (XpmNoMemory);
-	}
-    }
-    
-    CLEAN_UP (XpmSuccess);
-}
-
-#undef CLEAN_UP
-
-# endif/* AMIGA */
 #else  /* ndef FOR_MSW */
 static int
 MSWGetImagePixels(display, image, width, height, pmap, storeFunc)
@@ -981,7 +917,6 @@ MSWGetImagePixels(display, image, width, height, pmap, storeFunc)
 #endif
 
 #ifndef FOR_MSW
-# ifndef AMIGA
 int
 XpmCreateXpmImageFromPixmap(display, pixmap, shapemask,
 			    xpmimage, attributes)
@@ -1022,5 +957,4 @@ XpmCreateXpmImageFromPixmap(display, pixmap, shapemask,
     return (ErrorStatus);
 }
 
-# endif/* not AMIGA */
 #endif /* ndef FOR_MSW */

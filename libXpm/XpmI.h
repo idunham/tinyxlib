@@ -62,10 +62,6 @@ extern FILE *popen();
 #include <X11/Xfuncs.h>
 #include <X11/Xmd.h>
 
-#ifdef VMS
-#include <unixio.h>
-#include <file.h>
-#endif
 
 /* The following should help people wanting to use their own memory allocation
  * functions. To avoid the overhead of a function call when the standard
@@ -76,17 +72,9 @@ extern FILE *popen();
  */
 #define XpmFree(ptr) free(ptr)
 
-#ifndef FOR_MSW
 #define XpmMalloc(size) malloc((size))
 #define XpmRealloc(ptr, size) realloc((ptr), (size))
 #define XpmCalloc(nelem, elsize) calloc((nelem), (elsize))
-#else
-/* checks for mallocs bigger than 64K */
-#define XpmMalloc(size) boundCheckingMalloc((long)(size))/* in simx.[ch] */
-#define XpmRealloc(ptr, size) boundCheckingRealloc((ptr),(long)(size))
-#define XpmCalloc(nelem, elsize) \
-		boundCheckingCalloc((long)(nelem),(long) (elsize))
-#endif
 
 #if defined(SCO) || defined(__USLC__)
 #include <stdint.h>	/* For SIZE_MAX */
@@ -183,7 +171,6 @@ FUNC(xpmSetInfo, void, (XpmInfo *info, XpmAttributes *attributes));
 FUNC(xpmSetAttributes, void, (XpmAttributes *attributes, XpmImage *image,
 			      XpmInfo *info));
 
-#if !defined(FOR_MSW) && !defined(AMIGA)
 FUNC(xpmCreatePixmapFromImage, void, (Display *display, Drawable d,
 				      XImage *ximage, Pixmap *pixmap_return));
 
@@ -191,7 +178,6 @@ FUNC(xpmCreateImageFromPixmap, void, (Display *display, Pixmap pixmap,
 				      XImage **ximage_return,
 				      unsigned int *width,
 				      unsigned int *height));
-#endif
 
 /* structures and functions related to hastable code */
 
@@ -249,11 +235,7 @@ FUNC(xpmReadRgbNames, int, (char *rgb_fname, xpmRgbName *rgbn));
 FUNC(xpmGetRgbName, char *, (xpmRgbName *rgbn, int rgbn_max,
 			     int red, int green, int blue));
 FUNC(xpmFreeRgbNames, void, (xpmRgbName *rgbn, int rgbn_max));
-#ifdef FOR_MSW
-FUNC(xpmGetRGBfromName,int, (char *name, int *r, int *g, int *b));
-#endif
 
-#ifndef AMIGA
 FUNC(xpm_xynormalizeimagebits, void, (register unsigned char *bp,
 				      register XImage *img));
 FUNC(xpm_znormalizeimagebits, void, (register unsigned char *bp,
@@ -301,7 +283,6 @@ FUNC(xpm_znormalizeimagebits, void, (register unsigned char *bp,
 #define ZINDEX8(x, y, img) ((y) * img->bytes_per_line) + (x)
 
 #define ZINDEX1(x, y, img) ((y) * img->bytes_per_line) + ((x) >> 3)
-#endif /* not AMIGA */
 
 #define Const const
 
