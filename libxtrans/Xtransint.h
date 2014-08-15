@@ -110,14 +110,10 @@ from The Open Group.
 #endif
 #include <sys/param.h>
 #ifndef OPEN_MAX
-#ifdef __OSF1__
-#define OPEN_MAX 256
-#else
 #ifdef NOFILE
 #define OPEN_MAX NOFILE
 #else
 #define OPEN_MAX NOFILES_MAX
-#endif
 #endif
 #endif
 #endif

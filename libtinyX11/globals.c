@@ -53,27 +53,11 @@ from the X Consortium.
 #define SetZero(t,var,z) t var
 #endif
 
-#ifdef USL_SHAREDLIB			/* then need extra variables */
-/*
- * If we need to define extra variables for each global
- */
-#if (defined(__STDC__) && !defined(UNIXCPP)) || defined(ANSICPP)
-#define ZEROINIT(t,var,val) SetZero(t,var,val); \
-  SetZero (long, _libX_##var##Flag, 0); \
-  SetZero (void *, _libX_##var##Ptr, NULL)
-#else /* else pcc concatenation */
-#define ZEROINIT(t,var,val) SetZero(t,var,val); \
-  SetZero (long, _libX_/**/var/**/Flag, 0); \
-  SetZero (void *, _libX_/**/var/**/Ptr, NULL)
-#endif /* concat ANSI C vs. pcc */
-
-#else /* else not USL_SHAREDLIB */
 /*
  * no extra crud
  */
 #define ZEROINIT(t,var,val) SetZero (t, var, val)
 
-#endif /* USL_SHAREDLIB */
 
 
 /*

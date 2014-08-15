@@ -1176,15 +1176,6 @@ void _XtGetApplicationResources (
 	XtNumber(quark_cache), &quark_args);
     /* Compile resource list if needed */
     if (((int) resources->resource_offset) >= 0) {
-#ifdef	CRAY2
- 	if (base == 0) {	/* this client is non-portable, but... */
- 	    int count;
-	    XtResourceList  res = resources;
-	    for (count = 0; count < num_resources; res++, count++) {
- 		res->resource_offset *= sizeof(long);
- 	    }
- 	}
-#endif	/* CRAY2 */
 	XrmCompileResourceListEphem(resources, num_resources);
     }
     table = _XtCreateIndirectionTable(resources,num_resources);
