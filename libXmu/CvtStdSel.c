@@ -241,7 +241,7 @@ XmuConvertStandardSelection(Widget w, Time time, Atom *selection, Atom *target,
 	return True;
     }
     if (*target == XA_TARGETS(d)) {
-#  if defined(unix) || defined(DNETCONN)
+#  if defined(unix) 
 #    define NUM_TARGETS 8
 #  else
 #    define NUM_TARGETS 7

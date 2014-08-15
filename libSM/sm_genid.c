@@ -42,7 +42,7 @@ in this Software without prior written authorization from The Open Group.
 #define Time_t time_t
 
 
-#if defined(TCPCONN) || defined(STREAMSCONN)
+#if defined(TCPCONN)
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
@@ -100,7 +100,7 @@ char *
 SmsGenerateClientID (smsConn)
     SmsConn smsConn;
 {
-#if defined(TCPCONN) || defined(STREAMSCONN)
+#if defined(TCPCONN)
     char hostname[256];
     char address[64];
     char temp[256];

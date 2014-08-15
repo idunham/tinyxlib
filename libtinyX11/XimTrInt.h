@@ -59,7 +59,7 @@ extern Bool	_XimXConf(
 #endif
 );
 
-#if defined(TCPCONN) || defined(UNIXCONN) || defined(DNETCONN) || defined(STREAMSCONN)
+#if defined(TCPCONN) || defined(UNIXCONN)
 
 extern Bool	_XimTransConf(
 #if NeedFunctionPrototypes

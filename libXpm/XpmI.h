@@ -76,9 +76,6 @@ extern FILE *popen();
 #define XpmRealloc(ptr, size) realloc((ptr), (size))
 #define XpmCalloc(nelem, elsize) calloc((nelem), (elsize))
 
-#if defined(SCO) || defined(__USLC__)
-#include <stdint.h>	/* For SIZE_MAX */
-#endif
 #include <limits.h>
 #ifndef SIZE_MAX
 # ifdef ULONG_MAX
