@@ -83,13 +83,6 @@ typedef struct
 #endif
 
 /* Extension platform identifier (conditionally defined) */
-#ifdef vms
-#ifdef VAXELN
-# define XETrapPlatform    PF_DECELN
-#else
-# define XETrapPlatform    PF_DECVMS
-#endif
-#endif
 #ifdef VT1000
 # define XETrapPlatform    PF_DECVT1000
 #endif

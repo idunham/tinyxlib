@@ -159,11 +159,6 @@ void XETSwSetScreenSaver (xSetScreenSaverReq *data );
 void XETSwChangeHosts (xChangeHostsReq *data );
 void XETSwRotateProperties (xRotatePropertiesReq *data , ClientPtr client );
 void XETSwNoOperation (xReq *data );
-#ifdef vms
-void SwapLongs (long *list , unsigned long count );
-void SwapShorts (short *list , unsigned long count );
-int SwapColorItem (xColorItem *pItem );
-#endif /* vms */
 
 
 #endif /* __XTRAPPROTO__ */

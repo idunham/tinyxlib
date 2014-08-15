@@ -351,10 +351,6 @@ SOFTWARE.
 # endif
 #endif
 #ifndef _InitExceptionHandling
-#ifdef vms
-#define _InitExceptionHandling(rtn)                        \
-    VAXC$ESTABLISH(rtn)   /* VMS exception handler */
-#else /* vms */
 #define _InitExceptionHandling(rtn)                           \
     _SetSIGBUSHandling(rtn);  /* Bus error */                 \
     _SetSIGSEGVHandling(rtn); /* Accvio/Segment error */      \
@@ -364,14 +360,9 @@ SOFTWARE.
     _SetSIGHUPHandling(rtn);                                  \
     _SetSIGPIPEHandling(rtn);                                 \
     _SetSIGTERMHandling(rtn)
-#endif /* vms */
 #endif /* _InitExceptionHandling */
 
 #ifndef _ClearExceptionHandling
-#ifdef vms
-#define _ClearExceptionHandling() \
-    LIB$REVERT()
-#else
 #define _ClearExceptionHandling() \
     _SetSIGBUSHandling(SIG_DFL);   /* Bus error */                 \
     _SetSIGSEGVHandling(SIG_DFL);  /* Accvio/Segment error */      \
@@ -381,7 +372,6 @@ SOFTWARE.
     _SetSIGHUPHandling(SIG_DFL);                                   \
     _SetSIGPIPEHandling(SIG_DFL);                                  \
     _SetSIGTERMHandling(SIG_DFL)
-#endif /* vms */
 #endif /* _ClearExceptionHandling */
 
 #endif /* __XTRAPEMACROS__ */
