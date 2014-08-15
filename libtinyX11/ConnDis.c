@@ -39,7 +39,7 @@ in this Software without prior written authorization from the X Consortium.
 #include <stdio.h>
 #include <ctype.h>
 
-#if !defined(WIN32) && !defined(MINIX)
+#ifndef MINIX
 #include <sys/socket.h>
 #endif
 

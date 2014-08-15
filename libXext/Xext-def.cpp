@@ -17,19 +17,6 @@ EXPORTS
  XShapeQueryExtents
  XShapeQueryVersion
  XShapeSelectInput
-#if (defined(__CYGWIN__) && defined(HAS_SHM)) || defined(__UNIXOS2__)
- XShmAttach
- XShmCreateImage
- XShmCreatePixmap
- XShmDetach
-;XShmDestroyImage
- XShmGetEventBase
- XShmGetImage
- XShmPixmapFormat
- XShmPutImage
- XShmQueryExtension
- XShmQueryVersion
-#endif
  XSyncAwait
  XSyncChangeAlarm
  XSyncChangeCounter
@@ -116,14 +103,12 @@ EXPORTS
  XcupGetReservedColormapEntries
  XcupQueryVersion
  XcupStoreColors
-#if !defined(__CYGWIN__) && !defined(__UNIXOS2__)
  XPanoramiXQueryVersion
  XPanoramiXAllocInfo
  XPanoramiXGetScreenCount
  XPanoramiXGetScreenSize
  XPanoramiXGetState
  XPanoramiXQueryExtension
-#endif
  DPMSQueryExtension
  DPMSGetVersion
  DPMSCapable

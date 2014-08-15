@@ -365,8 +365,7 @@ typedef int _Xgetpwret;
  */
 
 #undef XTHREADS_NEEDS_BYNAMEPARAMS
-#if defined(X_INCLUDE_NETDB_H) && !defined(_XOS_INCLUDED_NETDB_H) \
-    && !defined(WIN32)
+#if defined(X_INCLUDE_NETDB_H) && !defined(_XOS_INCLUDED_NETDB_H) 
 # include <netdb.h>
 # if defined(XUSE_MTSAFE_API) || defined(XUSE_MTSAFE_NETDBAPI)
 #  define XOS_USE_MTSAFE_NETDBAPI 1

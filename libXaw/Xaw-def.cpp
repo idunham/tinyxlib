@@ -60,10 +60,8 @@ EXPORTS
  toggleWidgetClass DATA
  treeClassRec DATA
  treeWidgetClass DATA
-#ifndef __UNIXOS2__
  vendorShellClassRec DATA
  vendorShellWidgetClass DATA
-#endif
  viewportClassRec DATA
  viewportWidgetClass DATA
  XawAsciiSave
