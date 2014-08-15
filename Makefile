@@ -1,12 +1,12 @@
 all:
 	cd libXau; make
-	cd libtinyX11; make
 	cd libICE; make
 	cd libSM; make
-	cd libXmu; make
-	cd libXt; make
-	cd libXv; make
 	cd libXext; make
+	cd libtinyX11; make
+	cd libXt; make
+	cd libXmu; make
+	cd libXv; make
 	cd libXinerama; make
 	cd libXrender; make
 	cd libXpm; make
