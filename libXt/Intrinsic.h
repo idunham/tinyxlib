@@ -143,15 +143,9 @@ typedef int		XtCacheType;
  * ArgLists rely heavily on the above typedef.
  *
  ****************************************************************/
-#ifdef CRAY
-typedef long		Boolean;
-typedef char*		XtArgVal;
-typedef long		XtEnum;
-#else
 typedef char		Boolean;
 typedef long		XtArgVal;
 typedef unsigned char	XtEnum;
-#endif
 
 typedef unsigned int	Cardinal;
 typedef unsigned short	Dimension;  /* Size in pixels			*/
@@ -1659,12 +1653,8 @@ extern void XtGetConstraintResourceList(
 #define XtDefaultFont		"XtDefaultFont"
 #define XtDefaultFontSet	"XtDefaultFontSet"
 
-#if defined(CRAY)
-#define XtOffset(p_type,field) _Offsetof(p_type,field)
-#else	/* ! CRAY */
 #define XtOffset(p_type,field) \
 	((Cardinal) (((char *) (&(((p_type)NULL)->field))) - ((char *) NULL)))
-#endif /* !CRAY */
 
 #ifdef offsetof
 #define XtOffsetOf(s_type,field) offsetof(s_type,field)

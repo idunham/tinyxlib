@@ -1015,14 +1015,13 @@ static char *ExtractLocaleName(
     String	lang)
 {
 
-#if defined(hpux) || defined(CSRG_BASED) || defined(sun) || defined(SVR4) || defined(sgi) || defined(__osf__) || defined(AIXV3) || defined(ultrix) || defined(WIN32) || defined(__UNIXOS2__) || defined (linux)
-#     if defined(linux)
-#      define STARTSTR "LC_CTYPE="
-#      define ENDCHAR ';'
-#     else
-#       define STARTCHAR '/'
-#       define ENDCHAR '/'
-#     endif
+#if defined(linux)
+# define STARTSTR "LC_CTYPE="
+# define ENDCHAR ';'
+#else
+#  define STARTCHAR '/'
+#  define ENDCHAR '/'
+#endif
 
     char           *start;
     char           *end;
@@ -1082,7 +1081,6 @@ static char *ExtractLocaleName(
 # undef STARTCHAR
 # undef ENDCHAR
 # undef WHITEFILL
-#endif
 
     return lang;
 }

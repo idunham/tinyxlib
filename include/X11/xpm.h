@@ -33,16 +33,6 @@
 *  Developed by Arnaud Le Hors                                                *
 \*****************************************************************************/
 
-/*
- * The code related to FOR_MSW has been added by
- * HeDu (hedu@cul-ipn.uni-kiel.de) 4/94
- */
-
-/*
- * The code related to AMIGA has been added by
- * Lorens Younes (d93-hyo@nada.kth.se) 4/96
- */
-
 #ifndef XPM_h
 #define XPM_h
 
@@ -271,9 +261,6 @@ typedef struct {
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-/* FOR_MSW, all ..Pixmap.. are excluded, only the ..XImage.. are used */
-/* Same for Amiga! */
 
     FUNC(XpmCreatePixmapFromData, int, (Display *display,
 					Drawable d,

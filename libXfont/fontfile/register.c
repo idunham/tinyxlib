@@ -49,13 +49,11 @@ FontFileRegisterFpeFunctions(void)
 
 #ifndef LOWMEMFTPT
 
-#ifndef CRAY
 #ifdef BUILD_SPEEDO
     SpeedoRegisterFontFileFunctions ();
 #endif
 #ifdef BUILD_TYPE1
     Type1RegisterFontFileFunctions();
-#endif
 #endif
 #ifdef BUILD_CID
     CIDRegisterFontFileFunctions();

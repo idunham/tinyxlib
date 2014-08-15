@@ -61,9 +61,6 @@ SOFTWARE.
 
 #define MULTI_LINE_LABEL 32767
 
-#ifdef CRAY
-#define WORD64
-#endif
 
 /*
  * Class Methods

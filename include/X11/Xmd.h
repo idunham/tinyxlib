@@ -55,9 +55,6 @@ SOFTWARE.
 /*
  * Special per-machine configuration flags.
  */
-#ifdef CRAY
-#define WORD64				/* 64-bit architecture */
-#endif
 #if defined(__alpha) || defined(__alpha__) || \
     defined(__ia64__) || defined(ia64) || \
     defined(__sparc64__) || \

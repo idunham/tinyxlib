@@ -175,9 +175,6 @@ struct _XDisplay
 /*
  * define the following if you want the Data macro to be a procedure instead
  */
-#ifdef CRAY
-#define DataRoutineIsProcedure
-#endif /* CRAY */
 
 #ifndef _XEVENT_
 /*

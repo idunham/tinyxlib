@@ -35,9 +35,6 @@ from The Open Group.
 #ifndef USE_POLL
 
 #include <X11/Xos.h>
-#if (defined(SVR4) || defined(CRAY) || defined(AIXV3)) && !defined(FD_SETSIZE)
-#include <sys/select.h>
-#endif
 
 
 #include <X11/Xmd.h>

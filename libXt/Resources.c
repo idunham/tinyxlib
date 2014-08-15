@@ -74,11 +74,6 @@ static XrmName Qtranslations, QbaseTranslations;
 static XrmName Qscreen;
 static XrmClass QScreen;
 
-#ifdef CRAY
-void Cjump();
-char *Cjumpp = (char *) Cjump;
-void Cjump() {}
-#endif
 
 void _XtCopyFromParent(
     Widget      widget,
@@ -856,13 +851,6 @@ static XtCacheRef *GetResources(
 		    /* Convert default value to proper type */
 		    xrm_default_type = rx->xrm_default_type;
 		    if (xrm_default_type == QCallProc) {
-#ifdef CRAY
- 			if ( (int) Cjumpp != (int) Cjump)
- 			    (*(XtResourceDefaultProc)
-			      (((int)(rx->xrm_default_addr))<<2))(
- 				 widget,-(rx->xrm_offset+1), &value);
-			else
-#endif
 			(*(XtResourceDefaultProc)(rx->xrm_default_addr))(
 			      widget,-(rx->xrm_offset+1), &value);
 

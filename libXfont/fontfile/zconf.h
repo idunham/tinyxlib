@@ -62,14 +62,6 @@
 #if (defined(OS_2) || defined(__OS2__)) && !defined(OS2)
 #  define OS2
 #endif
-#if defined(_WIN32) || defined(_WIN32_WCE) || defined(__WIN32__)
-#    define WIN32
-#endif
-#if (defined(MSDOS) || defined(OS2) || defined(WINDOWS)) && !defined(WIN32)
-#  if !defined(__GNUC__) && !defined(__FLAT__) && !defined(__386__)
-#      define SYS16BIT
-#  endif
-#endif
 
 /*
  * Compile with -DMAXSEG_64K if the alloc function cannot allocate more

@@ -328,38 +328,14 @@ typedef struct _Xtransport_table {
  * systems, so they may be emulated.
  */
 
-#if defined(CRAY) || (defined(SYSV) && defined(i386) && !defined(SCO325)) || defined(WIN32) || defined(__sxg__) || defined(__EMX__)
-
-#define READV(ciptr, iov, iovcnt)	TRANS(ReadV)(ciptr, iov, iovcnt)
-
-static	int TRANS(ReadV)(
-    XtransConnInfo,	/* ciptr */
-    struct iovec *,	/* iov */
-    int			/* iovcnt */
-);
-
-#else
 
 #define READV(ciptr, iov, iovcnt)	readv(ciptr->fd, iov, iovcnt)
 
-#endif /* CRAY || (SYSV && i386) || WIN32 || __sxg__ || */
 
 
-#if defined(CRAY) || (defined(SYSV) && defined(i386) && !defined(SCO325)) || defined(WIN32) || defined(__sxg__) || defined(__EMX__)
-
-#define WRITEV(ciptr, iov, iovcnt)	TRANS(WriteV)(ciptr, iov, iovcnt)
-
-static int TRANS(WriteV)(
-    XtransConnInfo,	/* ciptr */
-    struct iovec *,	/* iov */
-    int 		/* iovcnt */
-);
-
-#else
 
 #define WRITEV(ciptr, iov, iovcnt)	writev(ciptr->fd, iov, iovcnt)
 
-#endif /* CRAY || WIN32 || __sxg__ */
 
 
 static int is_numeric (
