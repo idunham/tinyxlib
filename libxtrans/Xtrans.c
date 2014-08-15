@@ -643,26 +643,9 @@ TRANS(SetOption) (XtransConnInfo ciptr, int option, int arg)
 	    break;
 	case 1: /* Set to non-blocking mode */
 
-#if defined(O_NONBLOCK) && (!defined(ultrix) && !defined(hpux) && !defined(AIXV3) && !defined(uniosu) && !defined(__EMX__) && !defined(SCO)) && !defined(__QNX__)
 	    ret = fcntl (fd, F_GETFL, 0);
 	    if (ret != -1)
 		ret = fcntl (fd, F_SETFL, ret | O_NONBLOCK);
-#else
-#ifdef FIOSNBIO
-	{
-	    int arg;
-	    arg = 1;
-	    ret = ioctl (fd, FIOSNBIO, &arg);
-	}
-#else
-	    ret = fcntl (fd, F_GETFL, 0);
-#ifdef FNDELAY
-	    ret = fcntl (fd, F_SETFL, ret | FNDELAY);
-#else
-	    ret = fcntl (fd, F_SETFL, ret | O_NDELAY);
-#endif
-#endif /* FIOSNBIO */
-#endif /* O_NONBLOCK */
 	    break;
 	default:
 	    /* Unknown option */

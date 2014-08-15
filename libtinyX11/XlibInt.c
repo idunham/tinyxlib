@@ -110,11 +110,7 @@ xthread_t (*_Xthread_self_fn)() = NULL;
 #define ETEST() (errno == EWOULDBLOCK)
 #endif
 #endif
-#ifdef ISC
-#define ECHECK(err) ((errno == err) || ETEST())
-#else
 #define ECHECK(err) (errno == err)
-#endif
 #define ESET(val) errno = val
 
 #if defined(LOCALCONN) || defined(LACHMAN)

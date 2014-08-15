@@ -50,13 +50,6 @@ in this Software without prior written authorization from The Open Group.
 typedef unsigned long wchar_t;
 #endif
 
-#if defined(ISC) && defined(USE_XMBTOWC)
-#define wctomb(a,b)	_Xwctomb(a,b)
-#define mblen(a,b)	_Xmblen(a,b) 
-#ifndef USE_XWCHAR_STRING
-#define mbtowc(a,b,c)	_Xmbtowc(a,b,c)
-#endif
-#endif
 
 /* API mentioning "UTF8" or "utf8" is an XFree86 extension, introduced in
    November 2000. Its presence is indicated through the following macro. */

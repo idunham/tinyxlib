@@ -40,18 +40,7 @@ in this Software without prior written authorization from The Open Group.
 #endif
 
 
-#ifdef NCR
-#define iswspace(c) _Xaw_iswspace(c)
-int _Xaw_iswspace
-(
- wchar_t		c
- );
-#endif
 
-#ifdef sony
-#include <jctype.h>
-#define iswspace(c) jisspace(c)
-#endif
 
 
 #include <stdlib.h>

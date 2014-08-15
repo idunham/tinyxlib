@@ -168,11 +168,7 @@ extern XtransConnInfo	_fs_connect(char *servername, int *ret);
 #define ETEST() (errno == EWOULDBLOCK)
 #endif
 #endif
-#ifdef ISC
-#define ECHECK(err) ((errno == err) || ETEST())
-#else
 #define ECHECK(err) (errno == err)
-#endif
 #define ESET(val) errno = val
 
 #endif				/* _FSIO_H_ */

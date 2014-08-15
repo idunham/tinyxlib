@@ -442,9 +442,6 @@ typedef struct {
  */
 # ifdef _POSIX_REENTRANT_FUNCTIONS
 #  ifndef _POSIX_THREAD_SAFE_FUNCTIONS
-#   if defined(AIXV3) || defined(AIXV4) || defined(__osf__)
-#    define X_POSIX_THREAD_SAFE_FUNCTIONS 1
-#   endif
 #  endif
 # endif
 # ifdef _POSIX_THREAD_SAFE_FUNCTIONS

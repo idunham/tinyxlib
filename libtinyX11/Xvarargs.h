@@ -32,32 +32,6 @@ from the X Consortium.
 #ifndef _XVARARGS_H_
 #define _XVARARGS_H_
 
-#ifdef __HIGHC__
-#ifndef _STDARG_H
-#define _STDARG_H
-
-typedef char *va_list;
-
-/* Amount of space required in an argument list for an arg of type TYPE.
-   TYPE may alternatively be an expression whose type is used.  */
-
-#define __va_rounded_size(TYPE)  \
-  (((sizeof (TYPE) + sizeof (int) - 1) / sizeof (int)) * sizeof (int))
-
-#define va_start(AP, LASTARG)                                           \
- (AP = ((char *) &(LASTARG) + __va_rounded_size (LASTARG)))
-
-#define va_end(AP)
-
-#define va_arg(AP, TYPE)                                                \
- (AP += __va_rounded_size (TYPE),                                       \
-  *((TYPE *) (AP - __va_rounded_size (TYPE))))
-
-#endif /* _STDARG_H */
-
-#define Va_start(a,b) va_start(a,b)
-
-#else /* !__HIGHC__ */
 
 #if NeedVarargsPrototypes
 # include <stdarg.h>
@@ -67,6 +41,5 @@ typedef char *va_list;
 # define Va_start(a,b) va_start(a)
 #endif
 
-#endif /* __HIGHC__ */
 
 #endif /* _XVARARGS_H_ */

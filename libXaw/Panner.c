@@ -39,11 +39,7 @@ in this Software without prior written authorization from The Open Group.
 #include "XawInit.h"
 #include "Private.h"
 
-#if defined(ISC) && __STDC__ && !defined(ISC30)
-extern double atof(char *);
-#else
 #include <stdlib.h>			/* for atof() */
-#endif
 
 /*
  * Class Methods

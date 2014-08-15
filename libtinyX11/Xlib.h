@@ -61,13 +61,6 @@ typedef unsigned long wchar_t;
 //#define ISC
 //#define USE_XMBTOWC
 //#define USE_XWCHAR_STRING
-#if defined(ISC) && defined(USE_XMBTOWC)
-#define wctomb(a,b)	_Xwctomb(a,b)
-#define mblen(a,b)	_Xmblen(a,b) 
-#ifndef USE_XWCHAR_STRING
-#define mbtowc(a,b,c)	_Xmbtowc(a,b,c)
-#endif
-#endif
 #define	MB_CUR_MAX	(__ctype_get_mb_cur_max ())
 #define wctomb(a,b)	_Xwctomb(a,b)
 #define mblen(a,b)	_Xmblen(a,b) 

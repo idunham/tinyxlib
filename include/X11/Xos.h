@@ -93,40 +93,13 @@ in this Software without prior written authorization from The Open Group.
 
 
 /* define X_GETTIMEOFDAY macro, a portable gettimeofday() */
-#if defined(_XOPEN_XPG4) || defined(_XOPEN_UNIX) /* _XOPEN_UNIX is XPG4.2 */
 #define X_GETTIMEOFDAY(t) gettimeofday(t, (struct timezone*)0)
-#else
-#define X_GETTIMEOFDAY(t) gettimeofday(t, (struct timezone*)0)
-#endif /* XPG4 else */
 
 
 #ifdef __GNU__
 #define PATH_MAX 4096
 #define MAXPATHLEN 4096
 #define OPEN_MAX 256 /* We define a reasonable limit.  */
-#endif
-
-/* use POSIX name for signal */
-
-#ifdef ISC
-#include <sys/bsdtypes.h>
-#include <sys/limits.h>
-#define NGROUPS 16
-#endif
-
-#if defined(ISC) || \
-    (defined(linux) && !defined(__GLIBC__)) || \
-    (defined(__QNX__) && !defined(UNIXCONN))
-/*
- *	Some OS's may not have this
- */
-
-#define X_NO_SYS_UN 1
-
-struct sockaddr_un {
-	short	sun_family;
-	char	sun_path[108];
-};
 #endif
 
 #include "Xarch.h"

@@ -68,13 +68,11 @@
  * than 64k bytes at a time (needed on systems with 16-bit int).
  */
 
-#ifdef __STDC_VERSION__
 #  if __STDC_VERSION__ >= 199901L
 #    ifndef STDC99
 #      define STDC99
 #    endif
 #  endif
-#endif
 
 
 

@@ -71,20 +71,6 @@ from The Open Group.
  * If you want something other than (DE)ALLOCATE_LOCAL_FALLBACK
  * for ALLOCATE/DEALLOCATE_LOCAL then you add that in here.
  */
-#  if defined(__HIGHC__)
-#    ifndef NCR
-       extern char *alloca();
-#      if HCVERSION < 21003
-#        define ALLOCATE_LOCAL(size)	alloca((int)(size))
-         pragma on(alloca);
-#      else /* HCVERSION >= 21003 */
-#        define	ALLOCATE_LOCAL(size)	_Alloca((int)(size))
-#      endif /* HCVERSION < 21003 */
-#    else /* NCR */
-#      define ALLOCATE_LOCAL(size)	alloca(size)
-#    endif
-#  define DEALLOCATE_LOCAL(ptr)  /* as nothing */
-#  endif /* defined(__HIGHC__) */
 
 
 #  ifdef __GNUC__
@@ -100,7 +86,6 @@ from The Open Group.
  * Test is easy, the new one is named __builtin_alloca and comes
  * from alloca.h which #defines alloca.
  */
-#    ifndef NCR
 #      if defined(vax) || defined(sun) || defined(apollo) || defined(stellar) || defined(alloca)
 /*
  * Some System V boxes extract alloca.o from /lib/libPW.a; if you
@@ -112,7 +97,6 @@ from The Open Group.
 #        define ALLOCATE_LOCAL(size) alloca((int)(size))
 #        define DEALLOCATE_LOCAL(ptr)  /* as nothing */
 #      endif /* who does alloca */
-#    endif /* NCR */
 #  endif /* __GNUC__ */
 
 #endif /* NO_ALLOCA */
