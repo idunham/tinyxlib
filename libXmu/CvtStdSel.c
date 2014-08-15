@@ -241,11 +241,7 @@ XmuConvertStandardSelection(Widget w, Time time, Atom *selection, Atom *target,
 	return True;
     }
     if (*target == XA_TARGETS(d)) {
-#  if defined(unix) 
 #    define NUM_TARGETS 8
-#  else
-#    define NUM_TARGETS 7
-#  endif
 	Atom* std_targets = (Atom*)XtMalloc(NUM_TARGETS*sizeof(Atom));
 	int i = 0;
 	std_targets[i++] = XA_TIMESTAMP(d);
@@ -255,9 +251,7 @@ XmuConvertStandardSelection(Widget w, Time time, Atom *selection, Atom *target,
 	std_targets[i++] = XA_CLASS(d);
 	std_targets[i++] = XA_NAME(d);
 	std_targets[i++] = XA_CLIENT_WINDOW(d);
-#ifdef unix
 	std_targets[i++] = XA_OWNER_OS(d);
-#endif
 	*value = (XPointer)std_targets;
 	*type = XA_ATOM;
 	*length = NUM_TARGETS;
