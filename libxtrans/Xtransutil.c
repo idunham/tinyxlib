@@ -397,7 +397,6 @@ trans_mkdir(char *path, int mode)
 	    if ((mode & 01000) &&
 		(buf.st_mode & 0002) && !(buf.st_mode & 01000))
 		updateMode = 1;
-#ifdef HAS_FCHOWN
 	    /*
 	     * If fchown(2) and fchmod(2) are available, try to correct the
 	     * directory's owner and mode.  Otherwise it isn't safe to attempt
@@ -430,7 +429,6 @@ trans_mkdir(char *path, int mode)
 		    close(fd);
 		}
 	    }
-#endif
 	    if (updateOwner && !updatedOwner) {
 	  	PRMSG(1, "mkdir: Owner of %s should be set to root\n",
 		      path, 0, 0);
