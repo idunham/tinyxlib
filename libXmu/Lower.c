@@ -34,15 +34,6 @@ in this Software without prior written authorization from The Open Group.
 #include <X11/Xmu/SysUtil.h>
 
 #include <stdio.h>
-
-/*
-#ifndef HAS_SNPRINTF
-#undef SCOPE
-#define SCOPE static
-#include "snprintf.c"
-#endif
-*/
-
 #include <stdarg.h>
 
 /*
