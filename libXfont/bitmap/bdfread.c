@@ -52,6 +52,7 @@ from The Open Group.
 */
 /* $XFree86: xc/lib/font/bitmap/bdfread.c,v 1.11 2001/12/14 19:56:45 dawes Exp $ */
 
+#include <stdint.h>
 #ifndef FONTMODULE
 #include <ctype.h>
 #endif
