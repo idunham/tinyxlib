@@ -148,6 +148,35 @@ typedef struct _XGlyphElt32 {
     int			    yOff;
 } XGlyphElt32;
 
+typedef double  XDouble;
+
+typedef struct _XPointDouble {
+    XDouble  x, y;
+} XPointDouble;
+
+#define XDoubleToFixed(f)    ((XFixed) ((f) * 65536))
+#define XFixedToDouble(f)    (((XDouble) (f)) / 65536)
+
+typedef int XFixed;
+
+typedef struct _XPointFixed {
+    XFixed  x, y;
+} XPointFixed;
+
+typedef struct _XLineFixed {
+    XPointFixed p1, p2;
+} XLineFixed;
+
+typedef struct _XTrapezoid {
+    XFixed  top, bottom;
+    XLineFixed  left, right;
+} XTrapezoid;
+
+typedef struct _XAnimCursor {
+    Cursor          cursor;
+    unsigned long   delay;
+} XAnimCursor;
+
 _XFUNCPROTOBEGIN
 
 Bool XRenderQueryExtension (Display *dpy, int *event_basep, int *error_basep);
@@ -184,6 +213,12 @@ XRenderCreatePicture (Display				*dpy,
 		      _Xconst XRenderPictFormat		*format,
 		      unsigned long			valuemask,
 		      _Xconst XRenderPictureAttributes	*attributes);
+
+Cursor
+XRenderCreateCursor (Display        *dpy,
+                     Picture        source,
+                     unsigned int   x,
+                     unsigned int   y);
 
 void
 XRenderChangePicture (Display				*dpy,
@@ -327,6 +362,17 @@ XRenderCompositeText32 (Display			    *dpy,
 			int			    yDst,
 			_Xconst XGlyphElt32	    *elts,
 			int			    nelt);
+
+void
+XRenderCompositeTrapezoids (Display             *dpy,
+                            int                 op,
+                            Picture             src,
+                            Picture             dst,
+                            _Xconst XRenderPictFormat   *maskFormat,
+                            int                 xSrc,
+                            int                 ySrc,
+                            _Xconst XTrapezoid  *traps,
+                            int                 ntrap);
 
 void
 XRenderFillRectangle (Display		    *dpy,

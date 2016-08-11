@@ -26,6 +26,7 @@ in this Software without prior written authorization from The Open Group.
 
 */
 
+#include <stdlib.h>
 #include <X11/Xauth.h>
 
 main (argc, argv)
