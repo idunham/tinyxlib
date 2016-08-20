@@ -1,11 +1,10 @@
 include	../standard_definitions.mk
 
-DEFS=-Dlinux -D_POSIX_SOURCE -D_POSIX_C_SOURCE=2 -D_BSD_SOURCE -D_SVID_SOURCE -D_GNU_SOURCE  -DFUNCPROTO=15 -DNARROWPROTO   -DMALLOC_0_RETURNS_NULL
+DEFS=-Dlinux -D_POSIX_SOURCE -D_POSIX_C_SOURCE=2 -D_BSD_SOURCE -D_SVID_SOURCE -D_GNU_SOURCE -DFUNCPROTO=15 -DNARROWPROTO -DMALLOC_0_RETURNS_NULL
 
 CFLAGS= -I../include -I../include/X11 $(COMMONDEFS) $(DEFS)
 
-#OBJS=$(wildcard *.c)
-OBJS=Xrender.c Composite.c Glyph.c Picture.c FillRect.c FillRects.c
+OBJS=$(wildcard *.c)
 
 all:	$(OBJS:.c=.o) 
 	ar cr libXrender.a $(OBJS:.c=.o) 

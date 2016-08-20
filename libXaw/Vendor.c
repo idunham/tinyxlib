@@ -120,57 +120,6 @@ static CompositeClassExtensionRec vendorCompositeExt = {
 };
 
 #define SuperClass (&wmShellClassRec)
-externaldef(vendorshellclassrec) VendorShellClassRec vendorShellClassRec = {
-  {
-    /* superclass	  */	(WidgetClass)SuperClass,
-    /* class_name	  */	"VendorShell",
-    /* size		  */	sizeof(VendorShellRec),
-    /* class_initialize	  */	XawVendorShellClassInitialize,
-    /* class_part_init	  */	XawVendorShellClassPartInit,
-    /* Class init'ed ?	  */	FALSE,
-    /* initialize         */	XawVendorShellInitialize,
-    /* initialize_hook	  */	NULL,		
-    /* realize		  */	XawVendorShellRealize,
-    /* actions		  */	NULL,
-    /* num_actions	  */	0,
-    /* resources	  */	resources,
-    /* resource_count	  */	XtNumber(resources),
-    /* xrm_class	  */	NULLQUARK,
-    /* compress_motion	  */	FALSE,
-    /* compress_exposure  */	TRUE,
-    /* compress_enterleave*/	FALSE,
-    /* visible_interest	  */	FALSE,
-    /* destroy		  */	NULL,
-    /* resize		  */	XawVendorShellExtResize,
-    /* expose		  */	NULL,
-    /* set_values	  */	XawVendorShellSetValues,
-    /* set_values_hook	  */	NULL,			
-    /* set_values_almost  */	XtInheritSetValuesAlmost,  
-    /* get_values_hook	  */	NULL,
-    /* accept_focus	  */	NULL,
-    /* intrinsics version */	XtVersion,
-    /* callback offsets	  */	NULL,
-    /* tm_table		  */	NULL,
-    /* query_geometry	  */	NULL,
-    /* display_accelerator*/	NULL,
-    /* extension	  */	NULL
-  },{
-    /* geometry_manager	  */	XawVendorShellGeometryManager,
-    /* change_managed	  */	XawVendorShellChangeManaged,
-    /* insert_child	  */	XtInheritInsertChild,
-    /* delete_child	  */	XtInheritDeleteChild,
-    /* extension	  */	(XtPointer) &vendorCompositeExt
-  },{
-    /* extension	  */	NULL
-  },{
-    /* extension	  */	NULL
-  },{
-    /* extension	  */	NULL
-  }
-};
-
-externaldef(vendorshellwidgetclass) WidgetClass vendorShellWidgetClass =
-	(WidgetClass) (&vendorShellClassRec);
 
 /***************************************************************************
  *

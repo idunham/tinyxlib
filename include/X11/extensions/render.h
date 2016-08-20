@@ -62,6 +62,10 @@ typedef unsigned long	PictFormat;
 #define X_RenderCompositeGlyphs16	    24
 #define X_RenderCompositeGlyphs32	    25
 #define X_RenderFillRectangles		    26
+/* 0.5 */
+#define X_RenderCreateCursor                27
+/* 0.8 */
+#define X_RenderCreateAnimCursor            31
 
 #define BadPictFormat			    0
 #define BadPicture			    1

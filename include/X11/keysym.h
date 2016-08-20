@@ -1,5 +1,3 @@
-/* $Xorg: keysym.h,v 1.4 2001/02/09 02:03:23 xorgcvs Exp $ */
-
 /***********************************************************
 
 Copyright 1987, 1998  The Open Group
@@ -46,7 +44,6 @@ ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS
 SOFTWARE.
 
 ******************************************************************/
-/* $XFree86: xc/include/keysym.h,v 1.4 2001/12/14 19:53:26 dawes Exp $ */
 
 /* default keysyms */
 #define XK_MISCELLANY
@@ -69,32 +66,9 @@ SOFTWARE.
 #define XK_GEORGIAN
 #define XK_VIETNAMESE
 #define XK_CURRENCY
-
-
-
-#undef XK_LATIN2
-#undef XK_LATIN3
-#undef XK_LATIN4
-#undef XK_LATIN8
-#undef XK_LATIN9
-#undef XK_KATAKANA
-#undef XK_ARABIC
-#undef XK_CYRILLIC
-#undef XK_GREEK
-#undef XK_TECHNICAL
-#undef XK_SPECIAL
-#undef XK_PUBLISHING
-#undef XK_APL
-#undef XK_HEBREW
-#undef XK_THAI
-#undef XK_KOREAN
-#undef XK_ARMENIAN
-#undef XK_GEORGIAN
-#undef XK_CAUCASUS
-#undef XK_VIETNAMESE
-#undef XK_CURRENCY
-
-
+#define XK_MATHEMATICAL
+#define XK_BRAILLE
+#define XK_SINHALA
 
 #include "keysymdef.h"
 

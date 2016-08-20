@@ -1,3 +1,5 @@
+include standard_definitions.mk
+
 all:
 	cd libXau; make
 	cd libICE; make
@@ -42,6 +44,7 @@ clean:
 	cd libXfixes; make clean
 	cd libXcursor; make clean
 install:
+	mkdir -p $(DESTDIR)$(LIBDIR) $(DESTDIR)$(INCDIR) $(DESTDIR)$(KEYSYMDB)
 	cd libXau; make install
 	cd libtinyX11; make install
 	cd libICE; make install

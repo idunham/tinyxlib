@@ -131,6 +131,8 @@ typedef struct {
 
 #define sz_xTriangle	24
 
+#define sz_xTrapezoid   40
+
 typedef struct {
     CARD16  width B16;
     CARD16  height B16;
@@ -313,6 +315,22 @@ typedef struct {
     CARD8       reqType;
     CARD8       renderReqType;
     CARD16      length B16;
+    CARD8       op;
+    CARD8       pad1;
+    CARD16      pad2 B16;
+    Picture     src B32;
+    Picture     dst B32;
+    PictFormat  maskFormat B32;
+    INT16       xSrc B16;
+    INT16       ySrc B16;
+} xRenderTrapezoidsReq;
+
+#define sz_xRenderTrapezoidsReq                     24
+
+typedef struct {
+    CARD8       reqType;
+    CARD8       renderReqType;
+    CARD16      length B16;
     Picture	src B32;
     Picture	dst B32;
     INT16	xSrc B16;
@@ -403,6 +421,38 @@ typedef struct {
 } xRenderFillRectanglesReq;
 
 #define sz_xRenderFillRectanglesReq		    20
+
+/* 0.5 and higher */
+
+typedef struct {
+    CARD8       reqType;
+    CARD8       renderReqType;
+    CARD16      length B16;
+    Cursor      cid B32;
+    Picture     src B32;
+    CARD16      x B16;
+    CARD16      y B16;
+} xRenderCreateCursorReq;
+
+#define sz_xRenderCreateCursorReq                   16
+
+/* 0.8 and higher */
+
+typedef struct {
+    Cursor              cursor B32;
+    CARD32              delay B32;
+} xAnimCursorElt;
+
+#define sz_xAnimCursorElt                           8
+
+typedef struct {
+    CARD8               reqType;
+    CARD8               renderReqType;
+    CARD16              length B16;
+    Cursor              cid B32;
+} xRenderCreateAnimCursorReq;
+
+#define sz_xRenderCreateAnimCursorReq               8
 
 #undef Window
 #undef Drawable
